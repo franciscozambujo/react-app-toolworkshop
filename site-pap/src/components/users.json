@@ -1,0 +1,13 @@
+[
+    {
+      "user": "ana",
+      "pass": "ana",
+      "permission": "empregado"
+    },
+    {
+      "user": "fcf",
+      "pass": "fcf",
+      "permission": "dono"
+    }
+  ]
+  
