@@ -1,5 +1,5 @@
 import { headerMenuNav } from "./components/headerMenu";
-import { main } from "./components/main";
+import { carouselMain } from "./components/carousel-section";
 
 export function App() {
   return (
@@ -7,8 +7,8 @@ export function App() {
       <div className="header">
         {headerMenuNav()}
       </div>
-      <div className="main">
-      {main()}
+      <div className="carrousel">
+        {carouselMain()}
       </div>
     </>
   )

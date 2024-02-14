@@ -1,13 +1,12 @@
 [
-    {
-      "user": "ana",
-      "pass": "ana",
-      "permission": "empregado"
-    },
-    {
-      "user": "fcf",
-      "pass": "fcf",
-      "permission": "dono"
-    }
-  ]
-  
+  {
+    "user": "1",
+    "pass": "1",
+    "permission": "empregado"
+  },
+  {
+    "user": "2",
+    "pass": "2",
+    "permission": "dono"
+  }
+]
