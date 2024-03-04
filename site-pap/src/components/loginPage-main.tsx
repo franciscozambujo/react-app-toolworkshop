@@ -67,7 +67,7 @@ export function UsersLogin() {
         className="absolute ml-4 top-3 text-white"
         onClick={() => (window.location.href = "../index.html")}
       >
-        <ArrowLeftToLine className="size-8" />
+        <ArrowLeftToLine className="size-8 hover:bg-gray-600 rounded" />
       </button>
       <div className="h-screen flex justify-center items-center">
         <form
