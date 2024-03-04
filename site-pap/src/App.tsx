@@ -1,6 +1,7 @@
 import { headerMenuNav } from "./components/headerMenu";
 import { carouselMain } from "./components/carousel-section";
 import { mainPage } from "./components/main-page";
+import { footer } from "./components/footer";
 
 export function App() {
   return (
@@ -13,6 +14,9 @@ export function App() {
       </div>
       <div className="main-page">
         {mainPage()}
+      </div>
+      <div className="main-page">
+        {footer()}
       </div>
     </>
   )
