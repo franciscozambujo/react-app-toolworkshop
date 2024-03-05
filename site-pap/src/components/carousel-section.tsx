@@ -19,6 +19,7 @@ export function carouselMain() {
       }}
       plugins={[Autoplay({ delay: 4000 })]}
       orientation="horizontal"
+      style={{ pointerEvents: 'none' }}
     >
       <CarouselContent>
         {images.map((image, index) => (
