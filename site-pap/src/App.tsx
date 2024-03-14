@@ -9,13 +9,13 @@ export function App() {
       <div className="header">
         {headerMenuNav()}
       </div>
-      <div className="carrousel">
+      <div className="carousel">
         {carouselMain()}
       </div>
       <div className="main-page">
         {mainPage()}
       </div>
-      <div className="main-page">
+      <div className="footer">
         {footer()}
       </div>
     </>
