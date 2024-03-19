@@ -9,6 +9,6 @@ This project it's made with the React framework "Vite". The reason I choose Reac
 
 My project consists in making a website for a enterprise in the urgent need of one while learning with everything I do and search while I develop the project. As objetives, I have the following:
 
-  -Use the Vite framework to develop skills so I can better using React, TypeScript, Node.Js and libraries;
-  *Use Github with Gitbash to keep all the information I need stored and organized;
-  +Organize myself and the project while making it better and bigger;
+  - Use the Vite framework to develop skills so I can better using React, TypeScript, Node.Js and libraries;
+  * Use Github with Gitbash to keep all the information I need stored and organized;
+  + Organize myself and the project while making it better and bigger;
