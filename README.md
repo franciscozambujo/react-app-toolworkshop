@@ -11,4 +11,4 @@ My project consists in making a website for a enterprise in the urgent need of o
 
   - Use the Vite framework to develop skills so I can better using React, TypeScript, Node.Js and libraries;
   * Use Github with Gitbash to keep all the information I need stored and organized;
-  + Organize myself and the project while making it better and bigger;
+  + Organize myself and the project while making it better and bigger.
