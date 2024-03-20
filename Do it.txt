@@ -1,1 +1,1 @@
--Fazer verifucacao para login - employee and owner - eliminar storage de login quando close page
+-Fazer verificacao para login - employee and owner - eliminar storage de login quando close page

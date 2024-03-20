@@ -2,11 +2,11 @@
   {
     "user": "1",
     "pass": "1",
-    "permission": "empregado"
+    "permission": "dono"
   },
   {
     "user": "2",
     "pass": "2",
-    "permission": "dono"
+    "permission": "empregado"
   }
 ]
