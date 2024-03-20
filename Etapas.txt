@@ -1,2 +1,0 @@
--Verificar pelo user se é dono ou empregado
--Encriptar dados login

@@ -1,8 +1,19 @@
 import React from 'react'
 import { employeePage } from './components/employeePage-main.tsx';
+import { headerMenuNav } from './components/headerMenu.tsx';
+import Redirect from '../src/middlewares/redirect.tsx';
 
 export const Employee: React.FC = () => {
   return (
-    (employeePage())
+    <>
+      <Redirect />
+    <>
+      <div className="header">
+        {headerMenuNav()}
+      </div>
+      <div className="main">
+        {employeePage()}
+      </div>
+    </></>
   );
 };

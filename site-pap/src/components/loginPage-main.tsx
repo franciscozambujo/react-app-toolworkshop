@@ -44,6 +44,7 @@ export function UsersLogin() {
     );
 
     if (matchingUser) {
+      localStorage.setItem('isLoggedIn', 'true');
       console.log("Login efetuado com sucesso!");
       setOpen(false); // Fecha o dialog de erro
 
@@ -54,6 +55,7 @@ export function UsersLogin() {
         window.location.href = "employee.html";
       }
     } else {
+      localStorage.setItem('isLoggedIn', 'false');
       console.log("Nome de usuário ou senha inválidos");
       setOpen(true); // Abre o dialog de erro
     }
