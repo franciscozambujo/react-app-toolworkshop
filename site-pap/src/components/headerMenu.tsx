@@ -5,8 +5,10 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import * as React from "react";
+import Link from "next/link"
 import { cn } from "@/lib/utils";
 import { Mail, MapPin, Phone } from "lucide-react";
 
@@ -120,6 +122,11 @@ export function headerMenuNav() {
                 </ListItem>
               </ul>
             </NavigationMenuContent>
+          </NavigationMenuItem>
+          <NavigationMenuItem>
+            <button className="bg-green-100 text-lg hover:bg-accent flex hover:py-1 hover:rounded-md ml-4">
+              Contacto
+            </button>
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
