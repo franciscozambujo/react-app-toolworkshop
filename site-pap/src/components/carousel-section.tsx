@@ -12,7 +12,7 @@ export function carouselMain() {
       text: "1",
     },
     {
-      src: "./img/carousel/1.jpg",
+      src: "./img/carousel/2.jpg",
       text: "2",
     },
     {
