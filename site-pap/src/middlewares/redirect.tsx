@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Progress } from "@/components/ui/progress";
 
+
 const Redirect = () => {
   const [isChecking, setIsChecking] = useState(true);
   const [progress, setProgress] = useState(0);
