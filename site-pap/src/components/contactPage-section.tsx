@@ -14,7 +14,7 @@ export function contactSection() {
             title="contact-map"
           />
         </div>
-        <div className="ml-20">
+        <div className="hover: underline-offset-1">
           <p>Contacto: 266 707 212</p>
           <p>
             Email:{" "}
