@@ -3,7 +3,7 @@ import { Progress } from "@/components/ui/progress";
 
 const Redirect = () => {
   const [isChecking, setIsChecking] = useState(true);
-  const [progress, setProgress] = useState(0); // Initial progress at 0
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
