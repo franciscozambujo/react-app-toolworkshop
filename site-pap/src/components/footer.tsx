@@ -1,5 +1,12 @@
 export function footer() {
-    return (
-      <h1>footer</h1>
-    );
-  }
+  return (
+    <footer className="bg-green-500 text-black p-4">
+      <div className="container mx-auto text-center">
+        <p>
+          Copyright © {new Date().getFullYear()} Francisco Zambujo. All rights
+          reserved.
+        </p>
+      </div>
+    </footer>
+  );
+}

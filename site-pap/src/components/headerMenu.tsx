@@ -5,23 +5,21 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import * as React from "react";
-import Link from "next/link"
 import { cn } from "@/lib/utils";
 import { Mail, MapPin, Phone } from "lucide-react";
 
 export function headerMenuNav() {
   return (
-    <header className="bg-green-100 h-14 grid content-center">
+    <header className="bg-green-200 h-14 grid content-center">
       <div className="absolute max-w-xs max-h-xs -mt-6">
         <img src="./img/header.png" className="" alt="Logotipo" onClick={() => (window.location.href = "../index.html")}/>
       </div>
       <NavigationMenu className="mx-auto">
         <NavigationMenuList>
           <NavigationMenuItem>
-            <NavigationMenuTrigger className="bg-green-100 text-lg">
+            <NavigationMenuTrigger className="bg-green-200 text-lg">
               Quem Somos
             </NavigationMenuTrigger>
             <NavigationMenuContent>
@@ -72,7 +70,7 @@ export function headerMenuNav() {
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem className="grid grid-flow-col auto-cols-max">
-            <NavigationMenuTrigger className="bg-green-100 text-lg">
+            <NavigationMenuTrigger className="bg-green-200 text-lg">
               Serviços
             </NavigationMenuTrigger>
             <NavigationMenuContent>
@@ -122,11 +120,6 @@ export function headerMenuNav() {
                 </ListItem>
               </ul>
             </NavigationMenuContent>
-          </NavigationMenuItem>
-          <NavigationMenuItem>
-            <button className="bg-green-100 text-lg hover:bg-accent flex hover:py-1 hover:rounded-md ml-4">
-              Contacto
-            </button>
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
