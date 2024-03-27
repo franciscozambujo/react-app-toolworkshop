@@ -4,16 +4,17 @@ import {
   CarouselItem,
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
+import { Button } from "./ui/button";
 
 export function carouselMain() {
   const images = [
     {
       src: "./img/carousel/1.jpg",
-      text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Id aliquid quo aliquam, doloribus ex quod expedita! Ad voluptatibus obcaecati aliquid impedit laboriosam esse totam unde quas omnis quibusdam magni iste adipisci qui facilis, magnam fugit aut illo laborum, incidunt libero. Fugit quibusdam hic mollitia veniam aliquid eligendi optio repellendus sit!",
+      text: "Lorem iiosam esse totam unde quas omnis quibusdam magni iste adipisci qui fac aliquid eligendi optio repellendus sit!",
     },
     {
       src: "./img/carousel/2.jpg",
-      text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Id aliquid quo aliquam, doloribus ex quod expedita! Ad voluptatibus obcaecati aliquid impedit laboriosam esse totam unde quas omnis quibusdam magni iste adipisci qui facilis, magnam fugit aut illo laborum, incidunt libero. Fugit quibusdam hic mollitia veniam aliquid eligendi optio repellendus sit!",
+      text: "Lorem iiosam esse totam unde quas omnis quibusdam magni iste adipisci qui fac aliquid eligendi optio repellendus sit!",
     },
   ];
 
@@ -22,20 +23,23 @@ export function carouselMain() {
       opts={{
         align: "start",
       }}
-      plugins={[Autoplay({ delay: 500000 })]}
+      plugins={[Autoplay({ delay: 4000 })]}
       orientation="horizontal"
       style={{ pointerEvents: "none" }}
     >
       <CarouselContent>
         {images.map((image, index) => (
-          <CarouselItem key={index} className="flex justify-center">
-            <img
-              src={image.src}
-              alt={`Carousel Image ${index + 1}`}
-              className="rounded-lg"
-            />
+          <CarouselItem key={index} className="flex justify-center relative">
+            <div className="w-[900px]">
+                <img
+                  src={image.src}
+                  alt={`Carousel Image ${index + 1}`}
+                  className="rounded-md object-cover"
+                />
+            </div>
             <div className="absolute font-bold flex justify-center rounded bg-slate-400 max-w-screen-xl bottom-28">
               {image.text}
+              <Button>Button</Button>
             </div>
           </CarouselItem>
         ))}
