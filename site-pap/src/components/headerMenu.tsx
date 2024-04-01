@@ -14,7 +14,7 @@ export function headerMenuNav() {
   return (
     <header className="bg-green-200 h-14 grid content-center">
       <div className="absolute max-w-xs max-h-xs -mt-6">
-        <img src="./img/header.png" className="" alt="Logotipo" onClick={() => (window.location.href = "../index.html")}/>
+        <img src="./src/public/images/header.png" className="" alt="Logotipo" onClick={() => (window.location.href = "../index.html")}/>
       </div>
       <NavigationMenu className="mx-auto">
         <NavigationMenuList>
