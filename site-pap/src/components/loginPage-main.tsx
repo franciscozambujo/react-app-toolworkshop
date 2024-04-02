@@ -1,10 +1,10 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { Input } from "@/components/ui/input";
-import { Button } from "./ui/button";
-import { LogIn, Users, KeyRound, ArrowLeftToLine } from "lucide-react";
-import credentialsData from "@/components/users.json";
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { z } from "zod"
+import { Input } from "@/components/ui/input"
+import { Button } from "./ui/button"
+import { LogIn, Users, KeyRound, ArrowLeftToLine } from "lucide-react"
+import credentialsData from "@/components/users.json"
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -14,8 +14,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
-import React from "react";
+} from "@/components/ui/alert-dialog"
+import React from "react"
 
 // Esquema de validação para dados de usuário
 const UsersSchema = z.object({

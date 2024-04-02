@@ -5,16 +5,17 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu";
-import * as React from "react";
-import { cn } from "@/lib/utils";
-import { Mail, MapPin, Phone } from "lucide-react";
+} from "@/components/ui/navigation-menu"
+import * as React from "react"
+import { cn } from "@/lib/utils"
+import { Mail, MapPin, Phone } from "lucide-react"
+import imgHeader from "@/public/images/header.png"
 
 export function headerMenuNav() {
   return (
     <header className="bg-green-200 h-14 grid content-center">
       <div className="absolute max-w-xs max-h-xs -mt-6">
-        <img src="./src/public/images/header.png" className="" alt="Logotipo" onClick={() => (window.location.href = "../index.html")}/>
+        <img src={imgHeader} className="" alt="Logotipo" onClick={() => (window.location.href = "../index.html")}/>
       </div>
       <NavigationMenu className="mx-auto">
         <NavigationMenuList>

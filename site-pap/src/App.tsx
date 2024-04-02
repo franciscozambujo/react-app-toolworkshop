@@ -1,23 +1,37 @@
 import { headerMenuNav } from "./components/headerMenu";
 import { carouselMain } from "./components/carousel-section";
 import { mainPage } from "./components/main-page";
-import { footer } from "./components/footer";
+import { Footer } from "./components/footer";
 
+const footerLinks = [
+  {
+    label: "Sobre Nós",
+    href: "/about",
+  },
+  {
+    label: "Contacto",
+    href: "/about",
+  },
+  {
+    label: "Agendar Revisão",
+    href: "/",
+  },
+];
 export function App() {
   return (
     <>
-      <div className="header">
+      <header>
         {headerMenuNav()}
-      </div>
-      <div className="carousel">
+      </header>
+      <section>
         {carouselMain()}
-      </div>
-      <div className="main-page">
+      </section>
+      <main>
         {mainPage()}
-      </div>
-      <div className="footer">
-        {footer()}
-      </div>
+      </main>
+      <footer>
+        <Footer links={footerLinks}/>
+      </footer>
     </>
   )
 }
