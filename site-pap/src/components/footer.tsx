@@ -8,13 +8,14 @@ import imgHeader from "@/public/images/header.png"
 export function Footer(props: FooterProps) {
   const { links } = props;
   return (
-    <footer className="bg-green-200 py-8">
-      <div className="container mx-auto px-6">
-        <div className="flex flex-wrap">
-          <div className="w-full md:w-1/4 text-center md:text-left">
-            <img src={imgHeader} className="size-3/4" />
+    <footer className="bg-green-200 p-4">
+      <div className="">
+        <div className="">
+          <div className="text-center md:text-left">
+            <img src={imgHeader} className="w-full md:w-1/4" />
             <p className="">©2024 Fernando Costa Fialho, All Rights Reserved.</p>
           </div>
+          <hr className="border-black"/>
           <div className="w-full md:w-3/4">
             <div className="flex flex-wrap">
               {links.map((link, index) => (

@@ -1,7 +1,22 @@
 import React from 'react'
 import { contactSection } from './components/contactPage-section.tsx';
 import { headerMenuNav } from './components/headerMenu.tsx';
-import { footer } from './components/footer.tsx';
+import { Footer } from './components/footer.tsx';
+
+const footerLinks = [
+  {
+    label: "Sobre Nós",
+    href: "/about",
+  },
+  {
+    label: "Contacto",
+    href: "/about",
+  },
+  {
+    label: "Agendar Revisão",
+    href: "/",
+  },
+];
 
 export const ContactPage: React.FC = () => {
   return (
@@ -12,9 +27,9 @@ export const ContactPage: React.FC = () => {
       <div className="main">
         {contactSection()}
       </div>
-      <div className="footer">
-        {footer()}
-      </div>
+      <footer>
+        <Footer links={footerLinks}/>
+      </footer>
     </>
   );
 };
