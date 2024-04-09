@@ -4,7 +4,6 @@ The "Car Tool Workshop Project" is a fully functional reactive site where you ca
 # Vite Framework & Web Development
 
 This project is made with the React framework "Vite". The reason I chose React and Typescript was because of it's complexity and to gain new knowledge in the world of web development.
-Aims & objectives
 
 # Objectives & Goals
 
