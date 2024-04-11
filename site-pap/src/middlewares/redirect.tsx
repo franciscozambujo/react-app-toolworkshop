@@ -10,7 +10,7 @@ const Redirect = () => {
     const timeout = setTimeout(() => {
       setIsChecking(false);
       setProgress(100);
-    }, 4000);
+    }, 1000);
 
     for (let i = 0; i <= 100; i++) {
       setTimeout(() => {
