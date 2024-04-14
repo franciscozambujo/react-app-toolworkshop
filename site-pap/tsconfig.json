@@ -4,8 +4,10 @@
     "useDefineForClassFields": true,
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
-    
+
+    "esModuleInterop": true,
     "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
 
     /* Bundler mode */
     "moduleResolution": "bundler",
@@ -21,6 +23,9 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
 
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+
     "baseUrl": ".",
     "paths": {
       "@/*": [
@@ -28,6 +33,6 @@
       ]
     }
   },
-  "include": ["src"],
+  "include": ["src", "src/database.js"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

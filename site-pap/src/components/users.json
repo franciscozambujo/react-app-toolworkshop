@@ -8,5 +8,10 @@
     "user": "2",
     "pass": "2",
     "permission": "empregado"
+  },
+  {
+    "user": "",
+    "pass": "",
+    "permission": "pixa"
   }
 ]

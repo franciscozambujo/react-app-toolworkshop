@@ -15,8 +15,7 @@ import {
     DialogHeader,
     DialogTrigger,
     DialogFooter,
-  } from "@/components/ui/dialog"
-
+} from "@/components/ui/dialog"
 
 export function DataTableF(){
     return (
@@ -36,11 +35,10 @@ export function DataTableF(){
                             <DialogTitle>Nova Fatura</DialogTitle>
                             <DialogDescription>Preencha os campos necessários.</DialogDescription>   
                         </DialogHeader>
-
                         <form className="space-y-6">
                             <div className="grid grid-cols-4 items-center text-right gap-2"> 
                                 <Label>Nome do Cliente</Label>
-                                <Input className="col-span-3"/>
+                                <Input className="col-span-3" id="clientName"/>
                                 'meter combobox e ir ver logo quais os carros que correspondem a este cliente
                             </div>
                             <DialogFooter>
@@ -53,29 +51,24 @@ export function DataTableF(){
             </div>
 
             <div className="border rounded-lg p-2">
-                <Table>
-                    <TableHeader>
-                        <TableHead>Cliente</TableHead>
-                        <TableHead>Veículo</TableHead>
-                        <TableHead>Descrição</TableHead>
-                        <TableHead>Data</TableHead>
-                        <TableHead>Valor do Arranjo</TableHead>
-                    </TableHeader>
-                    <TableBody>
-                        {Array.from({length: 10}).map((_, i ) =>{
-                            return(
-                                <TableRow key= {i}>
-                                    <TableCell>Cliente {i}</TableCell>
-                                    <TableCell>Veículo {i}</TableCell>
-                                    <TableCell>Descrição {i}</TableCell>
-                                    <TableCell>DD/MM/AAAA</TableCell>
-                                    <TableCell>Valor do Arranjo {i}€</TableCell>
-                                </TableRow>
-                            )
-                        })}
-
-                    </TableBody>
-                </Table>
+            <Table>
+                <TableHeader>
+                    <TableHead>Cliente</TableHead>
+                    <TableHead>Veículo</TableHead>
+                    <TableHead>Descrição</TableHead>
+                    <TableHead>Data</TableHead>
+                    <TableHead>Valor do Arranjo</TableHead>
+                </TableHeader>
+                <TableBody>
+                    <TableRow>
+                        <TableCell>client</TableCell>
+                        <TableCell>vehicle</TableCell>
+                        <TableCell>description</TableCell>
+                        <TableCell>date</TableCell>
+                        <TableCell>arrangementValue</TableCell>
+                    </TableRow>
+                </TableBody>
+            </Table>
             </div>
         </div>
     )
