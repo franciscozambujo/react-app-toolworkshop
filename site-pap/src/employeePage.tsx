@@ -1,7 +1,7 @@
 import React from 'react'
 import { employeePage } from './components/employeePage-main.tsx';
 import { DataTableF } from './components/data-table-invoices.tsx';
-import { ComboBoxCar } from './components/CarComboBox.tsx'
+/*import { ComboBoxCar } from './components/CarComboBox.tsx'*/
 import Redirect from './middlewares/redirect.tsx';
 
 export const Employee: React.FC = () => {
@@ -12,7 +12,6 @@ export const Employee: React.FC = () => {
         {employeePage()}
       </div>
       <DataTableF />
-      <ComboBoxCar />
     </>
   );
 };

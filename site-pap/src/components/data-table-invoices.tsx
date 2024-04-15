@@ -16,8 +16,30 @@ import {
     DialogTrigger,
     DialogFooter,
 } from "@/components/ui/dialog"
+import Data from "@/data.json"
+import React, { useState, useEffect } from 'react';
+
+interface ServiceRecord {
+    Cliente: string;
+    Veículo: string;
+    Descrição: string;
+    Data: string;
+    Value: number;
+  }
+  
 
 export function DataTableF(){
+    const [data, setData] = useState<ServiceRecord[]>([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+          const response = await fetch('data.json');
+          const jsonData: ServiceRecord[] = await response.json();
+          setData(jsonData);
+        };
+        fetchData();
+      }, []);
+
     return (
         <div className="p-6 max-w-4xl mx-auto space-y-4">
             <div className="flex items-center justify-between">
@@ -60,13 +82,15 @@ export function DataTableF(){
                     <TableHead>Valor do Arranjo</TableHead>
                 </TableHeader>
                 <TableBody>
-                    <TableRow>
-                        <TableCell>client</TableCell>
-                        <TableCell>vehicle</TableCell>
-                        <TableCell>description</TableCell>
-                        <TableCell>date</TableCell>
-                        <TableCell>arrangementValue</TableCell>
+                {data.map((record) => (
+                    <TableRow key={record.Cliente + record.Veículo}>
+                        <TableCell>{record.Cliente}</TableCell>
+                        <TableCell>{record.Veículo}</TableCell>
+                        <TableCell>{record.Descrição}</TableCell>
+                        <TableCell>{record.Data}</TableCell>
+                        <TableCell>{record.Value.toFixed(2)}</TableCell>
                     </TableRow>
+                ))}
                 </TableBody>
             </Table>
             </div>

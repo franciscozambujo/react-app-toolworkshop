@@ -33,6 +33,6 @@
       ]
     }
   },
-  "include": ["src", "src/database.js"],
+  "include": ["src", "src/data/database.js"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
