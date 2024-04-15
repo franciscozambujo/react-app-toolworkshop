@@ -16,29 +16,22 @@ import {
     DialogTrigger,
     DialogFooter,
 } from "@/components/ui/dialog"
-import Data from "@/data.json"
-import React, { useState, useEffect } from 'react';
-
-interface ServiceRecord {
-    Cliente: string;
-    Veículo: string;
-    Descrição: string;
-    Data: string;
-    Value: number;
-  }
-  
+import React, { useEffect, useState } from 'react'
+import { query } from '@/data/query'
 
 export function DataTableF(){
-    const [data, setData] = useState<ServiceRecord[]>([]);
+    const [data, setData] = useState([]);
 
     useEffect(() => {
-        const fetchData = async () => {
-          const response = await fetch('data.json');
-          const jsonData: ServiceRecord[] = await response.json();
-          setData(jsonData);
-        };
-        fetchData();
-      }, []);
+        const sql = 'SELECT * FROM faturas';
+    query(sql)
+      .then((results:any) => {
+        setData(results);
+      })
+      .catch((err:any) => {
+        console.error(err);
+      });
+  }, []);
 
     return (
         <div className="p-6 max-w-4xl mx-auto space-y-4">
@@ -73,26 +66,11 @@ export function DataTableF(){
             </div>
 
             <div className="border rounded-lg p-2">
-            <Table>
-                <TableHeader>
-                    <TableHead>Cliente</TableHead>
-                    <TableHead>Veículo</TableHead>
-                    <TableHead>Descrição</TableHead>
-                    <TableHead>Data</TableHead>
-                    <TableHead>Valor do Arranjo</TableHead>
-                </TableHeader>
-                <TableBody>
-                {data.map((record) => (
-                    <TableRow key={record.Cliente + record.Veículo}>
-                        <TableCell>{record.Cliente}</TableCell>
-                        <TableCell>{record.Veículo}</TableCell>
-                        <TableCell>{record.Descrição}</TableCell>
-                        <TableCell>{record.Data}</TableCell>
-                        <TableCell>{record.Value.toFixed(2)}</TableCell>
-                    </TableRow>
-                ))}
-                </TableBody>
-            </Table>
+                <div>
+                    {data.map((item) => (
+                        <li key={item.id}>{item.name}</li>
+                    ))}
+                </div>
             </div>
         </div>
     )

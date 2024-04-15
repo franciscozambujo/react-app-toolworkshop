@@ -4,7 +4,7 @@ import { z } from "zod"
 import { Input } from "@/components/ui/input"
 import { Button } from "./ui/button"
 import { LogIn, Users, KeyRound, ArrowLeftToLine } from "lucide-react"
-import credentialsData from "@/components/users.json"
+import credentialsData from "@/users.json"
 import {
   AlertDialog,
   AlertDialogCancel,
