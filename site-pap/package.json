@@ -38,7 +38,7 @@
     "embla-carousel-react": "^8.0.0-rc22",
     "express": "^4.19.2",
     "lucide-react": "^0.320.0",
-    "mssql": "^10.0.2",
+    "mysql": "^2.18.1",
     "mysql2": "^3.9.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

@@ -17,7 +17,7 @@ import {
     DialogFooter,
 } from "@/components/ui/dialog"
 import React, { useEffect, useState } from 'react'
-import { query } from '@/data/query'
+import { query } from '@/data/consultEmployees'
 
 export function DataTableF(){
     const [data, setData] = useState([]);
