@@ -16,23 +16,8 @@ import {
     DialogTrigger,
     DialogFooter,
 } from "@/components/ui/dialog"
-import React, { useEffect, useState } from 'react'
-import { query } from '@/data/query'
 
 export function DataTableF(){
-    const [data, setData] = useState([]);
-
-    useEffect(() => {
-        const sql = 'SELECT * FROM faturas';
-    query(sql)
-      .then((results:any) => {
-        setData(results);
-      })
-      .catch((err:any) => {
-        console.error(err);
-      });
-  }, []);
-
     return (
         <div className="p-6 max-w-4xl mx-auto space-y-4">
             <div className="flex items-center justify-between">
@@ -66,11 +51,8 @@ export function DataTableF(){
             </div>
 
             <div className="border rounded-lg p-2">
-                <div>
-                    {data.map((item) => (
-                        <li key={item.id}>{item.name}</li>
-                    ))}
-                </div>
+                <TableHead>dsa</TableHead>
+                <TableHeader>das</TableHeader>
             </div>
         </div>
     )
