@@ -16,9 +16,27 @@ import {
     DialogTrigger,
     DialogFooter,
 } from "@/components/ui/dialog"
+import { useEffect, useState } from "react"
+import { format } from 'date-fns'; 
+
 
 export function DataTableF(){
+    const [invoices, setInvoices] = useState<any[]>([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const response = await fetch('http://localhost:3000/invoices');
+            const data = await response.json();
+            setInvoices(data);
+          } catch (error) {
+            console.error('Error fetching data:', error);
+          }
+        };
+        fetchData();
+      }, []);
     return (
+        
         <div className="p-6 max-w-4xl mx-auto space-y-4">
             <div className="flex items-center justify-between">
                 <form className="flex items-center gap-2">
@@ -51,8 +69,32 @@ export function DataTableF(){
             </div>
 
             <div className="border rounded-lg p-2">
-                <TableHead>dsa</TableHead>
-                <TableHeader>das</TableHeader>
+                <Table>
+                    <TableHeader>
+                        <TableHead>Nome do Cliente</TableHead>
+                        <TableHead>Veículo</TableHead>
+                        <TableHead>Matrícula</TableHead>
+                        <TableHead>Descrição</TableHead>
+                        <TableHead>Valor</TableHead>
+                        <TableHead>Data</TableHead>
+                    </TableHeader>
+                    {invoices.length > 0 ? (
+                    <TableBody>
+                        {invoices.map((invoice) => (
+                        <TableRow key={invoice.id}>
+                            <TableCell>{invoice.cliente}</TableCell>
+                            <TableCell>{invoice.veiculo}</TableCell>
+                            <TableCell>{invoice.matricula}</TableCell>
+                            <TableCell>{invoice.descricao}</TableCell>
+                            <TableCell>{invoice.valor}</TableCell>
+                            <TableCell>{format(new Date(invoice.data), 'dd-MM-yyyy')}</TableCell>
+                        </TableRow>
+                        ))}
+                    </TableBody>
+                    ) : (
+                        <p>Loading Invoices | Turn On API...</p>
+                    )}
+                </Table>
             </div>
         </div>
     )

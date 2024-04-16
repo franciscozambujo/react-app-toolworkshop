@@ -1,5 +1,5 @@
 import express from 'express';
-import { getEmployees}  from './database.js';
+import { getEmployees, getInvoices}  from './database.js';
 
 const app = express();
 
@@ -14,6 +14,11 @@ app.use((req, res, next) => {
 app.get("/employees", async (req, res) => {
     const employees = await getEmployees();
   res.send(employees);
+});
+
+app.get("/invoices", async (req, res) => {
+  const invoices = await getInvoices();
+res.send(invoices);
 });
 
 app.use((err, req, res, nextTick) => {
