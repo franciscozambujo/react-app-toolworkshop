@@ -2,8 +2,6 @@ import { headerMenuNav } from "./components/headerMenu";
 import { carouselMain } from "./components/carousel-section";
 import { mainPage } from "./components/main-page";
 import { Footer } from "./components/footer";
-import { TesteGet } from "./components/teste";
-
 const footerLinks = [
   {
     label: "Sobre Nós",
@@ -29,7 +27,6 @@ export function App() {
       </section>
       <main>
         {mainPage()}
-        {TesteGet()}
       </main>
       <footer>
         <Footer links={footerLinks}/>
