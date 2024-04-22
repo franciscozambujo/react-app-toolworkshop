@@ -13,7 +13,7 @@ import imgHeader from "@/public/images/header.png"
 
 export function headerMenuNav() {
   return (
-    <header className="bg-green-200 h-14 grid content-center">
+    <header className="bg-green-200 h-14 grid content-center font-header">
       <div className="absolute max-w-xs max-h-xs -mt-6">
         <img src={imgHeader} className="" alt="Logotipo" onClick={() => (window.location.href = "../index.html")}/>
       </div>

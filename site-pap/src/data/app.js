@@ -23,9 +23,9 @@ res.send(invoices);
 
 app.use((err, req, res, nextTick) => {
     console.error(err.stack);
-    res.status(500).send('Something broke!');    
+    res.status(500).send('A API não está conectada.');    
 })
 
 app.listen(3000, () => {
-  console.log('Example app listening on port 3000!');
+  console.log('API a rodar na porta 3000.');
 });

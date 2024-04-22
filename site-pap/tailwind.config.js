@@ -1,3 +1,5 @@
+const { Weight } = require('lucide-react')
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ["class"],
@@ -15,7 +17,6 @@ module.exports = {
       screens: {
         "2xl": "1400px",
       },
-      
     },
     extend: {
       colors: {
@@ -73,6 +74,10 @@ module.exports = {
         "accordion-up": "accordion-up 0.2s ease-out",
       },
     },
+    fontFamily: {
+      header:['Saira Condensed'],
+      bodyfooter: ['Inter'],
+    }
   },
   plugins: [require("tailwindcss-animate")],
 }

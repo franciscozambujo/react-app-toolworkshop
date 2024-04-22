@@ -1,40 +1,51 @@
-interface FooterProps {
-  links: {
-    label: string;
-    href: string;
-  }[];
-}
-import imgHeader from "@/public/images/header.png"
-export function Footer(props: FooterProps) {
-  const { links } = props;
+import {Phone, Mail, MapPin, Clock3} from 'lucide-react'
+import {FaGithub, FaLinkedin} from "react-icons/fa";
+
+export function Footer() {
+  const logo = new URL("@/public/images/logo.png", import.meta.url).href;
   return (
-    <footer className="bg-green-200 p-4">
-      <div className="">
-        <div className="">
-          <div className="text-center md:text-left">
-            <img src={imgHeader} className="w-full md:w-1/4" />
-            <p className="">©2024 Fernando Costa Fialho, All Rights Reserved.</p>
+    <div className="bg-[#53AE6E] text-white bottom-0 absolute w-full font-bodyfooter">
+      <div className="flex justify-between px-52">
+        <div>
+          <img src={logo} alt="LogoTipo" className="py-2 w-28"/>
+          <div className="grid grid-flow-col auto-cols-max">
+            <Phone className="-ml-0.5" />
+            <p className="px-2">+351 266 707 212</p>
           </div>
-          <hr className="border-black"/>
-          <div className="w-full md:w-3/4">
-            <div className="flex flex-wrap">
-              {links.map((link, index) => (
-                <div
-                  key={index}
-                  className="w-full md:w-1/4 text-center md:text-left mb-4 md:mb-0"
-                >
-                  <a
-                    href={link.href}
-                    className="inline-block hover:text-green-600"
-                  >
-                    {link.label}
-                  </a>
-                </div>
-              ))}
-            </div>
+          <div className="grid grid-flow-col auto-cols-max">
+            <Mail className="-ml-0.5" />
+            <p className="px-2">fernandofialho@gmail.com</p>
+          </div>
+          <div className="grid grid-flow-col auto-cols-max">
+            <MapPin className="-ml-0.5" />
+            <p className="px-2">Zona Industrial Talhão 22, 7000-302, Évora</p>
           </div>
         </div>
+        <div>
+          <p className="font-bold py-2 text-2xl">HORÁRIO</p>
+          <div className="grid grid-flow-col auto-cols-max">
+            <Clock3 className="-ml-0.5 size-10"/>
+            <p className="px-2">8:30 - 12:30 <br /> 14:30 - 18:30</p>
+          </div>
+          <button className="underline underline-offset-4 pt-2 bg-transparent hover:font-bold" onClick={() => (window.location.href = "../privacy.html")}>
+            Privacy Policy
+          </button>
+          <br/>
+          <button className="underline underline-offset-4 bg-transparent hover:font-bold" onClick={() => (window.location.href = "../Terms.html")}>
+            Terms & Conditions
+          </button>
+        </div>
       </div>
-    </footer>
+      <hr className="m-auto mt-4 mb-4 border-[#E1DACB] w-4/5"/>
+      <div className="py-2">
+        <div className="text-center">
+          <p>Copyright 2024. Made with ❤ by Francisco Zambujo.</p>
+        </div>
+        <div className="flex justify-end -mt-5 px-52">
+          <a href = "https://www.linkedin.com/in/francisco-zambujo-189764280/" target="_blank"> <FaLinkedin className="size-6 hover:border-2"/></a>
+          <a href = "https://github.com/XiCO144" target="_blank"> <FaGithub className="size-6 hover:border-2"/></a>
+        </div>
+      </div>
+    </div>
   );
 }

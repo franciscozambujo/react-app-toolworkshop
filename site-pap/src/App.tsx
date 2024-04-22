@@ -2,7 +2,6 @@ import { headerMenuNav } from "./components/headerMenu";
 import { carouselMain } from "./components/carousel-section";
 import { mainPage } from "./components/main-page";
 import { Footer } from "./components/footer";
-import { TesteGet } from "./components/teste";
 
 const footerLinks = [
   {
@@ -20,20 +19,19 @@ const footerLinks = [
 ];
 export function App() {
   return (
-    <>
+    <div>
       <header>
         {headerMenuNav()}
       </header>
       <section>
         {carouselMain()}
       </section>
-      <main>
+      <main className="">
         {mainPage()}
-        {TesteGet()}
       </main>
       <footer>
-        <Footer links={footerLinks}/>
+        <Footer/>
       </footer>
-    </>
+    </div>
   )
 }
