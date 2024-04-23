@@ -9,18 +9,20 @@ import {
 import * as React from "react"
 import { cn } from "@/lib/utils"
 import { Mail, MapPin, Phone } from "lucide-react"
-import imgHeader from "@/public/images/header.png"
 
 export function headerMenuNav() {
+  const img = new URL("@/public/images/1.jpg", import.meta.url).href;
+  const imgHeader = new URL("@/public/images/header.png", import.meta.url).href;
   return (
-    <header className="bg-green-200 h-14 grid content-center font-header">
+    <>
+    <div className="bg-black h-14 grid content-center font-bodyfooter text-white">
       <div className="absolute max-w-xs max-h-xs -mt-6">
-        <img src={imgHeader} className="" alt="Logotipo" onClick={() => (window.location.href = "../index.html")}/>
+        <img src={imgHeader} className="" alt="Logotipo" onClick={() => (window.location.href = "../index.html")} />
       </div>
       <NavigationMenu className="mx-auto">
         <NavigationMenuList>
           <NavigationMenuItem>
-            <NavigationMenuTrigger className="bg-green-200 text-lg">
+            <NavigationMenuTrigger className="bg-black text-lg">
               Quem Somos
             </NavigationMenuTrigger>
             <NavigationMenuContent>
@@ -71,7 +73,7 @@ export function headerMenuNav() {
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem className="grid grid-flow-col auto-cols-max">
-            <NavigationMenuTrigger className="bg-green-200 text-lg">
+            <NavigationMenuTrigger className="bg-black text-lg">
               Serviços
             </NavigationMenuTrigger>
             <NavigationMenuContent>
@@ -125,12 +127,13 @@ export function headerMenuNav() {
         </NavigationMenuList>
       </NavigationMenu>
       <button
-        className="absolute right-6 top-3 mb-2 font-medium text-lg hover:font-bold"
+        className="absolute right-6 top-3 mb-2 font-medium text-lg hover:font-bold "
         onClick={() => (window.location.href = "../login.html")}
       >
         Login
       </button>
-    </header>
+    </div>
+      </>
   );
 }
 

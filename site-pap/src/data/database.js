@@ -11,6 +11,14 @@ export async function getEmployees(){
   const [rows] = await pool.query("SELECT * FROM empregados;");
   return rows;
 }
+export async function getClients(){
+  const [rows] = await pool.query("SELECT * FROM clientes;");
+  return rows;
+}
+export async function GetVehicles(){
+  const [rows] = await pool.query("SELECT * FROM veiculos;");
+  return rows;
+}
 
 export async function getInvoices(){
   const [rows] = await pool.query("SELECT faturas.ID, clientes.nome AS cliente, veiculos.marca AS veiculo, veiculos.matricula AS matricula, faturas.descricao, faturas.valor, faturas.data FROM faturas INNER JOIN clientes ON faturas.cliente= clientes.id INNER JOIN veiculos ON faturas.veiculo = veiculos.id;");
