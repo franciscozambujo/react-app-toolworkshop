@@ -12,15 +12,17 @@ import { Mail, MapPin, Phone } from "lucide-react"
 
 export function HeaderMenuNav() {
   const img = new URL("@/public/images/1.jpg", import.meta.url).href;
-  const imgHeader = new URL("@/public/images/header.png", import.meta.url).href;
+  const imgHeader = new URL("@/public/images/header_branco.png", import.meta.url).href;
   return (
-    <>
-    <div className="bg-black h-14 grid content-center font-bodyfooter text-white">
+    <div className="bg-black h-16 grid content-center font-bodyfooter text-white py-2">
       <div className="absolute max-w-xs max-h-xs -mt-6">
         <img src={imgHeader} className="" alt="Logotipo" onClick={() => (window.location.href = "../index.html")} />
       </div>
       <NavigationMenu className="mx-auto">
         <NavigationMenuList>
+          <NavigationMenuItem>
+            <button className="rounded-md hover:bg-background m-4 px-4 py-2 text-lg font-medium">Início</button>
+          </NavigationMenuItem>
           <NavigationMenuItem>
             <NavigationMenuTrigger className="bg-black text-lg">
               Quem Somos
@@ -127,13 +129,12 @@ export function HeaderMenuNav() {
         </NavigationMenuList>
       </NavigationMenu>
       <button
-        className="absolute right-6 top-3 mb-2 font-medium text-lg hover:font-bold "
+        className="text-lg hover:font-bold flex justify-end -mt-12 mr-8"
         onClick={() => (window.location.href = "../login.html")}
       >
         Login
       </button>
     </div>
-      </>
   );
 }
 

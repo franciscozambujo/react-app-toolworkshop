@@ -6,7 +6,7 @@ export function App() {
   return (
     <div>
         <HeaderMenuNav/>
-        <MainPage/>
+        <MainPage />
         <Footer/>
     </div>
   )
