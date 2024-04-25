@@ -1,4 +1,4 @@
-export function contactSection() {
+export function ContactSection() {
   return (
     <>
       <div className="flex justify-center font-medium mt-10 text-4xl">

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-export function mainPage() {
+export function MainPage() {
   const [employees, setEmployees] = useState<any[]>([]);
 
   useEffect(() => {

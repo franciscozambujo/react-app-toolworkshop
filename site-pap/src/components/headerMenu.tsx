@@ -10,7 +10,7 @@ import * as React from "react"
 import { cn } from "@/lib/utils"
 import { Mail, MapPin, Phone } from "lucide-react"
 
-export function headerMenuNav() {
+export function HeaderMenuNav() {
   const img = new URL("@/public/images/1.jpg", import.meta.url).href;
   const imgHeader = new URL("@/public/images/header.png", import.meta.url).href;
   return (

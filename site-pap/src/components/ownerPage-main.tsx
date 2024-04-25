@@ -1,4 +1,4 @@
-export function main(){
+export function OwnerPage(){
     return (
         <h1>Dono</h1>
     )
