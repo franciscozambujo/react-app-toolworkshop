@@ -11,20 +11,19 @@ import { cn } from "@/lib/utils"
 import { Mail, MapPin, Phone } from "lucide-react"
 
 export function HeaderMenuNav() {
-  const img = new URL("@/public/images/1.jpg", import.meta.url).href;
   const imgHeader = new URL("@/public/images/header_branco.png", import.meta.url).href;
   return (
-    <div className="bg-black h-16 grid content-center font-bodyfooter text-white py-2">
-      <div className="absolute max-w-xs max-h-xs -mt-6">
+    <div className="bg-transparent h-16 grid content-center font-bodyfooter text-white py-2 z-0">
+      <button className="absolute max-w-xs max-h-xs -mt-6">
         <img src={imgHeader} className="" alt="Logotipo" onClick={() => (window.location.href = "../index.html")} />
-      </div>
+      </button>
       <NavigationMenu className="mx-auto">
         <NavigationMenuList>
           <NavigationMenuItem>
-            <button className="rounded-md hover:bg-background m-4 px-4 py-2 text-lg font-medium">Início</button>
+            <button className="rounded-md hover:bg-background hover:text-black m-4 px-4 py-2 text-lg font-medium">Início</button>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <NavigationMenuTrigger className="bg-black text-lg">
+            <NavigationMenuTrigger className="bg-transparent text-lg">
               Quem Somos
             </NavigationMenuTrigger>
             <NavigationMenuContent>
@@ -75,7 +74,7 @@ export function HeaderMenuNav() {
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem className="grid grid-flow-col auto-cols-max">
-            <NavigationMenuTrigger className="bg-black text-lg">
+            <NavigationMenuTrigger className="bg-transparent text-lg">
               Serviços
             </NavigationMenuTrigger>
             <NavigationMenuContent>
@@ -126,14 +125,18 @@ export function HeaderMenuNav() {
               </ul>
             </NavigationMenuContent>
           </NavigationMenuItem>
+          <NavigationMenuItem>
+          </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
-      <button
-        className="text-lg hover:font-bold flex justify-end -mt-12 mr-8"
-        onClick={() => (window.location.href = "../login.html")}
-      >
-        Login
-      </button>
+      <div className="text-lg hover:font-bold absolute left-auto right-6 m-2 ">
+        <button
+          className=""
+          onClick={() => (window.location.href = "../login.html")}
+        >
+          Login
+        </button>
+      </div>
     </div>
   );
 }
