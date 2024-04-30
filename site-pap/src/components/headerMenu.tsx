@@ -20,10 +20,10 @@ export function HeaderMenuNav() {
       <NavigationMenu className="mx-auto">
         <NavigationMenuList>
           <NavigationMenuItem>
-            <button className="rounded-md hover:bg-background hover:text-black m-4 px-4 py-2 text-lg font-medium">Início</button>
+            <button className="rounded-md hover:bg-background hover:text-black m-4 px-4 py-2 text-base font-normal">Início</button>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <NavigationMenuTrigger className="bg-transparent text-lg">
+            <NavigationMenuTrigger className="bg-transparent text-base font-normal">
               Quem Somos
             </NavigationMenuTrigger>
             <NavigationMenuContent>
@@ -74,7 +74,7 @@ export function HeaderMenuNav() {
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem className="grid grid-flow-col auto-cols-max">
-            <NavigationMenuTrigger className="bg-transparent text-lg">
+            <NavigationMenuTrigger className="bg-transparent text-base font-normal">
               Serviços
             </NavigationMenuTrigger>
             <NavigationMenuContent>

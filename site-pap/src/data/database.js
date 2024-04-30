@@ -21,6 +21,6 @@ export async function GetVehicles(){
 }
 
 export async function getInvoices(){
-  const [rows] = await pool.query("SELECT faturas.ID, clientes.nome AS cliente, veiculos.marca AS veiculo, veiculos.matricula AS matricula, faturas.descricao, faturas.valor, faturas.data FROM faturas INNER JOIN clientes ON faturas.cliente= clientes.id INNER JOIN veiculos ON faturas.veiculo = veiculos.id;");
+  const [rows] = await pool.query("SELECT reparacoes.ID, clientes.nome AS cliente, veiculos.marca AS veiculo, veiculos.matricula AS matricula, reparacoes.descricao, reparacoes.valor, reparacoes.data FROM reparacoes INNER JOIN clientes ON reparacoes.cliente= clientes.id INNER JOIN veiculos ON reparacoes.veiculo = veiculos.id;");
   return rows;
 }
