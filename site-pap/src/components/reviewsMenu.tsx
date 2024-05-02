@@ -18,48 +18,85 @@ import {
 import { Button } from "./ui/button"
 import { Label } from "./ui/label"
 import { Input } from "./ui/input"
+import { useEffect, useState} from "react"
 
 export function ReviewsMenu(){
-    function CreateCard(){
-
+    const [isOpen, setIsOpen] = useState(false)
+    const [reviews, setReviews] = useState<any[]>([]);
+    function handleCancel() {
+      setIsOpen(false)
     }
+
+    function handleSubmit(event:any) {
+        event.preventDefault()
+        const data = {
+          name: (event.target as HTMLFormElement).nome.value,
+          email:  (event.target as HTMLFormElement).email.value,
+          description:  (event.target as HTMLFormElement).descricao.value
+        }
+        fetch('http://localhost:3000/createReviews', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error(error))
+        setIsOpen(false)
+    }
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const response = await fetch('http://localhost:3000/lastReview');
+            const data = await response.json();
+            setReviews(data);
+          } catch (error) {
+            console.error('Error fetching data:', error);
+          }
+        };
+        fetchData();
+    }, []);
     return(
         <div className="flex justify-center mb-12">
             <div>
                 <h1 className="font-bodyfooter text-4xl">Avaliações</h1>
             </div>
-            <div> CARDS
-                <Card>
-                    <CardHeader>
-                        <CardTitle>dsdsa</CardTitle>
-                        <CardDescription>dsa</CardDescription>
-                    </CardHeader>
-                    <CardContent>dsa</CardContent>
-                    <CardFooter>da</CardFooter>
-                </Card>
+            <div>
+                {reviews.map((review) => (
+                    <Card>
+                        <CardHeader>Avaliação {review.id}</CardHeader>
+                        <CardContent>
+                            <p>{review.nome}</p>
+                            <p>{review.email}</p>
+                            <p>{review.descricao}</p>
+                        </CardContent>
+                    </Card>
+                ))}
             </div>
             <div>FORM REVIEWS
-                <Dialog>
+                <Dialog open={isOpen} onOpenChange={setIsOpen}>
                     <DialogTrigger asChild>
-                        <Button>Faça a sua avaliação</Button>
+                        <Button onClick={() => setIsOpen(true)}>Faça a sua avaliação</Button>
                     </DialogTrigger>
                     <DialogContent>
                         <DialogHeader>
                             <DialogTitle>Avaliação</DialogTitle>
                             <DialogDescription>Preencha os campos necessários.</DialogDescription>   
                         </DialogHeader>
-                        <form className="space-y-8">
+                        <form onSubmit={handleSubmit} className="space-y-8">
                             <div className="grid grid-cols-4 items-center text-right gap-2"> 
                                 <Label>Nome</Label>
-                                <Input className="col-span-3" id="AnonName" required/>
-                                <Label>Email</Label>
-                                <Input className="col-span-3" id="AnonEmail"/>
+                                <Input className="col-span-3" id="nome" placeholder="Introduza o seu nome..." required/>
+                                <Label>Email (Não solicitado)</Label>
+                                <Input className="col-span-3" id="email" type="email" placeholder="Introduza o seu email..."/>
                                 <Label>Descrição</Label>
-                                <textarea className="col-span-3" id="AnonDesc" required placeholder="Introduza a descrição aqui..."/>                            
+                                <textarea id="descricao" required placeholder="Introduza a descrição aqui..." className="col-span-3 flex h-36 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50" />                            
                             </div>
                             <DialogFooter>
-                                <Button type="button" variant="outline">Cancelar</Button>
-                                <Button type="submit">Submeter</Button>
+                                <Button type="button" variant="outline" onClick={handleCancel}>Cancelar</Button>
+                                <Button type="submit" id="submitReview">Submeter</Button>
                             </DialogFooter>
                         </form>
                     </DialogContent>
