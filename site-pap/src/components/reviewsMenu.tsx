@@ -65,7 +65,7 @@ export function ReviewsMenu(){
             </div>
             <div>
                 {reviews.map((review) => (
-                    <Card>
+                    <Card className="w-72">
                         <CardHeader>Avaliação {review.id}</CardHeader>
                         <CardContent>
                             <p>{review.nome}</p>
@@ -92,7 +92,7 @@ export function ReviewsMenu(){
                                 <Label>Email (Não solicitado)</Label>
                                 <Input className="col-span-3" id="email" type="email" placeholder="Introduza o seu email..."/>
                                 <Label>Descrição</Label>
-                                <textarea id="descricao" required placeholder="Introduza a descrição aqui..." className="col-span-3 flex h-36 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50" />                            
+                                <textarea id="descricao" required placeholder="Introduza a descrição aqui..." className="col-span-3 flex h-36 min-h-36 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50" />                            
                             </div>
                             <DialogFooter>
                                 <Button type="button" variant="outline" onClick={handleCancel}>Cancelar</Button>

@@ -1,6 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import { getEmployees, getInvoices , getClients, GetVehicles, createReview, getLastReview}  from './database.js';
+import { getEmployees, getInvoices , getClients, getVehicles, createReview, getLastReview}  from './database.js';
 
 const app = express();
 app.use(bodyParser.json());
@@ -15,6 +15,16 @@ app.use((req, res, next) => {
 app.get("/employees", async (req, res) => {
   const employees = await getEmployees();
   res.send(employees);
+});
+
+app.get("/vehicles", async (req, res) => {
+  const vehicles = await getVehicles();
+  res.send(vehicles);
+});
+
+app.get("/clients", async (req, res) => {
+  const clients = await getClients();
+  res.send(clients);
 });
 
 app.get("/invoices", async (req, res) => {
@@ -33,7 +43,7 @@ app.post("/createReviews", async (req, res) => {
   }
 });
 
-app.post("/lastReview", async (req, res) => {
+app.get("/lastReview", async (req, res) => {
   const reviews = await getLastReview();
   res.send(reviews);
 });

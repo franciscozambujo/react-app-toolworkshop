@@ -15,7 +15,7 @@ export async function getClients(){
   const [rows] = await pool.query("SELECT * FROM clientes;");
   return rows;
 }
-export async function GetVehicles(){
+export async function getVehicles(){
   const [rows] = await pool.query("SELECT * FROM veiculos;");
   return rows;
 }
