@@ -15,7 +15,7 @@ export function HeaderMenuNav() {
   return (
     <div className="bg-transparent h-16 grid content-center font-bodyfooter text-white py-2 z-0">
       <button className="absolute max-w-xs max-h-xs -mt-6">
-        <img src={imgHeader} className="" alt="Logotipo" onClick={() => (window.location.href = "../index.html")} />
+        <img src={imgHeader} alt="Logotipo" onClick={() => (window.location.href = "../index.html")} />
       </button>
       <NavigationMenu className="mx-auto">
         <NavigationMenuList>

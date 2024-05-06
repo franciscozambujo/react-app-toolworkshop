@@ -32,6 +32,6 @@ export async function createReview(name, email, description) {
 }
 
 export async function getLastReview() {
-  const [rows] = await pool.query("SELECT nome, email, descricao FROM avaliacoes ORDER BY id DESC LIMIT 1;");
+  const [rows] = await pool.query("SELECT id, nome, email, descricao FROM avaliacoes ORDER BY id DESC LIMIT 1;");
   return rows;
 }

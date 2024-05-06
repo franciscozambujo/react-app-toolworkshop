@@ -66,16 +66,20 @@ export function ReviewsMenu(){
             <div>
                 {reviews.map((review) => (
                     <Card className="w-72">
-                        <CardHeader>Avaliação {review.id}</CardHeader>
+                        <CardHeader>Avaliação nº {review.id}</CardHeader>
                         <CardContent>
-                            <p>{review.nome}</p>
-                            <p>{review.email}</p>
-                            <p>{review.descricao}</p>
+                            <div className="flex flex-wrap justify-center">
+                                <div className="grid grid-rows-1 gap-2 row-span-3 self-center max-w-md">
+                                    <p>{review.nome}</p>
+                                    <p>{review.email}</p>
+                                    <p className="text-base font-medium break-words w-72 pl-2">{review.descricao}</p>
+                                </div>
+                            </div>
                         </CardContent>
                     </Card>
                 ))}
             </div>
-            <div>FORM REVIEWS
+            <div>
                 <Dialog open={isOpen} onOpenChange={setIsOpen}>
                     <DialogTrigger asChild>
                         <Button onClick={() => setIsOpen(true)}>Faça a sua avaliação</Button>
