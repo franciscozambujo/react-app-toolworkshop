@@ -35,3 +35,18 @@ export async function getLastReview() {
   const [rows] = await pool.query("SELECT id, nome, email, descricao FROM avaliacoes ORDER BY id DESC LIMIT 1;");
   return rows;
 }
+
+export async function getPenultimateReview() {
+  const [rows] = await pool.query("SELECT id, nome, email, descricao FROM avaliacoes WHERE id = (SELECT id FROM avaliacoes ORDER BY id DESC LIMIT 1 OFFSET 1);");
+  return rows;
+}
+
+export async function getAntepenultimateReview() {
+  const [rows] = await pool.query("SELECT id, nome, email, descricao FROM avaliacoes WHERE id = (SELECT id FROM avaliacoes ORDER BY id DESC LIMIT 1 OFFSET 2);");
+  return rows;
+}
+
+export async function getAntantepenultimateReview() {
+  const [rows] = await pool.query("SELECT id, nome, email, descricao FROM avaliacoes WHERE id = (SELECT id FROM avaliacoes ORDER BY id DESC LIMIT 1 OFFSET 3);");
+  return rows;
+} 

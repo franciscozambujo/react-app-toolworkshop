@@ -22,7 +22,6 @@ import { format } from 'date-fns';
 
 export function DataTableF(){
     const [invoices, setInvoices] = useState<any[]>([]);
-
     useEffect(() => {
         const fetchData = async () => {
           try {

@@ -1,6 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import { getEmployees, getInvoices , getClients, getVehicles, createReview, getLastReview}  from './database.js';
+import { getEmployees, getInvoices , getClients, getVehicles, createReview, getLastReview, getPenultimateReview, getAntantepenultimateReview, getAntepenultimateReview}  from './database.js';
 
 const app = express();
 app.use(bodyParser.json());
@@ -46,6 +46,21 @@ app.post("/createReviews", async (req, res) => {
 app.get("/lastReview", async (req, res) => {
   const reviews = await getLastReview();
   res.send(reviews);
+});
+
+app.get("/penultimateReview", async (req, res) => {
+  const penultimateReview = await getPenultimateReview();
+  res.send(penultimateReview);
+});
+
+app.get("/antePenultimateReview", async (req, res) => {
+  const antePenultimateReview = await getAntepenultimateReview();
+  res.send(antePenultimateReview);
+});
+
+app.get("/antantePenultimateReview", async (req, res) => {
+  const antantePenultimateReview = await getAntantepenultimateReview();
+  res.send(antantePenultimateReview);
 });
 
 app.use((err, req, res, nextTick) => {
