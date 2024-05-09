@@ -53,7 +53,7 @@ export function ReviewsMenu() {
       const response = await fetch(`${API_URL}/${url}`);
       return await response.json();
     } catch (error) {
-      console.error(`Error fetching ${url}: ${error}`);
+      console.error("Error fetching reviews:", error);
     }
   };
   useEffect(() => {
@@ -64,6 +64,7 @@ export function ReviewsMenu() {
       "antantePenultimateReview",
     ];
     const fetchAllData = async () => {
+      try {
         const data = await Promise.all(
           urlsToFetch.map((url) => fetchApiData(url))
         );
@@ -71,37 +72,63 @@ export function ReviewsMenu() {
         setPenultimateReview(data[1]);
         setAntePenultimateReview(data[2]);
         setAntantePenultimateReview(data[3]);
-      };
+      } catch (error) {
+        console.error("Error fetching reviews:", error);
+      }
+    };
     fetchAllData();
-  }, []);
-  return (
+    }, []);
+    return (
     <div>
       <h1 className="flex justify-center font-bodyfooter text-4xl">
         Avaliações
       </h1>
       <div className="flex justify-center space-x-6 mt-10 p-2">
-      {lastReview.map((lastReview) => (
-          <Card className="w-72">
-            <CardHeader>Avaliação nº {lastReview.id}</CardHeader>
-            <CardContent>
-              <div className="flex flex-wrap justify-center">
-                <div className="grid grid-rows-1 gap-2 row-span-3 self-center max-w-md">
-                  <div className="flex space-x-4">
-                    <Avatar>
-                      <AvatarImage src={usersLogo} />
-                    </Avatar>
-                    <p>{lastReview.nome}</p>
-                  </div>
-                  <p>{lastReview.email}</p>
-                  <p className="text-base font-medium break-words w-72 pl-2">
-                    {lastReview.descricao}
-                  </p>
+      {lastReview.length > 0 ? (
+      lastReview.map((lastReview) => (
+        <Card className="w-72" key={lastReview.id}>
+          <CardHeader>Avaliação nº {lastReview.id}</CardHeader>
+          <CardContent>
+            <div className="flex flex-wrap justify-center">
+              <div className="grid grid-rows-1 gap-2 row-span-3 self-center max-w-md">
+                <div className="flex space-x-4">
+                  <Avatar>
+                    <AvatarImage src={usersLogo} />
+                  </Avatar>
+                  <p>{lastReview.nome}</p>
                 </div>
+                <p>{lastReview.email}</p>
+                <p className="text-base font-medium break-words w-72 pl-2">
+                  {lastReview.descricao}
+                </p>
               </div>
-            </CardContent>
-          </Card>
-        ))}
-        {penultimateReview.map((penultimateReview) => (
+            </div>
+          </CardContent>
+        </Card>
+      ))
+      ) : (
+      <Card className="w-72">
+        <CardHeader>Avaliação nº</CardHeader>
+        <CardContent>
+          <div className="flex flex-wrap justify-center">
+            <div className="grid grid-rows-1 gap-2 row-span-3 self-center max-w-md">
+              <div className="flex space-x-4">
+                <Avatar>
+                  <AvatarImage src={usersLogo} />
+                </Avatar>
+                <p>Nome</p>
+              </div>
+              <p>Email</p>
+              <p className="text-base font-medium break-words w-72 pl-2">
+                Avaliação não disponível!
+              </p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+      )}
+        {penultimateReview.length > 0 ? (
+        penultimateReview.map((penultimateReview) => (
           <Card className="w-72">
             <CardHeader>Avaliação nº {penultimateReview.id}</CardHeader>
             <CardContent>
@@ -121,8 +148,30 @@ export function ReviewsMenu() {
               </div>
             </CardContent>
           </Card>
-        ))}
-        {antePenultimateReview.map((antePenultimateReview) => (
+          ))
+          ) : (
+          <Card className="w-72">
+            <CardHeader>Avaliação nº</CardHeader>
+            <CardContent>
+              <div className="flex flex-wrap justify-center">
+                <div className="grid grid-rows-1 gap-2 row-span-3 self-center max-w-md">
+                  <div className="flex space-x-4">
+                    <Avatar>
+                      <AvatarImage src={usersLogo} />
+                    </Avatar>
+                    <p>Nome</p>
+                  </div>
+                  <p>Email</p>
+                  <p className="text-base font-medium break-words w-72 pl-2">
+                    Avaliação não disponível!
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+          )}
+        {antePenultimateReview.length > 0 ? (
+        antePenultimateReview.map((antePenultimateReview) => (
           <Card className="w-72">
             <CardHeader>Avaliação nº {antePenultimateReview.id}</CardHeader>
             <CardContent>
@@ -142,8 +191,30 @@ export function ReviewsMenu() {
               </div>
             </CardContent>
           </Card>
-        ))}
-        {antantePenultimateReview.map((antantePenultimateReview) => (
+          ))
+          ) : (
+          <Card className="w-72">
+            <CardHeader>Avaliação nº</CardHeader>
+            <CardContent>
+              <div className="flex flex-wrap justify-center">
+                <div className="grid grid-rows-1 gap-2 row-span-3 self-center max-w-md">
+                  <div className="flex space-x-4">
+                    <Avatar>
+                      <AvatarImage src={usersLogo} />
+                    </Avatar>
+                    <p>Nome</p>
+                  </div>
+                  <p>Email</p>
+                  <p className="text-base font-medium break-words w-72 pl-2">
+                    Avaliação não disponível!
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+          )}
+        {antantePenultimateReview.length > 0 ? (
+        antantePenultimateReview.map((antantePenultimateReview) => (
           <Card className="w-72">
             <CardHeader>Avaliação nº {antantePenultimateReview.id}</CardHeader>
             <CardContent>
@@ -163,7 +234,28 @@ export function ReviewsMenu() {
               </div>
             </CardContent>
           </Card>
-        ))}
+          ))
+          ) : (
+          <Card className="w-72">
+            <CardHeader>Avaliação nº</CardHeader>
+            <CardContent>
+              <div className="flex flex-wrap justify-center">
+                <div className="grid grid-rows-1 gap-2 row-span-3 self-center max-w-md">
+                  <div className="flex space-x-4">
+                    <Avatar>
+                      <AvatarImage src={usersLogo} />
+                    </Avatar>
+                    <p>Nome</p>
+                  </div>
+                  <p>Email</p>
+                  <p className="text-base font-medium break-words w-72 pl-2">
+                    Avaliação não disponível!
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+          )}
       </div>
       <div className="flex justify-center mb-12 mt-12">
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -191,7 +283,7 @@ export function ReviewsMenu() {
                   placeholder="Introduza o seu nome..."
                   required
                 />
-                <Label>Email (Não solicitado)</Label>
+                <Label>Email (Não obrigatório)</Label>
                 <Input
                   className="col-span-3"
                   id="email"

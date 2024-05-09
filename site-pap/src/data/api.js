@@ -1,6 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import { getEmployees, getInvoices , getClients, getVehicles, createReview, getLastReview, getPenultimateReview, getAntantepenultimateReview, getAntepenultimateReview}  from './database.js';
+import { getEmployees, getInvoices , getClients, getVehicles, createReview, getLastReview, getPenultimateReview, getAntantepenultimateReview, getAntepenultimateReview, createCarCheck}  from './database.js';
 
 const app = express();
 app.use(bodyParser.json());
@@ -40,6 +40,17 @@ app.post("/createReviews", async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).send({ message: "Erro ao criar review" });
+  }
+});
+
+app.post("/createCarChecks", async (req, res) => {
+  const { name, phone, car, plate, checkDate } = req.body;
+  try {
+    await createCarCheck(name, phone, car, plate, checkDate);
+    res.send({ message: "Agendamento criado com sucesso!" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({ message: "Erro ao criar agendamento!" });
   }
 });
 

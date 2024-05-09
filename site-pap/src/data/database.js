@@ -31,6 +31,12 @@ export async function createReview(name, email, description) {
   await pool.query(query, values);
 }
 
+export async function createCarCheck(name, phone, car, plate, checkDate) {
+  const query = "INSERT INTO revisoes (nome, numero_tele, carro, matricula, data_revisao) VALUES (?,?,?);";
+  const values = [name, phone, car, plate, checkDate];
+  await pool.query(query, values);
+}
+
 export async function getLastReview() {
   const [rows] = await pool.query("SELECT id, nome, email, descricao FROM avaliacoes ORDER BY id DESC LIMIT 1;");
   return rows;
