@@ -18,13 +18,12 @@ export function MainPage() {
   const imgInspecionar = new URL("@/public/images/inspecionar.jpg", import.meta.url).href;
   const imgInstalacoes = new URL("@/public/images/motor.jpg", import.meta.url).href;
 
-  const [date, setDate] = React.useState<Date>()
+  const [date, setDate] = React.useState<Date>();
   const [isOpen, setIsOpen] = useState(false);
   function handleCancel() {
     setIsOpen(false);
   }
   const formattedDate = date ? format(date, 'yyyy-MM-dd') : '';
-
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {    
     event.preventDefault();
     const formData = {
