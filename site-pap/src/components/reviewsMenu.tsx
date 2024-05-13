@@ -13,9 +13,12 @@ import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { useEffect, useState } from "react";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import * as React from 'react';
+import Rating from '@mui/material/Rating';
 
 export function ReviewsMenu() {
   const usersLogo = new URL("@/public/images/user.png", import.meta.url).href;
+  const [star, setStar] = React.useState<number | null>(2);
   const [isOpen, setIsOpen] = useState(false);
   const [lastReview, setLastReview] = useState<any[]>([]);
   const [penultimateReview, setPenultimateReview] = useState<any[]>([]);
@@ -32,6 +35,7 @@ export function ReviewsMenu() {
       name: (event.target as HTMLFormElement).nome.value,
       email: (event.target as HTMLFormElement).email.value,
       description: (event.target as HTMLFormElement).descricao.value,
+      rating: star,
     };
     
     fetch(`${API_URL}/createReviews`, {
@@ -83,180 +87,204 @@ export function ReviewsMenu() {
       <h1 className="flex justify-center font-bodyfooter text-4xl">
         Avaliações
       </h1>
-      <div className="flex justify-center space-x-6 mt-10 p-2">
+    <div className="flex justify-center space-x-6 mt-10 p-2">
       {lastReview.length > 0 ? (
       lastReview.map((lastReview) => (
         <Card className="w-72" key={lastReview.id}>
           <CardHeader>Avaliação nº {lastReview.id}</CardHeader>
           <CardContent>
-            <div className="flex flex-wrap justify-center">
-              <div className="grid grid-rows-1 gap-2 row-span-3 self-center max-w-md">
-                <div className="flex space-x-4">
-                  <Avatar>
-                    <AvatarImage src={usersLogo} />
-                  </Avatar>
-                  <p>{lastReview.nome}</p>
+          <div className="flex">
+            <div className="flex gap-4">
+              <Avatar>
+                <AvatarImage src={usersLogo} />
+              </Avatar>
+              <div className="flex flex-col gap-1">
+                <div className="flex gap-3 items-center -mt-1">
+                  <p className="font-semibold cursor-pointer">{lastReview.nome}</p>
                 </div>
-                <p>{lastReview.email}</p>
-                <p className="text-base font-medium break-words w-72 pl-2">
-                  {lastReview.descricao}
-                </p>
+                <div className="font-light text-md text-[#4b587c]">{lastReview.email}</div>
               </div>
             </div>
+          </div>
+          <Rating className="mt-3" defaultValue={lastReview.estrelas} readOnly />
+            <p className="text-base mt-2 text-[18px] font-medium break-words w-64 p-4">
+              {lastReview.descricao}
+            </p>
           </CardContent>
         </Card>
       ))
       ) : (
-      <Card className="w-72">
+        <Card className="w-72">
         <CardHeader>Avaliação nº</CardHeader>
         <CardContent>
-          <div className="flex flex-wrap justify-center">
-            <div className="grid grid-rows-1 gap-2 row-span-3 self-center max-w-md">
-              <div className="flex space-x-4">
-                <Avatar>
-                  <AvatarImage src={usersLogo} />
-                </Avatar>
-                <p>Nome</p>
+        <div className="flex">
+          <div className="flex gap-4">
+            <Avatar>
+              <AvatarImage src={usersLogo} />
+            </Avatar>
+            <div className="flex flex-col gap-1">
+              <div className="flex gap-3 items-center -mt-1">
+                <p className="font-semibold cursor-pointer">Nome</p>
               </div>
-              <p>Email</p>
-              <p className="text-base font-medium break-words w-72 pl-2">
-                Avaliação não disponível!
-              </p>
+              <div className="font-light text-md text-[#4b587c]">Email</div>
             </div>
           </div>
+        </div>
+        <p className="mt-3">Estrelas</p>
+          <p className="text-base mt-2 text-[18px] font-medium break-words w-64 p-4">
+            Avaliação não disponível
+          </p>
         </CardContent>
       </Card>
       )}
         {penultimateReview.length > 0 ? (
         penultimateReview.map((penultimateReview) => (
-          <Card className="w-72">
-            <CardHeader>Avaliação nº {penultimateReview.id}</CardHeader>
-            <CardContent>
-              <div className="flex flex-wrap justify-center">
-                <div className="grid grid-rows-1 gap-2 row-span-3 self-center max-w-md">
-                  <div className="flex space-x-4">
-                    <Avatar>
-                      <AvatarImage src={usersLogo} />
-                    </Avatar>
-                    <p>{penultimateReview.nome}</p>
-                  </div>
-                  <p>{penultimateReview.email}</p>
-                  <p className="text-base font-medium break-words w-72 pl-2">
-                    {penultimateReview.descricao}
-                  </p>
+          <Card className="w-72" key={penultimateReview.id}>
+          <CardHeader>Avaliação nº {penultimateReview.id}</CardHeader>
+          <CardContent>
+          <div className="flex">
+            <div className="flex gap-4">
+              <Avatar>
+                <AvatarImage src={usersLogo} />
+              </Avatar>
+              <div className="flex flex-col gap-1">
+                <div className="flex gap-3 items-center -mt-1">
+                  <p className="font-semibold cursor-pointer">{penultimateReview.nome}</p>
                 </div>
+                <div className="font-light text-md text-[#4b587c]">{penultimateReview.email}</div>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
+          <Rating className="mt-3" defaultValue={penultimateReview.estrelas} readOnly />
+            <p className="text-base mt-2 text-[18px] font-medium break-words w-64 p-4">
+              {penultimateReview.descricao}
+            </p>
+          </CardContent>
+        </Card>
           ))
           ) : (
-          <Card className="w-72">
+            <Card className="w-72">
             <CardHeader>Avaliação nº</CardHeader>
             <CardContent>
-              <div className="flex flex-wrap justify-center">
-                <div className="grid grid-rows-1 gap-2 row-span-3 self-center max-w-md">
-                  <div className="flex space-x-4">
-                    <Avatar>
-                      <AvatarImage src={usersLogo} />
-                    </Avatar>
-                    <p>Nome</p>
+            <div className="flex">
+              <div className="flex gap-4">
+                <Avatar>
+                  <AvatarImage src={usersLogo} />
+                </Avatar>
+                <div className="flex flex-col gap-1">
+                  <div className="flex gap-3 items-center -mt-1">
+                    <p className="font-semibold cursor-pointer">Nome</p>
                   </div>
-                  <p>Email</p>
-                  <p className="text-base font-medium break-words w-72 pl-2">
-                    Avaliação não disponível!
-                  </p>
+                  <div className="font-light text-md text-[#4b587c]">Email</div>
                 </div>
               </div>
+            </div>
+            <p className="mt-3">Estrelas</p>
+              <p className="text-base mt-2 text-[18px] font-medium break-words w-64 p-4">
+                Avaliação não disponível
+              </p>
             </CardContent>
           </Card>
           )}
         {antePenultimateReview.length > 0 ? (
         antePenultimateReview.map((antePenultimateReview) => (
-          <Card className="w-72">
-            <CardHeader>Avaliação nº {antePenultimateReview.id}</CardHeader>
-            <CardContent>
-              <div className="flex flex-wrap justify-center">
-                <div className="grid grid-rows-1 gap-2 row-span-3 self-center max-w-md">
-                  <div className="flex space-x-4">
-                    <Avatar>
-                      <AvatarImage src={usersLogo} />
-                    </Avatar>
-                    <p>{antePenultimateReview.nome}</p>
-                  </div>
-                  <p>{antePenultimateReview.email}</p>
-                  <p className="text-base font-medium break-words w-72 pl-2">
-                    {antePenultimateReview.descricao}
-                  </p>
+          <Card className="w-72" key={antePenultimateReview.id}>
+          <CardHeader>Avaliação nº {antePenultimateReview.id}</CardHeader>
+          <CardContent>
+          <div className="flex">
+            <div className="flex gap-4">
+              <Avatar>
+                <AvatarImage src={usersLogo} />
+              </Avatar>
+              <div className="flex flex-col gap-1">
+                <div className="flex gap-3 items-center -mt-1">
+                  <p className="font-semibold cursor-pointer">{antePenultimateReview.nome}</p>
                 </div>
+                <div className="font-light text-md text-[#4b587c]">{antePenultimateReview.email}</div>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
+          <Rating className="mt-3" defaultValue={antePenultimateReview.estrelas} readOnly />
+            <p className="text-base mt-2 text-[18px] font-medium break-words w-64 p-4">
+              {antePenultimateReview.descricao}
+            </p>
+          </CardContent>
+        </Card>
           ))
           ) : (
-          <Card className="w-72">
+            <Card className="w-72">
             <CardHeader>Avaliação nº</CardHeader>
             <CardContent>
-              <div className="flex flex-wrap justify-center">
-                <div className="grid grid-rows-1 gap-2 row-span-3 self-center max-w-md">
-                  <div className="flex space-x-4">
-                    <Avatar>
-                      <AvatarImage src={usersLogo} />
-                    </Avatar>
-                    <p>Nome</p>
+            <div className="flex">
+              <div className="flex gap-4">
+                <Avatar>
+                  <AvatarImage src={usersLogo} />
+                </Avatar>
+                <div className="flex flex-col gap-1">
+                  <div className="flex gap-3 items-center -mt-1">
+                    <p className="font-semibold cursor-pointer">Nome</p>
                   </div>
-                  <p>Email</p>
-                  <p className="text-base font-medium break-words w-72 pl-2">
-                    Avaliação não disponível!
-                  </p>
+                  <div className="font-light text-md text-[#4b587c]">Email</div>
                 </div>
               </div>
+            </div>
+            <p className="mt-3">Estrelas</p>
+              <p className="text-base mt-2 text-[18px] font-medium break-words w-64 p-4">
+                Avaliação não disponível
+              </p>
             </CardContent>
           </Card>
           )}
         {antantePenultimateReview.length > 0 ? (
         antantePenultimateReview.map((antantePenultimateReview) => (
-          <Card className="w-72">
-            <CardHeader>Avaliação nº {antantePenultimateReview.id}</CardHeader>
-            <CardContent>
-              <div className="flex flex-wrap justify-center">
-                <div className="grid grid-rows-1 gap-2 row-span-3 self-center max-w-md">
-                  <div className="flex space-x-4">
-                    <Avatar>
-                      <AvatarImage src={usersLogo} />
-                    </Avatar>
-                    <p>{antantePenultimateReview.nome}</p>
-                  </div>
-                  <p>{antantePenultimateReview.email}</p>
-                  <p className="text-base font-medium break-words w-72 pl-2">
-                    {antantePenultimateReview.descricao}
-                  </p>
+          <Card className="w-72" key={antantePenultimateReview.id}>
+          <CardHeader>Avaliação nº {antantePenultimateReview.id}</CardHeader>
+          <CardContent>
+          <div className="flex">
+            <div className="flex gap-4">
+              <Avatar>
+                <AvatarImage src={usersLogo} />
+              </Avatar>
+              <div className="flex flex-col gap-1">
+                <div className="flex gap-3 items-center -mt-1">
+                  <p className="font-semibold cursor-pointer">{antantePenultimateReview.nome}</p>
                 </div>
+                <div className="font-light text-md text-[#4b587c]">{antantePenultimateReview.email}</div>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
+          <Rating className="mt-3" defaultValue={antantePenultimateReview.estrelas} readOnly />
+            <p className="text-base mt-2 text-[18px] font-medium break-words w-64 p-4">
+              {antantePenultimateReview.descricao}
+            </p>
+          </CardContent>
+        </Card>
           ))
           ) : (
           <Card className="w-72">
             <CardHeader>Avaliação nº</CardHeader>
             <CardContent>
-              <div className="flex flex-wrap justify-center">
-                <div className="grid grid-rows-1 gap-2 row-span-3 self-center max-w-md">
-                  <div className="flex space-x-4">
-                    <Avatar>
-                      <AvatarImage src={usersLogo} />
-                    </Avatar>
-                    <p>Nome</p>
+            <div className="flex">
+              <div className="flex gap-4">
+                <Avatar>
+                  <AvatarImage src={usersLogo} />
+                </Avatar>
+                <div className="flex flex-col gap-1">
+                  <div className="flex gap-3 items-center -mt-1">
+                    <p className="font-semibold cursor-pointer">Nome</p>
                   </div>
-                  <p>Email</p>
-                  <p className="text-base font-medium break-words w-72 pl-2">
-                    Avaliação não disponível!
-                  </p>
+                  <div className="font-light text-md text-[#4b587c]">Email</div>
                 </div>
               </div>
+            </div>
+            <p className="mt-3">Estrelas</p>
+              <p className="text-base mt-2 text-[18px] font-medium break-words w-64 p-4">
+                Avaliação não disponível
+              </p>
             </CardContent>
           </Card>
           )}
-      </div>
+    </div>
       <div className="flex justify-center mb-12 mt-12">
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
           <DialogTrigger asChild>
@@ -280,7 +308,7 @@ export function ReviewsMenu() {
                 <Input
                   className="col-span-3"
                   id="nome"
-                  placeholder="Introduza o seu nome..."
+                  placeholder="Ex: Fernando"
                   required
                 />
                 <Label>Email (Não obrigatório)</Label>
@@ -288,14 +316,21 @@ export function ReviewsMenu() {
                   className="col-span-3"
                   id="email"
                   type="email"
-                  placeholder="Introduza o seu email..."
+                  placeholder="Ex: fernando@gmail.com"
                 />
                 <Label>Descrição</Label>
                 <textarea
                   id="descricao"
                   required
-                  placeholder="Introduza a descrição aqui..."
-                  className="col-span-3 flex h-36 min-h-36 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+                  placeholder="Ex: Serviço bastante prestável, aconselho."
+                  className="col-span-3 flex h-36 max-h-72 min-h-36 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+                />
+               <Rating
+                  className="px-9 mt-2"
+                  value={star}  
+                  onChange={(_event, newValue) => {
+                    setStar(newValue);
+                  }}
                 />
               </div>
               <DialogFooter>

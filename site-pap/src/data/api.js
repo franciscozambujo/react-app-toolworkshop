@@ -33,9 +33,9 @@ app.get("/invoices", async (req, res) => {
 });
 
 app.post("/createReviews", async (req, res) => {
-  const { name, email, description } = req.body;
+  const { name, email, description, rating } = req.body;
   try {
-    await createReview(name, email, description);
+    await createReview(name, email, description, rating);
     res.send({ message: "Review criada com sucesso!" });
   } catch (err) {
     console.error(err);

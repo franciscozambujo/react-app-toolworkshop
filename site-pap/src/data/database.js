@@ -25,9 +25,9 @@ export async function getInvoices(){
   return rows;
 }
 
-export async function createReview(name, email, description) {
-  const query = "INSERT INTO avaliacoes (nome, email, descricao) VALUES (?,?,?);";
-  const values = [name, email, description];
+export async function createReview(name, email, description, rating) {
+  const query = "INSERT INTO avaliacoes (nome, email, descricao, estrelas) VALUES (?,?,?,?);";
+  const values = [name, email, description, rating];
   await pool.query(query, values);
 }
 
@@ -38,21 +38,21 @@ export async function createCarCheck(name, phone, car, plate, checkDate) {
 }
 
 export async function getLastReview() {
-  const [rows] = await pool.query("SELECT id, nome, email, descricao FROM avaliacoes ORDER BY id DESC LIMIT 1;");
+  const [rows] = await pool.query("SELECT id, nome, email, descricao, estrelas FROM avaliacoes ORDER BY id DESC LIMIT 1;");
   return rows;
 }
 
 export async function getPenultimateReview() {
-  const [rows] = await pool.query("SELECT id, nome, email, descricao FROM avaliacoes WHERE id = (SELECT id FROM avaliacoes ORDER BY id DESC LIMIT 1 OFFSET 1);");
+  const [rows] = await pool.query("SELECT id, nome, email, descricao, estrelas FROM avaliacoes WHERE id = (SELECT id FROM avaliacoes ORDER BY id DESC LIMIT 1 OFFSET 1);");
   return rows;
 }
 
 export async function getAntepenultimateReview() {
-  const [rows] = await pool.query("SELECT id, nome, email, descricao FROM avaliacoes WHERE id = (SELECT id FROM avaliacoes ORDER BY id DESC LIMIT 1 OFFSET 2);");
+  const [rows] = await pool.query("SELECT id, nome, email, descricao, estrelas FROM avaliacoes WHERE id = (SELECT id FROM avaliacoes ORDER BY id DESC LIMIT 1 OFFSET 2);");
   return rows;
 }
 
 export async function getAntantepenultimateReview() {
-  const [rows] = await pool.query("SELECT id, nome, email, descricao FROM avaliacoes WHERE id = (SELECT id FROM avaliacoes ORDER BY id DESC LIMIT 1 OFFSET 3);");
+  const [rows] = await pool.query("SELECT id, nome, email, descricao, estrelas FROM avaliacoes WHERE id = (SELECT id FROM avaliacoes ORDER BY id DESC LIMIT 1 OFFSET 3);");
   return rows;
 } 

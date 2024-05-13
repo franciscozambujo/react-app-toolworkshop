@@ -54,7 +54,7 @@ export function MainPage() {
   }
 
   return(
-    <div className="font-bodyfooter m-12">
+    <div className="font-bodyfooter m-12 max-w-screen-xl">
       <div className="relative left-1/4 w-1/2 pb-40">
         <img src={imgRevisao} alt="Revisão" className="h-64 float-left mr-10"/>
         <div className="grid grid-rows-1 gap-2 row-span-3 self-center">
