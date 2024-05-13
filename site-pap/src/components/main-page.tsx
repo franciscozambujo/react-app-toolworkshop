@@ -20,9 +20,7 @@ export function MainPage() {
 
   const [date, setDate] = React.useState<Date>();
   const [isOpen, setIsOpen] = useState(false);
-  function handleCancel() {
-    setIsOpen(false);
-  }
+  
   const formattedDate = date ? format(date, 'yyyy-MM-dd') : '';
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {    
     event.preventDefault();
@@ -55,7 +53,7 @@ export function MainPage() {
 
   return(
     <div className="font-bodyfooter m-12 max-w-screen-xl">
-      <div className="relative left-1/4 w-1/2 pb-40">
+      <div className="relative left-1/3 w-1/2 pb-40">
         <img src={imgRevisao} alt="Revisão" className="h-64 float-left mr-10"/>
         <div className="grid grid-rows-1 gap-2 row-span-3 self-center">
           <div className="w-20 origin-top-left rotate-[90deg] border-4 border-body"/>
@@ -108,6 +106,7 @@ export function MainPage() {
                   required
                 />
                 <Calendar
+                  className="col-span-2"
                   mode="single"
                   selected={date}
                   onSelect={setDate}
@@ -116,9 +115,6 @@ export function MainPage() {
                 />
               </div>
               <DialogFooter>
-                <Button type="button" variant="outline" onClick={handleCancel}>
-                  Cancelar
-                </Button>
                 <Button type="submit" id="submitReview" className="bg-body">
                   Submeter
                 </Button>
@@ -128,7 +124,7 @@ export function MainPage() {
         </Dialog>
           </div>
         </div>
-      <div className="relative left-1/4 w-1/2 pb-40">
+      <div className="relative left-1/3 w-1/2 pb-40">
         <img src={imgInspecionar} alt="Revisão" className="h-64 float-right -mr-44"/>
         <div className="grid grid-rows-1 gap-2 row-span-3 self-center">
           <div className="w-20 origin-top-left rotate-[90deg] border-4 border-body"/>
@@ -136,7 +132,7 @@ export function MainPage() {
             <p className="w-96 font-medium text-base pl-2">Lorem Ipsum is simply dummy text of the printing and  typesetting industry. Lorem Ipsum has been the industry's standard  dummy text. Lorem Ipsum is simply dummy text of the printing and  typesetting.</p>
         </div>
       </div>
-      <div className="relative left-1/4 w-1/2 pb-40">
+      <div className="relative left-1/3 w-1/2 pb-40">
         <img src={imgInstalacoes} alt="Revisão" className="h-64 float-left mr-10"/>
         <div className="grid grid-rows-1 gap-2 row-span-3 self-center">
           <div className="w-20 origin-top-left rotate-[90deg] border-4 border-body"/>

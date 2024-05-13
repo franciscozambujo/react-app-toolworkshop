@@ -24,9 +24,6 @@ export function ReviewsMenu() {
   const [penultimateReview, setPenultimateReview] = useState<any[]>([]);
   const [antePenultimateReview, setAntePenultimateReview] = useState<any[]>([]);
   const [antantePenultimateReview, setAntantePenultimateReview] = useState<any[]>([]);
-  function handleCancel() {
-    setIsOpen(false);
-  }
   const API_URL = "http://localhost:3000";
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {    
@@ -130,7 +127,7 @@ export function ReviewsMenu() {
             </div>
           </div>
         </div>
-        <p className="mt-3">Estrelas</p>
+        <Rating className="mt-3" defaultValue={0} readOnly />
           <p className="text-base mt-2 text-[18px] font-medium break-words w-64 p-4">
             Avaliação não disponível
           </p>
@@ -179,7 +176,7 @@ export function ReviewsMenu() {
                 </div>
               </div>
             </div>
-            <p className="mt-3">Estrelas</p>
+            <Rating className="mt-3" defaultValue={0} readOnly />
               <p className="text-base mt-2 text-[18px] font-medium break-words w-64 p-4">
                 Avaliação não disponível
               </p>
@@ -228,7 +225,7 @@ export function ReviewsMenu() {
                 </div>
               </div>
             </div>
-            <p className="mt-3">Estrelas</p>
+            <Rating className="mt-3" defaultValue={0} readOnly />
               <p className="text-base mt-2 text-[18px] font-medium break-words w-64 p-4">
                 Avaliação não disponível
               </p>
@@ -277,10 +274,10 @@ export function ReviewsMenu() {
                 </div>
               </div>
             </div>
-            <p className="mt-3">Estrelas</p>
-              <p className="text-base mt-2 text-[18px] font-medium break-words w-64 p-4">
-                Avaliação não disponível
-              </p>
+            <Rating className="mt-3" defaultValue={0} readOnly />
+            <p className="text-base mt-2 text-[18px] font-medium break-words w-64 p-4">
+              Avaliação não disponível
+            </p>
             </CardContent>
           </Card>
           )}
@@ -334,9 +331,6 @@ export function ReviewsMenu() {
                 />
               </div>
               <DialogFooter>
-                <Button type="button" variant="outline" onClick={handleCancel}>
-                  Cancelar
-                </Button>
                 <Button type="submit" id="submitReview" className="bg-body">
                   Submeter
                 </Button>

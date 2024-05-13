@@ -20,9 +20,6 @@ export function HeaderMenuNav() {
       <NavigationMenu className="mx-auto">
         <NavigationMenuList>
           <NavigationMenuItem>
-            <button className="rounded-md hover:bg-background hover:text-black m-4 px-4 py-2 text-base font-normal">Início</button>
-          </NavigationMenuItem>
-          <NavigationMenuItem>
             <NavigationMenuTrigger className="bg-transparent text-base font-normal">
               Quem Somos
             </NavigationMenuTrigger>
