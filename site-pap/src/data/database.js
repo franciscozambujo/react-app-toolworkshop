@@ -32,7 +32,7 @@ export async function createReview(name, email, description, rating) {
 }
 
 export async function createCarCheck(name, phone, car, plate, checkDate) {
-  const query = "INSERT INTO revisoes (nome, numero_tele, carro, matricula, data_revisao) VALUES (?,?,?);";
+  const query = "INSERT INTO revisoes (nome, numero_tele, carro, matricula, data_agendada) VALUES (?,?,?,?,?);";
   const values = [name, phone, car, plate, checkDate];
   await pool.query(query, values);
 }

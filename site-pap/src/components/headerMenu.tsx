@@ -49,7 +49,7 @@ export function HeaderMenuNav() {
                     Uma oficina multimarca que opera há mais de 20 anos, conta com muitos clientes satisfeitos.
                   </p>
                 </ListItem>
-                <ListItem onClick={() => (window.location.href = "../contactPage.html")} title="Contacte-Nos">
+                <ListItem href="../contactPage.html" title="Contacte-Nos">
                   <div className="grid grid-flow-col auto-cols-max mt-1">
                     <Phone className="size-5 mr-1" />
                     <p>266 707 212</p>
@@ -58,8 +58,6 @@ export function HeaderMenuNav() {
                     <Mail className="size-5 mr-1" />
                     <p>fernandofialho@gmail.com</p>
                   </div>
-                </ListItem>
-                <ListItem onClick={() => (window.location.href = "../contactPage.html")} title="Visite-Nos">
                   <div className="grid grid-flow-col auto-cols-max">
                     <MapPin className="size-5 -ml-0.5" />
                     <p>Évora</p>
