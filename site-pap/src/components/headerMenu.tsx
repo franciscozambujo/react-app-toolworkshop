@@ -35,7 +35,7 @@ export function HeaderMenuNav() {
                         Conheça a nossa história
                       </div>
                       <p className="text-sm leading-tight text-muted-foreground">
-                        Oficina de Reparação Automóvel com mais de 35 anos.
+                        Oficina de Reparação Automóvel com mais de 20 anos.
                       </p>
                     </a>
                   </NavigationMenuLink>
@@ -46,8 +46,7 @@ export function HeaderMenuNav() {
                   className="h-48"
                 >
                   <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Doloribus, odio!
+                    Uma oficina multimarca que opera há mais de 20 anos, conta com muitos clientes satisfeitos.
                   </p>
                 </ListItem>
                 <ListItem onClick={() => (window.location.href = "../contactPage.html")} title="Contacte-Nos">

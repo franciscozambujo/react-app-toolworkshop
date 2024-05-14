@@ -17,28 +17,20 @@ import {
 } from "@/components/ui/alert-dialog"
 import React from "react"
 
-// Esquema de validação para dados de usuário
 const UsersSchema = z.object({
-  user: z.string(), // Campo de string para o nome de usuário
-  pass: z.string(), // Campo de string para a senha
+  user: z.string(),
+  pass: z.string(),
 });
 
-// Tipo para representar os dados validados do usuário
 type usersSchema = z.infer<typeof UsersSchema>;
 
-// Função para login de usuário
 export function UsersLogin() {
-  // UseForm hook para gerenciar o formulário de login
   const { register, handleSubmit } = useForm<usersSchema>({
-    resolver: zodResolver(UsersSchema), // Validação com Zod
+    resolver: zodResolver(UsersSchema),
   });
-
-  // Estado para controlar a abertura do dialog de erro (padrão fechado)
   const [open, setOpen] = React.useState(false);
 
-  // Função para manipular o envio do formulário de login
   function HandleUserLogin(data: usersSchema) {
-    // Procura usuário com os dados fornecidos no array de credenciais
     const matchingUser = credentialsData.find(
       (user) => user.user === data.user && user.pass === data.pass
     );
@@ -46,9 +38,8 @@ export function UsersLogin() {
     if (matchingUser) {
       localStorage.setItem('isLoggedIn', 'true');
       console.log("Login efetuado com sucesso!");
-      setOpen(false); // Fecha o dialog de erro
+      setOpen(false);
 
-      // Redireciona para a página apropriada baseado na permissão do usuário
       if (matchingUser.permission === "dono") {
         window.location.href = "owner.html";
       } else {
@@ -57,11 +48,11 @@ export function UsersLogin() {
     } else {
       localStorage.setItem('isLoggedIn', 'false');
       console.log("Nome de usuário ou senha inválidos");
-      setOpen(true); // Abre o dialog de erro
+      setOpen(true);
     }
   }
   function handleCloseDialog() {
-    setOpen(false); // Fecha o AlertDialog quando o botão de tentar novamente é clicado
+    setOpen(false);
   }
   return (
     <main className="bg-gradient-to-t from-gray-900 to-gray-500">
