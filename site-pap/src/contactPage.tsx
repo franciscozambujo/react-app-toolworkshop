@@ -1,9 +1,8 @@
-import React from 'react'
 import { ContactSection } from './components/contactPage-section.tsx';
 import { HeaderMenuNav } from './components/headerMenu.tsx';
 import { Footer } from './components/footer.tsx';
 
-export const ContactPage: React.FC = () => {
+export function ContactPage() {
   return (
     <div>
       <HeaderMenuNav/>
