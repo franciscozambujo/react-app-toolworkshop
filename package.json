@@ -1,6 +1,5 @@
 {
   "name": "site-pap",
-  "homepage": "http://localhost:5173/site-pap/",
   "private": true,
   "version": "0.0.0",
   "type": "module",

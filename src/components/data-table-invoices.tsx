@@ -66,7 +66,7 @@ export function DataTableF(){
         </div>
         <div className="border rounded-lg p-2">
             <Table>
-                <TableHeader className="">
+                <TableHeader>
                     <TableHead className="w-[130px]">Nome do Cliente</TableHead>
                     <TableHead>Veículo</TableHead>
                     <TableHead className="w-[130px]">Matrícula</TableHead>
@@ -95,7 +95,7 @@ export function DataTableF(){
                             </DialogContent>
                         </Dialog>
                         <TableCell>{invoice.valor}€</TableCell>
-                        <TableCell>{format(new Date(invoice.data), 'dd-MM-yyyy')}</TableCell>
+                        <TableCell className="w-24">{format(new Date(invoice.data), 'dd-MM-yyyy')}</TableCell>
                     </TableRow>
                     ))}
                 </TableBody>
