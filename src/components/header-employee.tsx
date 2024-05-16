@@ -27,14 +27,6 @@ export function HeaderEmployee() {
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
-      <div className="text-lg hover:font-bold absolute left-auto right-6 m-2 ">
-        <p
-          className=""
-          onClick={() => (window.location.href = "../login.html")}
-        >
-          Login
-        </p>
-      </div>
     </div>
   );
 }
