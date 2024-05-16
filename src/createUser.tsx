@@ -1,12 +1,12 @@
 import React from 'react'
-import { UsersLogin } from './components/loginPage-main';
+import { CreateUser } from './components/create-user';
 import { HeaderMenuNav } from './components/headerMenu';
 
-export const Login: React.FC = () => {
+export const CreateNewUser: React.FC = () => {
   return (
     <div className="bg-slate-800">
       <HeaderMenuNav/>
-      <UsersLogin/>
+      <CreateUser/>
     </div>
   );
 };

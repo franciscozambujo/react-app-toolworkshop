@@ -83,6 +83,12 @@
   .select {
     @apply flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50;
   }
+  .input-login {
+    @apply rounded border border-gray-200 text-sm w-full font-normal leading-[18px] text-black tracking-[0px] appearance-none block h-11 m-0 p-[11px] focus:ring-2 ring-offset-2 ring-gray-900 outline-0;
+  }
+  .label-login{
+    @apply block text-gray-600 cursor-text text-sm leading-[140%] font-normal mb-2 block text-gray-600 cursor-text text-sm leading-[140%] font-normal mb-2;
+  }
 }
 
 

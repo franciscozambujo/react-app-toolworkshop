@@ -10,7 +10,10 @@ import { getEmployees,
   getAntantepenultimateReview, 
   getAntepenultimateReview, 
   createCarCheck,
-  getCarPlate
+  getCarPlate,
+  createUser,
+  getUsers,
+  createCarRepair,
 }  from './database.js';
 
 const app = express();
@@ -63,6 +66,34 @@ app.get("/antantePenultimateReview", async (req, res) => {
   res.send(antantePenultimateReview);
 });
 
+app.get("/users", async (req, res) => {
+  const { email } = req.query;
+  if (!email) {
+    return res.status(400).json({ error: 'email is required' });
+  }
+  try {
+    const users = await getUsers(email);
+    res.json(users);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+app.get('/carPlate', async (req, res) => {
+  const { nomeCliente } = req.query;
+  if (!nomeCliente) {
+    return res.status(400).json({ error: 'nomeCliente is required' });
+  }
+  try {
+    const matriculas = await getCarPlate(nomeCliente);
+    res.json(matriculas);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 app.post("/createCarChecks", async (req, res) => {
   const { name, phone, car, plate, checkDate } = req.body;
   try {
@@ -88,7 +119,7 @@ app.post("/createReviews", async (req, res) => {
 app.post("/createCarRepairs", async (req, res) => {
   const { name, plate, description, value, date } = req.body;
   try {
-    await createReview(name, plate, description, value, date);
+    await createCarRepair(name, plate, description, value, date);
     res.send({ message: "Reparação de carro criada com sucesso!" });
   } catch (err) {
     console.error(err);
@@ -96,19 +127,18 @@ app.post("/createCarRepairs", async (req, res) => {
   }
 });
 
-app.get('/carPlate', async (req, res) => {
-  const { nomeCliente } = req.query;
-  if (!nomeCliente) {
-    return res.status(400).json({ error: 'nomeCliente is required' });
-  }
+app.post("/createUser", async (req, res) => {
+  const { user, email, password} = req.body;
   try {
-    const matriculas = await getCarPlate(nomeCliente);
-    res.json(matriculas);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Internal server error' });
+    await createUser(user, email, password);
+    res.send({ message: "Utilizador criado com sucesso!" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({ message: "Erro ao criar utilizador" });
   }
 });
+
+
 
 app.use((err, req, res, nextTick) => {
     console.error(err.stack);

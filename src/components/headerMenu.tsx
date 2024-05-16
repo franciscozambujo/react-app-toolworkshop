@@ -125,7 +125,6 @@ export function HeaderMenuNav() {
       </NavigationMenu>
       <div className="text-lg hover:font-bold absolute left-auto right-6 m-2 ">
         <button
-          className=""
           onClick={() => (window.location.href = "../login.html")}
         >
           Login

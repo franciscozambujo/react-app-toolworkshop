@@ -50,6 +50,11 @@ export async function getCarPlate(nomeCliente) {
   const [rows] = await pool.query(query);
   return rows;
 }
+export async function getUsers(email) {
+  const query = `SELECT utilizadores.email FROM utilizadores WHERE utilizadores.email LIKE '%${email}%';`;
+  const [rows] = await pool.query(query);
+  return rows;
+}
 
 export async function createCarCheck(name, phone, car, plate, checkDate) {
   const query = "INSERT INTO revisoes (nome, numero_tele, carro, matricula, data_agendada) VALUES (?,?,?,?,?);";
@@ -66,5 +71,11 @@ export async function createReview(name, email, description, rating) {
 export async function createCarRepair(name, plate, description, value, date) {
   const query = "INSERT INTO reparacoes (cliente, veiculo, descricao, valor, data) VALUES (?,?,?,?,?);";
   const values = [name, plate, description, value, date];
+  await pool.query(query, values);
+}
+
+export async function createUser(user, email, password) {
+  const query = "INSERT INTO utilizadores (user, email, pass) VALUES (?,?,?);";
+  const values = [user, email, password];
   await pool.query(query, values);
 }
