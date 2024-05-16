@@ -17,11 +17,14 @@ import {
     DialogFooter,
 } from "@/components/ui/dialog"
 import { useEffect, useState } from "react"
-import { format } from 'date-fns'; 
+import { format } from 'date-fns';
 
 
 export function DataTableF(){
     const [invoices, setInvoices] = useState<any[]>([]);
+    const [matricula, setMatricula] = useState<any[]>([]);
+    const [nomeCliente, setNomeCliente] = useState('');
+
     useEffect(() => {
         const fetchData = async () => {
           try {
@@ -43,7 +46,7 @@ export function DataTableF(){
             </form>
             <Dialog>
                 <DialogTrigger asChild>
-                    <Button>Nova Fatura</Button>
+                    <Button className="bg-body">Nova Fatura</Button>
                 </DialogTrigger>
                 <DialogContent>
                     <DialogHeader>
@@ -51,14 +54,33 @@ export function DataTableF(){
                         <DialogDescription>Preencha os campos necessários.</DialogDescription>   
                     </DialogHeader>
                     <form className="space-y-8">
-                        <div className="grid grid-cols-4 items-center text-right gap-2"> 
+                        <div className="grid grid-cols-4 items-center text-right gap-5"> 
                             <Label>Nome do Cliente</Label>
-                            <Input className="col-span-3" id="clientName"/>
-                            'meter combobox e ir ver logo quais os carros que correspondem a este cliente
+                            <Input
+                            className="col-span-3"
+                            type="text"
+                            value={nomeCliente}
+                            onChange={(e) => setNomeCliente(e.target.value)}
+                            placeholder="Francisco"
+                            />
+                            <Label>Matrícula</Label>
+                            <select 
+                                value={matricula}
+                                onChange={(valor) => setMatricula(valor)}
+                                className="col-span-3" 
+                                name="carPlate" 
+                                id="carPlate">
+                                placeholder="Selecione a matrícula"
+                            </select>
+                            <Label>Descrição</Label>
+                            <Input className="col-span-3" id="description"/>
+                            <Label>Valor</Label>
+                            <Input className="col-span-3" id="value"/>
+                            <Label>Data</Label>
+                            <Input className="col-span-3" id="date"/>
                         </div>
                         <DialogFooter>
-                            <Button type="button" variant="outline">Cancelar</Button>
-                            <Button type="submit">Criar</Button>
+                            <Button type="submit" className="bg-body">Criar</Button>
                         </DialogFooter>
                     </form>
                 </DialogContent>

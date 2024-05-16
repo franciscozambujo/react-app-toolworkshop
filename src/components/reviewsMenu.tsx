@@ -322,13 +322,15 @@ export function ReviewsMenu() {
                   placeholder="Ex: Serviço bastante prestável, aconselho."
                   className="col-span-3 flex h-36 max-h-72 min-h-36 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
                 />
-               <Rating
-                  className="px-9 mt-2"
-                  value={star}  
-                  onChange={(_event, newValue) => {
-                    setStar(newValue);
-                  }}
-                />
+                <div className="px-9 mt-4">
+                  <Rating
+                    value={star}  
+                    onChange={(_event, newValue) => {
+                      setStar(newValue);
+                    }}
+                  />
+                </div>
+               
               </div>
               <DialogFooter>
                 <Button type="submit" id="submitReview" className="bg-body">

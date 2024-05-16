@@ -56,3 +56,8 @@ export async function getAntantepenultimateReview() {
   const [rows] = await pool.query("SELECT id, nome, email, descricao, estrelas FROM avaliacoes WHERE id = (SELECT id FROM avaliacoes ORDER BY id DESC LIMIT 1 OFFSET 3);");
   return rows;
 } 
+
+export async function getCarPlate() {
+  const [rows] = await pool.query("SELECT matricula FROM veiculos JOIN clientes ON veiculos.cliente = clientes.id WHERE clientes.nome LIKE '%nomeCliente%';");
+  return rows;
+}
