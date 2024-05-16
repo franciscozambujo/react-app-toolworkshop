@@ -1,6 +1,17 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import { getEmployees, getInvoices , getClients, getVehicles, createReview, getLastReview, getPenultimateReview, getAntantepenultimateReview, getAntepenultimateReview, createCarCheck}  from './database.js';
+import { getEmployees, 
+  getInvoices, 
+  getClients, 
+  getVehicles, 
+  createReview, 
+  getLastReview, 
+  getPenultimateReview, 
+  getAntantepenultimateReview, 
+  getAntepenultimateReview, 
+  createCarCheck,
+  getCarPlate
+}  from './database.js';
 
 const app = express();
 app.use(bodyParser.json());
@@ -32,28 +43,6 @@ app.get("/invoices", async (req, res) => {
   res.send(invoices);
 });
 
-app.post("/createReviews", async (req, res) => {
-  const { name, email, description, rating } = req.body;
-  try {
-    await createReview(name, email, description, rating);
-    res.send({ message: "Review criada com sucesso!" });
-  } catch (err) {
-    console.error(err);
-    res.status(500).send({ message: "Erro ao criar review" });
-  }
-});
-
-app.post("/createCarChecks", async (req, res) => {
-  const { name, phone, car, plate, checkDate } = req.body;
-  try {
-    await createCarCheck(name, phone, car, plate, checkDate);
-    res.send({ message: "Agendamento criado com sucesso!" });
-  } catch (err) {
-    console.error(err);
-    res.status(500).send({ message: "Erro ao criar agendamento!" });
-  }
-});
-
 app.get("/lastReview", async (req, res) => {
   const reviews = await getLastReview();
   res.send(reviews);
@@ -72,6 +61,53 @@ app.get("/antePenultimateReview", async (req, res) => {
 app.get("/antantePenultimateReview", async (req, res) => {
   const antantePenultimateReview = await getAntantepenultimateReview();
   res.send(antantePenultimateReview);
+});
+
+app.post("/createCarChecks", async (req, res) => {
+  const { name, phone, car, plate, checkDate } = req.body;
+  try {
+    await createCarCheck(name, phone, car, plate, checkDate);
+    res.send({ message: "Agendamento criado com sucesso!" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({ message: "Erro ao criar agendamento!" });
+  }
+});
+
+app.post("/createReviews", async (req, res) => {
+  const { name, email, description, rating } = req.body;
+  try {
+    await createReview(name, email, description, rating);
+    res.send({ message: "Review criada com sucesso!" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({ message: "Erro ao criar review" });
+  }
+});
+
+app.post("/createCarRepairs", async (req, res) => {
+  const { name, plate, description, value, date } = req.body;
+  try {
+    await createReview(name, plate, description, value, date);
+    res.send({ message: "Reparação de carro criada com sucesso!" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({ message: "Erro ao criar reparação de carro" });
+  }
+});
+
+app.get('/carPlate', async (req, res) => {
+  const { nomeCliente } = req.query;
+  if (!nomeCliente) {
+    return res.status(400).json({ error: 'nomeCliente is required' });
+  }
+  try {
+    const matriculas = await getCarPlate(nomeCliente);
+    res.json(matriculas);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
 });
 
 app.use((err, req, res, nextTick) => {

@@ -25,18 +25,6 @@ export async function getInvoices(){
   return rows;
 }
 
-export async function createReview(name, email, description, rating) {
-  const query = "INSERT INTO avaliacoes (nome, email, descricao, estrelas) VALUES (?,?,?,?);";
-  const values = [name, email, description, rating];
-  await pool.query(query, values);
-}
-
-export async function createCarCheck(name, phone, car, plate, checkDate) {
-  const query = "INSERT INTO revisoes (nome, numero_tele, carro, matricula, data_agendada) VALUES (?,?,?,?,?);";
-  const values = [name, phone, car, plate, checkDate];
-  await pool.query(query, values);
-}
-
 export async function getLastReview() {
   const [rows] = await pool.query("SELECT id, nome, email, descricao, estrelas FROM avaliacoes ORDER BY id DESC LIMIT 1;");
   return rows;
@@ -57,7 +45,26 @@ export async function getAntantepenultimateReview() {
   return rows;
 } 
 
-export async function getCarPlate() {
-  const [rows] = await pool.query("SELECT matricula FROM veiculos JOIN clientes ON veiculos.cliente = clientes.id WHERE clientes.nome LIKE '%nomeCliente%';");
+export async function getCarPlate(nomeCliente) {
+  const query = `SELECT matricula FROM veiculos JOIN clientes ON veiculos.cliente = clientes.id WHERE clientes.nome LIKE '%${nomeCliente}%';`;
+  const [rows] = await pool.query(query);
   return rows;
+}
+
+export async function createCarCheck(name, phone, car, plate, checkDate) {
+  const query = "INSERT INTO revisoes (nome, numero_tele, carro, matricula, data_agendada) VALUES (?,?,?,?,?);";
+  const values = [name, phone, car, plate, checkDate];
+  await pool.query(query, values);
+}
+
+export async function createReview(name, email, description, rating) {
+  const query = "INSERT INTO avaliacoes (nome, email, descricao, estrelas) VALUES (?,?,?,?);";
+  const values = [name, email, description, rating];
+  await pool.query(query, values);
+}
+
+export async function createCarRepair(name, plate, description, value, date) {
+  const query = "INSERT INTO reparacoes (cliente, veiculo, descricao, valor, data) VALUES (?,?,?,?,?);";
+  const values = [name, plate, description, value, date];
+  await pool.query(query, values);
 }
