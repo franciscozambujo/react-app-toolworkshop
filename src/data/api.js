@@ -12,8 +12,9 @@ import { getEmployees,
   createCarCheck,
   getCarPlate,
   createUser,
-  getUsers,
   createCarRepair,
+  getUsersByEmail,
+  getUsersRole,
 }  from './database.js';
 
 const app = express();
@@ -66,14 +67,31 @@ app.get("/antantePenultimateReview", async (req, res) => {
   res.send(antantePenultimateReview);
 });
 
-app.get("/users", async (req, res) => {
+app.get("/usersByemail", async (req, res) => {
   const { email } = req.query;
   if (!email) {
     return res.status(400).json({ error: 'email is required' });
   }
   try {
-    const users = await getUsers(email);
+    const email = await getUsersByEmail(email);
     res.json(users);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+app.get("/usersByRole", async (req, res) => {
+  const { user, password } = req.query;
+  if (!user) {
+    return res.status(400).json({ error: 'user is required' });
+  }
+  if (!password) {
+    return res.status(400).json({ error: 'password is required' });
+  }
+  try {
+    const cargo = await getUsersRole(user, password);
+    res.json(cargo);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal server error' });
@@ -137,8 +155,6 @@ app.post("/createUser", async (req, res) => {
     res.status(500).send({ message: "Erro ao criar utilizador" });
   }
 });
-
-
 
 app.use((err, req, res, nextTick) => {
     console.error(err.stack);

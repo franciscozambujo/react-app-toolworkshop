@@ -21,7 +21,3 @@ dist-ssr
 *.ntvs*
 *.njsproj
 *.sln
-.vercel
-
-# Local Netlify folder
-.netlify

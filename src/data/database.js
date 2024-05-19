@@ -50,10 +50,16 @@ export async function getCarPlate(nomeCliente) {
   const [rows] = await pool.query(query);
   return rows;
 }
-export async function getUsers(email) {
+export async function getUsersByEmail(email) {
   const query = `SELECT utilizadores.email FROM utilizadores WHERE utilizadores.email LIKE '%${email}%';`;
   const [rows] = await pool.query(query);
   return rows;
+}
+
+export async function getUsersRole(user, password) {
+  const query = `SELECT utilizadores.cargo FROM utilizadores WHERE utilizadores.user = ? AND utilizadores.password = ?;`;
+  const [rows] = await pool.query(query, [user, password]);
+  return rows.length > 0 ? rows[0].cargo : null;
 }
 
 export async function createCarCheck(name, phone, car, plate, checkDate) {

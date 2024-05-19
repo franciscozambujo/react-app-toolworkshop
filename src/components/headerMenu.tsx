@@ -9,13 +9,14 @@ import {
 import * as React from "react"
 import { cn } from "@/lib/utils"
 import { Mail, MapPin, Phone } from "lucide-react"
+import {Link } from "react-router-dom"
 
 export function HeaderMenuNav() {
   const imgHeader = new URL("@/public/images/header_branco.png", import.meta.url).href;
   return (
     <div className="bg-transparent h-16 grid content-center font-bodyfooter text-white py-2 z-0">
       <button className="absolute max-w-xs max-h-xs -mt-6">
-        <img src={imgHeader} alt="Logotipo" onClick={() => (window.location.href = "../index.html")} />
+        <Link to ="/"><img src={imgHeader} alt="Logotipo"/></Link>
       </button>
       <NavigationMenu className="mx-auto">
         <NavigationMenuList>
@@ -49,7 +50,8 @@ export function HeaderMenuNav() {
                     Uma oficina multimarca que opera há mais de 20 anos, conta com muitos clientes satisfeitos.
                   </p>
                 </ListItem>
-                <ListItem href="../site-pap/contactPage.html" title="Contacte-Nos">
+                <Link to ="/contact">
+                <ListItem title="Contacte-Nos">
                   <div className="grid grid-flow-col auto-cols-max mt-1">
                     <Phone className="size-5 mr-1" />
                     <p>266 707 212</p>
@@ -63,7 +65,7 @@ export function HeaderMenuNav() {
                     <p>Évora</p>
                   </div>
                   <p>R. Armando Antunes da Silva 18, 7005-145 Horta do Bispo</p>
-                </ListItem>
+                </ListItem></Link>
               </ul>
             </NavigationMenuContent>
           </NavigationMenuItem>
@@ -124,11 +126,9 @@ export function HeaderMenuNav() {
         </NavigationMenuList>
       </NavigationMenu>
       <div className="text-lg hover:font-bold absolute left-auto right-6 m-2 ">
-        <button
-          onClick={() => (window.location.href = "../login.html")}
-        >
-          Login
-        </button>
+        <Link to = "/login">
+            Login
+        </Link>
       </div>
     </div>
   );

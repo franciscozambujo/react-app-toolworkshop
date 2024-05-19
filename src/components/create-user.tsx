@@ -6,6 +6,7 @@ import {
   AlertDescription,
   AlertTitle,
 } from "@/components/ui/alert"
+import { Link } from "react-router-dom";
 
 export function CreateUser() {
   const API_URL = "http://localhost:3000";
@@ -65,7 +66,8 @@ export function CreateUser() {
                 </div>
                 <Button type="submit" className="bg-body w-max m-auto px-6 py-2 rounded text-white text-sm font-normal">Criar</Button>
             </form>
-        <div className="text-sm text-center mt-[1.6rem]">Já tem uma conta? <a className="text-sm text-[#53AE6E]" href="#">Inicie sessão aqui!</a></div>
+        <div className="text-sm text-center mt-[1.6rem]">Já tem uma conta? <Link to="/login"><a className="text-sm text-[#53AE6E]">Inicie sessão aqui!</a></Link>
+        </div>
         </div>
     </div>
    )

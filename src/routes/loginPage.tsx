@@ -1,15 +1,12 @@
 import React from 'react';
-import { UsersLogin } from "../components/loginPage-main";
+import { LoginForm } from "../components/loginPage-main";
 import { HeaderMenuNav } from "../components/headerMenu";
-import { Outlet } from "react-router-dom"
 
-const LoginPage = () => {
+export function LoginPage () {
   return (
     <div className="bg-slate-800">
       <HeaderMenuNav />
-      <UsersLogin />
+      <LoginForm />
     </div>
   )
 }
-
-export default LoginPage
