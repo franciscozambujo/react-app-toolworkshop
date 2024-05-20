@@ -1,11 +1,5 @@
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
-import { AlertCircle } from "lucide-react"
-import {
-  Alert,
-  AlertDescription,
-  AlertTitle,
-} from "@/components/ui/alert"
 import { Link } from "react-router-dom";
 
 export function CreateUser() {
@@ -53,8 +47,8 @@ export function CreateUser() {
   return ( 
     <div className="h-screen flex items-center justify-center">
       <div className="max-w-md flex flex-col p-4 rounded-md text-black font-bodyfooter">
-            <div className="text-2xl font-bold mb-2 text-[#1e0e4b] text-center">Oficina Fernando Costa Fialho <span className="text-[#53AE6E]"><br />Área do Cliente</span></div>
-            <div className="text-sm font-normal mb-4 text-center text-[#1e0e4b]">Crie agora a sua conta</div>
+            <div className="text-2xl font-bold mb-2 text-white text-center">Oficina Fernando Costa Fialho <span className="text-[#53AE6E]"><br />Área do Cliente</span></div>
+            <div className="text-sm font-normal mb-4 text-center text-white">Crie agora a sua conta</div>
             <form onSubmit={handleSubmit} className="flex flex-col gap-3">
                 <div className="block relative"> 
                   <label className="label-login">Nome de utilizador</label>
@@ -66,7 +60,7 @@ export function CreateUser() {
                 </div>
                 <Button type="submit" className="bg-body w-max m-auto px-6 py-2 rounded text-white text-sm font-normal">Criar</Button>
             </form>
-        <div className="text-sm text-center mt-[1.6rem]">Já tem uma conta? <Link to="/login"><a className="text-sm text-[#53AE6E]">Inicie sessão aqui!</a></Link>
+        <div className="text-sm text-center mt-[1.6rem] text-[#53AE6E]">Já tem uma conta? <Link to="/login"><a className="text-sm text-white">Inicie sessão aqui!</a></Link>
         </div>
         </div>
     </div>

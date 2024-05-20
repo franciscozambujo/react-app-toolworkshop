@@ -9,7 +9,7 @@ export function LoginForm () {
   const [errorMessage, setErrorMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = async (event: any) => {
+  const handleSubmit = async (event : any) => {
     event.preventDefault();
     
     const formData = {
@@ -30,17 +30,17 @@ export function LoginForm () {
         //fazer token para user
       }
     } catch (error) {
-      console.error('Error fetching matriculas:', error);
+      console.error('Error fetching users:', error);
     }
   };
   
   return (
     <div className="h-screen flex items-center justify-center">
       <div className="max-w-md flex flex-col p-4 rounded-md text-black font-bodyfooter">
-        <div className="text-2xl font-bold mb-2 text-[#1e0e4b] text-center">
+        <div className="text-2xl font-bold mb-2 text-white text-center">
           Oficina Fernando Costa Fialho <span className="text-[#53AE6E]"><br />Área do Cliente</span>
         </div>
-        <div className="text-sm font-normal mb-4 text-center text-[#1e0e4b]">Inicie sessão na sua conta</div>
+        <div className="text-sm font-normal mb-4 text-center text-white">Inicie sessão na sua conta</div>
         <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
           <div className="block relative">
             <label className="label-login">Username</label>
@@ -67,10 +67,10 @@ export function LoginForm () {
             {isLoading ? 'Entrando...' : 'Entrar'}
           </Button>
         </form>
-        <div className="text-sm text-center mt-[1.6rem]">
-          Não tem uma conta?
+        <div className="text-sm text-center mt-[1.6rem] text-[#53AE6E]">
+          Não tem uma conta? <br />
           <Link to="/createuser">
-            <a className="text-sm text-[#53AE6E]">Registe-se aqui gratuitamente!!</a>
+            <a className="text-sm text-white z-10 hover:underline">Registe-se aqui gratuitamente!!</a>
           </Link>
         </div>
       </div>
