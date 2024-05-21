@@ -21,11 +21,13 @@ import { format } from 'date-fns';
 import debounce from 'lodash.debounce';
 
 
-export function DataTableF(){
+export function DataTableR(){
     const [invoices, setInvoices] = useState<any[]>([]);
     const [matriculas, setMatriculas] = useState<any[]>([]);
+    const [searchRepairs, setRepairs] = useState('');
     const [nomeCliente, setNomeCliente] = useState('');
     const [selectedMatricula, setSelectedMatricula] = useState('');
+    const [selectedRepairs, setSelectedRepairs] = useState<any[]>([]);
     const [isOpen, setIsOpen] = useState(false);
     const API_URL = "http://localhost:3000";
 
@@ -42,6 +44,21 @@ export function DataTableF(){
         const nomeCliente = e.target.value;
         setNomeCliente(nomeCliente);
         debouncedFetchMatriculas(nomeCliente);
+    };
+
+    const deboucedFetchRepairs = debounce(async (searchRepairs: string) => {
+        try {
+        const response = await fetch(`${API_URL}/repairs${searchRepairs}`);
+        const dataRepairs = await response.json();
+        setRepairs(dataRepairs);
+        } catch (error) {
+        console.error('Error fetching repairs:', error);
+        }
+    }, 500);
+    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const searchRepairs = e.target.value;
+        setRepairs(searchRepairs);
+        deboucedFetchRepairs(searchRepairs);
     };
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {    
@@ -84,14 +101,17 @@ export function DataTableF(){
     <div className="p-8 max-w-5xl mx-auto space-y-4">
         <div className="flex items-center justify-between">
             <form className="flex items-center gap-8">
-                <Input name="client" placeholder="Pesquisar Dados"/>
-                <Button type="submit" variant="link">Pesquisar resultados</Button>
+                <Input
+                value={searchRepairs}
+                onChange={handleSearchChange}
+                id="search"
+                placeholder="Pesquisar Dados"
+                />
             </form>
             <Dialog open={isOpen} onOpenChange={setIsOpen}>
                 <DialogTrigger asChild>
                     <Button 
                     className="bg-body font-bodyfooter"
-                    onClick={() => setIsOpen(true)}
                     >Nova Reparação</Button>
                 </DialogTrigger>
                 <DialogContent>
@@ -109,6 +129,7 @@ export function DataTableF(){
                                 onChange={handleNomeClienteChange}
                                 placeholder="Francisco"
                                 id="nome"
+                                required
                                 />
                             <Label>Matrícula</Label>
                             <select
@@ -117,6 +138,7 @@ export function DataTableF(){
                                 className="col-span-3 select"
                                 name="carPlate"
                                 id="matricula"
+                                required
                                 >
                                 {matriculas.map((matricula) => (
                                     <option key={matricula.id} value={matricula.id}>
@@ -125,11 +147,11 @@ export function DataTableF(){
                                 ))}
                             </select>
                             <Label>Descrição</Label>
-                            <Input className="col-span-3" id="descricao"/>
+                            <Input className="col-span-3" id="descricao" required/>
                             <Label>Valor</Label>
-                            <Input className="col-span-3" id="valor"/>
+                            <Input className="col-span-3" id="valor" required/>
                             <Label>Data</Label>
-                            <Input className="col-span-3" id="data"/>
+                            <Input className="col-span-3" id="data" required/>
                         </div>
                         <DialogFooter>
                             <Button type="submit" className="bg-body">Criar</Button>

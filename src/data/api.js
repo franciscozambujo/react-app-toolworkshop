@@ -15,6 +15,7 @@ import { getEmployees,
   createCarRepair,
   getUsersByEmail,
   getUsersRole,
+  getRepairs,
 }  from './database.js';
 
 const app = express();
@@ -106,6 +107,20 @@ app.get('/carPlate', async (req, res) => {
   try {
     const matriculas = await getCarPlate(nomeCliente);
     res.json(matriculas);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+app.get('/repairs', async (req, res) => {
+  const { searchRepairs } = req.query;
+  if (!searchRepairs) {
+    return res.status(400).json({ error: 'searchRepairs is required' });
+  }
+  try {
+    const searchedRepairs = await getRepairs(searchRepairs);
+    res.json(searchedRepairs);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal server error' });

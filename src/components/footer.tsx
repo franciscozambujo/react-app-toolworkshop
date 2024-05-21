@@ -1,5 +1,6 @@
 import {Phone, Mail, MapPin, Clock3} from 'lucide-react'
 import {FaGithub, FaLinkedin} from "react-icons/fa";
+import { Link } from 'react-router-dom';
 
 export function Footer() {
   const logo = new URL("@/public/images/logo.png", import.meta.url).href;
@@ -27,13 +28,13 @@ export function Footer() {
             <Clock3 className="-ml-0.5 size-10"/>
             <p className="px-2">8:30 - 12:30 <br /> 14:30 - 18:30</p>
           </div>
-          <button className="underline underline-offset-4 pt-2 bg-transparent hover:font-bold" onClick={() => (window.location.href = "../privacy.html")}>
+          <Link to ="/policies"><button className="underline underline-offset-4 pt-2 bg-transparent hover:font-bold">
             Política de privacidade
-          </button>
+          </button></Link>
           <br/>
-          <button className="underline underline-offset-4 bg-transparent hover:font-bold" onClick={() => (window.location.href = "../Terms.html")}>
+          <Link to ="/policies"><button className="underline underline-offset-4 bg-transparent hover:font-bold">
             Termos e Condições
-          </button>
+          </button></Link>
         </div>
       </div>
       <hr className="m-auto mt-4 mb-4 border-[#E1DACB] w-4/5"/>

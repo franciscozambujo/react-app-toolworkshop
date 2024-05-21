@@ -1,15 +1,14 @@
 import React from 'react'
-import { EmployeePage } from '../components/employeePage-main.tsx';
-import { DataTableF } from '../components/data-table-invoices.tsx';
-/*import { ComboBoxCar } from './components/CarComboBox.tsx'*/
-import { HeaderEmployee } from '../components/header-employee.tsx';
+import { MainEmployeePage } from '../components/employeePage-main.tsx';
+import { DataTableR } from '../components/data-table-repairs.tsx';
+import { HeaderEnterprise } from '../components/header-enterprise.tsx';
 
-export const Employee: React.FC = () => {
+export function EmployeePage (){
   return (
     <div>
-      <HeaderEmployee/>
-      <EmployeePage/>
-      <DataTableF />
+      <HeaderEnterprise/>
+      <MainEmployeePage/>
+      <DataTableR />
     </div>
   );
 };

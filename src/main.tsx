@@ -12,6 +12,9 @@ import {ErrorPage} from './routes/errorPage.tsx';
 import { ContactPage } from './routes/contactPage.tsx';
 import { CreateNewUser } from './routes/createUser.tsx';
 import { OwnerPage } from './routes/ownerPage.tsx';
+import { PoliciesPage } from './routes/policiesPage.tsx';
+import { EmployeePage } from './routes/employeePage.tsx';
+import { RepairsPage } from './routes/repairsPage.tsx';
 
 const router = createBrowserRouter([
   {
@@ -35,13 +38,23 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage/>,
   },
   {
-    path: "/contact",
-    element: <ContactPage/>,
+    path: "/empresa/ownerpage",
+    element: <OwnerPage/>,
     errorElement: <ErrorPage/>,
   },
   {
-    path: "/ownerpage",
-    element: <OwnerPage/>,
+    path: "/empresa/employeepage",
+    element: <EmployeePage/>,
+    errorElement: <ErrorPage/>,
+  },
+  {
+    path: "/empresa/CarRepairs",
+    element: <RepairsPage/>,
+    errorElement: <ErrorPage/>,
+  },
+  {
+    path: "/policies",
+    element: <PoliciesPage/>,
     errorElement: <ErrorPage/>,
   },
 ])
@@ -51,6 +64,3 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <RouterProvider router={router}/>
   </React.StrictMode>,
 )
-
-
-

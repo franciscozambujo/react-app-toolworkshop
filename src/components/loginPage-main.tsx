@@ -1,39 +1,53 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from './ui/button';
+import { Alert, AlertDescription, AlertTitle } from './ui/alert';
+import { Toaster, toast } from 'sonner';
 
-
-export function LoginForm () {
+export function LoginForm() {
   const [user, setUser] = useState('');
   const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = async (event : any) => {
+  const handleSubmit = async (event:any) => {
     event.preventDefault();
-    
+
     const formData = {
       user: (event.target as HTMLFormElement).user.value,
       password: (event.target as HTMLFormElement).password.value,
     };
-    
+
     try {
-      const response = await fetch(`http://localhost:3000/usersByRole?user=${formData.user}&password=${formData.password}`);
+      const response = await fetch(
+        `http://localhost:3000/usersByRole?user=${formData.user}&password=${formData.password}`
+      );
       const data = await response.json();
+
       if (data === 'owner') {
-        <Link to="/ownerpage"/>
         console.log(data);
+        toast.success(`Login efetuado com sucesso!`, {
+          duration: 5000,
+        });
+        setTimeout(() => {
+          window.location.href = '/empresa/ownerpage';
+        }, 2000);
       } else if (data === 'employee') {
         console.log(data);
-        //fazer redirect para empregado
+        toast.success(`Login efetuado com sucesso!`, {
+          duration: 5000,
+        });
+        setTimeout(() => {
+          window.location.href = '/empresa/employeepage';
+        }, 2000);
+      } else if (data === 'client') {
+        // Generate token for user
       } else {
-        //fazer token para user
+        toast.error('Credenciais inválidas!')
       }
     } catch (error) {
       console.error('Error fetching users:', error);
+      toast.error('Erro ao iniciar sessão. Tente novamente.');
     }
   };
-  
   return (
     <div className="h-screen flex items-center justify-center">
       <div className="max-w-md flex flex-col p-4 rounded-md text-black font-bodyfooter">
@@ -62,18 +76,18 @@ export function LoginForm () {
               required
             />
           </div>
-          {errorMessage && <div className="text-red-500 text-sm mb-2">{errorMessage}</div>}
-          <Button type="submit" className="bg-body w-max m-auto px-6 py-2 rounded text-white text-sm font-normal" disabled={isLoading}>
-            {isLoading ? 'Entrando...' : 'Entrar'}
+          <Button type="submit" className="bg-body w-max m-auto px-6 py-2 rounded text-white text-sm font-normal">
+            Entrar
           </Button>
         </form>
         <div className="text-sm text-center mt-[1.6rem] text-[#53AE6E]">
           Não tem uma conta? <br />
           <Link to="/createuser">
-            <a className="text-sm text-white z-10 hover:underline">Registe-se aqui gratuitamente!!</a>
+            <a className="text-sm text-white z-10 hover:underline">Registe-se aqui gratuitamente!</a>
           </Link>
         </div>
       </div>
+      <Toaster richColors/>
     </div>
   );
-};
+}

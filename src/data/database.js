@@ -50,6 +50,13 @@ export async function getCarPlate(nomeCliente) {
   const [rows] = await pool.query(query);
   return rows;
 }
+
+export async function getRepairs(searchRepairs) {
+  const query = `SELECT * FROM reparacoes JOIN veiculos ON reparacoes.veiculo = veiculos.id WHERE veiculos.matricula LIKE '%${searchRepairs}%';`;
+  const [rows] = await pool.query(query);
+  return rows;
+}
+
 export async function getUsersByEmail(email) {
   const query = `SELECT utilizadores.email FROM utilizadores WHERE utilizadores.email LIKE '%${email}%';`;
   const [rows] = await pool.query(query);

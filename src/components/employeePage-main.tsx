@@ -1,4 +1,4 @@
-export function EmployeePage(){
+export function MainEmployeePage(){
     return(
         <div>
             <h1>Empregado</h1>

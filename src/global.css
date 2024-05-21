@@ -89,6 +89,9 @@
   .label-login{
     @apply block text-white cursor-text text-sm leading-[140%] font-normal mb-2 block cursor-text text-sm leading-[140%] font-normal mb-2;
   }
+  .btn-headerEnterprise{
+    @apply rounded-md border-2 border-white hover:bg-background hover:text-black m-4 px-2 py-1 text-base font-normal;
+  }
 }
 
 
