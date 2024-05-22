@@ -1,10 +1,10 @@
 import mysql from 'mysql2';
 
 const pool = mysql.createPool({
-  host: '127.0.0.1',
-  user: 'root',
+  host: process.env.DB_HOST,
+  user: process.env.DB_USERNAME,
   password: '',
-  database: 'db_oficina'
+  database: process.env.DB_NAME
 }).promise();
 
 export async function getEmployees(){
