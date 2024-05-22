@@ -1,5 +1,4 @@
 import { Button } from "./ui/button";
-import { Input } from "./ui/input";
 import { Link } from "react-router-dom";
 
 export function CreateUser() {
@@ -52,11 +51,11 @@ export function CreateUser() {
             <form onSubmit={handleSubmit} className="flex flex-col gap-3">
                 <div className="block relative"> 
                   <label className="label-login">Nome de utilizador</label>
-                  <Input type="text" id="user" required placeholder="Ex: Fernando" className="input-login"/>
+                  <input type="text" id="user" required placeholder="Ex: Fernando" className="input-login"/>
                   <label className="label-login mt-6">Email</label>
-                  <Input type="text" id="email" required placeholder="Ex: fernando@gmail.com" className="input-login"/>
+                  <input type="text" id="email" required placeholder="Ex: fernando@gmail.com" className="input-login"/>
                   <label className="label-login mt-6">Password</label>
-                  <Input type="password" id="password" required className="input-login"/>
+                  <input type="password" id="password" required className="input-login"/>
                 </div>
                 <Button type="submit" className="bg-body w-max m-auto px-6 py-2 rounded text-white text-sm font-normal">Criar</Button>
             </form>
