@@ -24,7 +24,7 @@ export function ReviewsMenu() {
   const [penultimateReview, setPenultimateReview] = useState<any[]>([]);
   const [antePenultimateReview, setAntePenultimateReview] = useState<any[]>([]);
   const [antantePenultimateReview, setAntantePenultimateReview] = useState<any[]>([]);
-  const API_URL = "http://localhost:3000";
+  const API_URL = "http://192.168.1.71:3000";
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {    
     event.preventDefault();
