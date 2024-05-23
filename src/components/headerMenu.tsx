@@ -75,42 +75,43 @@ export function HeaderMenuNav() {
               <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
                 <li className="row-span-4">
                   <NavigationMenuLink asChild>
-                    <a
-                      className="bg-green-100 flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
-                      href="/"
-                    >
-                      <div className="mb-2 mt-4 text-lg font-medium">
-                        Serviços
-                      </div>
-                      <p className="text-sm leading-tight text-muted-foreground">
-                        Lorem, ipsum dolor sit amet consectetur adipisicing
-                        elit. Accusantium, porro nam ullam debitis ratione,
-                        eaque reiciendis sequi quas quos recusandae corrupti!
-                        Quam debitis quasi accusamus harum autem odio
-                        praesentium sed.
-                      </p>
-                    </a>
+                    <Link to="/services">
+                      <a
+                        className="bg-green-100 flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+                      >
+                        <div className="mb-2 mt-4 text-lg font-medium">
+                          Serviços
+                        </div>
+                        <p className="text-sm leading-tight text-muted-foreground">
+                          Lorem, ipsum dolor sit amet consectetur adipisicing
+                          elit. Accusantium, porro nam ullam debitis ratione,
+                          eaque reiciendis sequi quas quos recusandae corrupti!
+                          Quam debitis quasi accusamus harum autem odio
+                          praesentium sed.
+                        </p>
+                      </a>
+                    </Link>
                   </NavigationMenuLink>
                 </li>
-                <ListItem href="#" title="Revisão Total">
+                <ListItem title="Revisão Total">
                   <p>
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                     Doloribus, odio!
                   </p>
                 </ListItem>
-                <ListItem href="#" title="Baterias">
+                <ListItem title="Baterias">
                   <p>
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                     Doloribus, odio!
                   </p>
                 </ListItem>
-                <ListItem href="#" title="Travagem e Suspensão">
+                <ListItem title="Travagem e Suspensão">
                   <p>
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                     Doloribus, odio!
                   </p>
                 </ListItem>
-                <ListItem href="#" title="Diagnóstico Auto">
+                <ListItem title="Diagnóstico Auto">
                   <p>
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                     Doloribus, odio!

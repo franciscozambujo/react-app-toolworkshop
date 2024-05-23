@@ -6,13 +6,11 @@ export function LoginPage () {
   const imgBg = new URL("@/public/images/oficina_login.png", import.meta.url).href;
   return (
     <div>
-      <div className="absolute inset-0 z-0">
         <img
-          className="object-cover"
+          className="absolute inset-0 z-0"
           src={imgBg}
           alt="Oficina Frente"
         />
-      </div>
         <HeaderMenuNav />
       <div className="relative">
         <LoginForm />

@@ -1,12 +1,12 @@
-import { ContactSection } from '../components/contactPage-section.tsx';
+import { ServiceSection } from '../components/servicePage-section.tsx';
 import { HeaderMenuNav } from '../components/headerMenu.tsx';
 import { Footer } from '../components/footer.tsx';
 
-export function ContactPage() {
+export function ServicesPage() {
   return (
     <div>
       <HeaderMenuNav/>
-      <ContactSection/>
+      <ServiceSection/>
       <Footer />
     </div>
   );

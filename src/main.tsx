@@ -9,7 +9,7 @@ import {
 import {LoginPage} from './routes/loginPage.tsx'
 import { App } from './App.tsx';
 import {ErrorPage} from './routes/errorPage.tsx';
-import { ContactPage } from './routes/contactPage.tsx';
+import { ServicesPage } from './routes/servicePage.tsx';
 import { CreateNewUser } from './routes/createUser.tsx';
 import { OwnerPage } from './routes/ownerPage.tsx';
 import { PoliciesPage } from './routes/policiesPage.tsx';
@@ -28,8 +28,8 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage/>,
   },
   {
-    path: "/contact",
-    element: <ContactPage/>,
+    path: "/services",
+    element: <ServicesPage/>,
     errorElement: <ErrorPage/>,
   },
   {

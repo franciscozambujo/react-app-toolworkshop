@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from './ui/button';
-import { Alert, AlertDescription, AlertTitle } from './ui/alert';
 import { Toaster, toast } from 'sonner';
 
 export function LoginForm() {
@@ -49,7 +48,7 @@ export function LoginForm() {
     }
   };
   return (
-    <div className="h-screen flex items-center justify-center">
+    <div className="flex items-center justify-center">
       <div className="max-w-md flex flex-col p-4 rounded-md text-black font-bodyfooter">
         <div className="text-2xl font-bold mb-2 text-white text-center">
           Oficina Fernando Costa Fialho <span className="text-[#53AE6E]"><br />Área do Cliente</span>

@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import {
   Dialog,
   DialogContent,
@@ -7,14 +7,15 @@ import {
   DialogHeader,
   DialogTrigger,
   DialogFooter,
-} from "@/components/ui/dialog";
-import { Button } from "./ui/button";
-import { Label } from "./ui/label";
-import { Input } from "./ui/input";
-import { useEffect, useState } from "react";
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import * as React from 'react';
-import Rating from '@mui/material/Rating';
+} from "@/components/ui/dialog"
+import { Button } from "./ui/button"
+import { Label } from "./ui/label"
+import { Input } from "./ui/input"
+import { useEffect, useState } from "react"
+import { Avatar, AvatarImage } from "@/components/ui/avatar"
+import * as React from 'react'
+import Rating from '@mui/material/Rating'
+import {Toaster, toast} from 'sonner'
 
 export function ReviewsMenu() {
   const usersLogo = new URL("@/public/images/user.png", import.meta.url).href;
@@ -24,7 +25,8 @@ export function ReviewsMenu() {
   const [penultimateReview, setPenultimateReview] = useState<any[]>([]);
   const [antePenultimateReview, setAntePenultimateReview] = useState<any[]>([]);
   const [antantePenultimateReview, setAntantePenultimateReview] = useState<any[]>([]);
-  const API_URL = "http://192.168.1.71:3000";
+  const API_URL = "http://localhost:3000";
+  //const API_URL = "http://192.168.1.71:3000";
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {    
     event.preventDefault();
@@ -46,6 +48,9 @@ export function ReviewsMenu() {
     .then((data) => console.log(data))
     .catch((error) => console.error(`Error creating review: ${error}`));
     setIsOpen(false);
+    toast.success(`A sua avaliação foi validada.`, {
+      duration: 2000,
+    });
     window.location.reload();
   }
 
@@ -300,7 +305,7 @@ export function ReviewsMenu() {
               </DialogDescription>
             </DialogHeader>
             <form onSubmit={handleSubmit} className="space-y-8">
-              <div className="grid grid-cols-4 items-center text-right gap-2">
+              <div className="grid grid-cols-4 items-center text-right gap-4">
                 <Label>Nome</Label>
                 <Input
                   className="col-span-3"
@@ -322,16 +327,14 @@ export function ReviewsMenu() {
                   placeholder="Ex: Serviço bastante prestável, aconselho."
                   className="col-span-3 flex h-36 max-h-72 min-h-36 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
                 />
-                <div className="px-9 mt-4">
+                <Label>Pontuação</Label>
                   <Rating
                     value={star}  
                     onChange={(_event, newValue) => {
                       setStar(newValue);
                     }}
                   />
-                </div>
-               
-              </div>
+               </div>
               <DialogFooter>
                 <Button type="submit" id="submitReview" className="bg-body">
                   Submeter
@@ -340,6 +343,7 @@ export function ReviewsMenu() {
             </form>
           </DialogContent>
         </Dialog>
+        <Toaster richColors/>
       </div>
     </div>
   );

@@ -20,9 +20,6 @@ export function CreateUser() {
       }
       const searchData = await searchResponse.json();
       if (searchData.length > 0) {
-        <div>
-          <p>conaaaaaa</p>
-        </div>
         console.log("conassada");
         return;
       }

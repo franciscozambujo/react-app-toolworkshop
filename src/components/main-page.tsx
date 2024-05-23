@@ -8,10 +8,12 @@ import { Dialog,
   DialogFooter, 
   DialogHeader, 
   DialogTitle,
-  DialogDescription } from "./ui/dialog";
-import { Label } from "./ui/label";
-import { Input } from "./ui/input";
-import React from "react";
+  DialogDescription } from "./ui/dialog"
+import { Label } from "./ui/label"
+import { Input } from "./ui/input"
+import React from "react"
+import { Toaster, toast } from 'sonner'
+import { pt } from 'date-fns/locale'
 
 export function MainPage() {
   const imgRevisao = new URL("@/public/images/give_car_keys.jpg", import.meta.url).href;
@@ -32,6 +34,15 @@ export function MainPage() {
       checkDate: formattedDate ,
     };
 
+    const today = new Date();
+    const oneWeekFromToday = new Date(today.setDate(today.getDate() + 7));
+    if (new Date(formData.checkDate) < oneWeekFromToday) {
+      toast.error(`Só pode agendar uma revisão apartir de dia ${format(oneWeekFromToday, 'dd')} de ${format(oneWeekFromToday, 'MMMMMM', { locale: pt })}!`, {
+        duration: 2000,
+      });
+      return;
+    }
+
     console.log(formData.name);
     console.log(formData.phone);
     console.log(formData.car);
@@ -49,6 +60,9 @@ export function MainPage() {
     .then((data) => console.log(data))
     .catch((error) => console.error(`Error creating carCheck: ${error}`));
     setIsOpen(false);
+    toast.success(`A revisão foi agendada com sucesso! Aguarde um contacto pela empresa.`, {
+      duration: 2000,
+    });
   }
 
   return(
@@ -71,7 +85,7 @@ export function MainPage() {
               </DialogDescription>
             </DialogHeader>
             <form onSubmit={handleSubmit} className="space-y-8">
-              <div className="grid grid-cols-4 items-center text-right gap-2">
+              <div className="grid grid-cols-4 items-center text-right gap-4 md:gap-2">
                 <Label>Nome</Label>
                 <Input
                   className="col-span-3"
@@ -106,7 +120,7 @@ export function MainPage() {
                   required
                 />
                 <Calendar
-                  className="col-span-2"
+                  className="col-span-2 pl-28"
                   mode="single"
                   selected={date}
                   onSelect={setDate}
@@ -124,6 +138,7 @@ export function MainPage() {
         </Dialog>
           </div>
         </div>
+        <Toaster richColors/>
       <div className="relative left-1/3 w-1/2 pb-40">
         <img src={imgInspecionar} alt="Revisão" className="h-64 float-right -mr-44"/>
         <div className="grid grid-rows-1 gap-2 row-span-3 self-center">
