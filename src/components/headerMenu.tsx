@@ -124,7 +124,7 @@ export function HeaderMenuNav() {
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
-      <div className="text-lg hover:font-bold absolute left-auto right-6 m-2 ">
+      <div className="text-lg hover:font-bold absolute left-auto right-6 m-2">
         <Link to = "/login">
             Login
         </Link>
