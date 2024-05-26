@@ -17,8 +17,8 @@ import {
     DialogFooter,
 } from "@/components/ui/dialog"
 import { useEffect, useState } from "react"
-import { format } from 'date-fns';
-import debounce from 'lodash.debounce';
+import { format } from 'date-fns'
+import debounce from 'lodash.debounce'
 
 
 export function DataTableR(){
@@ -45,6 +45,7 @@ export function DataTableR(){
     const handleNomeClienteChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const nomeCliente = e.target.value;
         setNomeCliente(nomeCliente);
+        setMatriculas([]);
         debouncedFetchMatriculas(nomeCliente);
     };
 
@@ -143,11 +144,15 @@ export function DataTableR(){
                                 id="matricula"
                                 required
                                 >
-                                {matriculas.map((matricula) => (
-                                    <option key={matricula.id} value={matricula.id}>
-                                    {matricula.matricula}
-                                    </option>
-                                ))}
+                                {Array.isArray(matriculas) && matriculas.length > 0 ? (
+                                    matriculas.map((matricula) => (
+                                        <option key={matricula.id} value={matricula.id}>
+                                            {matricula.matricula}
+                                        </option>
+                                    ))
+                                ) : (
+                                    <option>Nenhuma matrícula encontrada</option>
+                                )}
                             </select>
                             <Label>Descrição</Label>
                             <Input className="col-span-3" id="descricao" required/>

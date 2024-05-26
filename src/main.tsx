@@ -50,7 +50,6 @@ const router = createBrowserRouter([
   {
     path: "/empresa/carRepairs",
     element: <RepairsPage/>,
-    errorElement: <ErrorPage/>,
   },
   {
     path: "/policies",

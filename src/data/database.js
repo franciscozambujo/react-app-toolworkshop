@@ -48,19 +48,19 @@ export async function getAntantepenultimateReview() {
 export async function getCarPlate(nomeCliente) {
   const query = `SELECT matricula FROM veiculos JOIN clientes ON veiculos.cliente = clientes.id WHERE clientes.nome LIKE ?;`;
   const [rows] = await pool.query(query, [nomeCliente]);
-  return rows.length > 0 ? rows[0].matricula : null;
+  return rows;
 }
 
 export async function getRepairs(searchRepairs) {
   const query = `SELECT * FROM reparacoes JOIN veiculos ON reparacoes.veiculo = veiculos.id WHERE veiculos.matricula LIKE ?;`;
   const [rows] = await pool.query(query, [searchRepairs]);
-  return rows.length > 0 ? rows[0].searchRepairs : null;
+  return rows;
 }
 
 export async function getUsersByEmail(email) {
   const query = `SELECT utilizadores FROM utilizadores WHERE utilizadores.email LIKE ?;`;
   const [rows] = await pool.query(query, [email]);
-  return rows.length > 0 ? rows[0].email : null;
+  return rows;
 }
 
 export async function getUsersRole(user, password) {
