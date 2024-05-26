@@ -1,9 +1,9 @@
 import mysql from 'mysql2';
 
 const pool = mysql.createPool({
-  host: '144.64.182.184',
-  user : 'site',
-  password : 'Aspirina2019@',
+  host: 'localhost',
+  user : 'root',
+  password : '',
   database: 'db_oficina'
 }).promise();
 
@@ -46,21 +46,21 @@ export async function getAntantepenultimateReview() {
 } 
 
 export async function getCarPlate(nomeCliente) {
-  const query = `SELECT matricula FROM veiculos JOIN clientes ON veiculos.cliente = clientes.id WHERE clientes.nome LIKE '%${nomeCliente}%';`;
-  const [rows] = await pool.query(query);
-  return rows;
+  const query = `SELECT matricula FROM veiculos JOIN clientes ON veiculos.cliente = clientes.id WHERE clientes.nome LIKE ?;`;
+  const [rows] = await pool.query(query, [nomeCliente]);
+  return rows.length > 0 ? rows[0].matricula : null;
 }
 
 export async function getRepairs(searchRepairs) {
-  const query = `SELECT * FROM reparacoes JOIN veiculos ON reparacoes.veiculo = veiculos.id WHERE veiculos.matricula LIKE '%${searchRepairs}%';`;
-  const [rows] = await pool.query(query);
-  return rows;
+  const query = `SELECT * FROM reparacoes JOIN veiculos ON reparacoes.veiculo = veiculos.id WHERE veiculos.matricula LIKE ?;`;
+  const [rows] = await pool.query(query, [searchRepairs]);
+  return rows.length > 0 ? rows[0].searchRepairs : null;
 }
 
 export async function getUsersByEmail(email) {
-  const query = `SELECT utilizadores.email FROM utilizadores WHERE utilizadores.email LIKE '%${email}%';`;
-  const [rows] = await pool.query(query);
-  return rows;
+  const query = `SELECT utilizadores FROM utilizadores WHERE utilizadores.email LIKE ?;`;
+  const [rows] = await pool.query(query, [email]);
+  return rows.length > 0 ? rows[0].email : null;
 }
 
 export async function getUsersRole(user, password) {

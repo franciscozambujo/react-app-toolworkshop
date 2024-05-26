@@ -22,7 +22,7 @@ export function HeaderEnterprise() {
             <button className="rounded-md border-2 border-white hover:bg-background hover:text-black m-4 px-2 py-1 text-base font-normal">Veículos</button>
           </NavigationMenuItem>
         <NavigationMenuItem>
-        <Link to ="/empresa/CarRepairs" className="btn-headerEnterprise">Reparações</Link>
+        <Link to ="/empresa/carRepairs" className="btn-headerEnterprise">Reparações</Link>
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>

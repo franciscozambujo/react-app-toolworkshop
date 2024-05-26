@@ -24,10 +24,11 @@ import debounce from 'lodash.debounce';
 export function DataTableR(){
     const [invoices, setInvoices] = useState<any[]>([]);
     const [matriculas, setMatriculas] = useState<any[]>([]);
-    const [searchRepairs, setRepairs] = useState('');
-    const [nomeCliente, setNomeCliente] = useState('');
     const [selectedMatricula, setSelectedMatricula] = useState('');
-    const [selectedRepairs, setSelectedRepairs] = useState<any[]>([]);
+    /*const [selectedRepairs, setSelectedRepairs] = useState<any[]>([]);
+    const [searchRepairs, setRepairs] = useState('');*/
+    const [nomeCliente, setNomeCliente] = useState('');
+
     const [isOpen, setIsOpen] = useState(false);
     const API_URL = "http://localhost:3000";
 
@@ -36,6 +37,7 @@ export function DataTableR(){
         const response = await fetch(`${API_URL}/carPlate?nomeCliente=${nomeCliente}`);
         const data = await response.json();
         setMatriculas(data);
+        console.log(data);
         } catch (error) {
         console.error('Error fetching matriculas:', error);
         }
@@ -46,7 +48,7 @@ export function DataTableR(){
         debouncedFetchMatriculas(nomeCliente);
     };
 
-    const deboucedFetchRepairs = debounce(async (searchRepairs: string) => {
+   /* const deboucedFetchRepairs = debounce(async (searchRepairs: string) => {
         try {
         const response = await fetch(`${API_URL}/repairs${searchRepairs}`);
         const dataRepairs = await response.json();
@@ -59,7 +61,7 @@ export function DataTableR(){
         const searchRepairs = e.target.value;
         setRepairs(searchRepairs);
         deboucedFetchRepairs(searchRepairs);
-    };
+    };*/
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {    
         event.preventDefault();
@@ -91,6 +93,7 @@ export function DataTableR(){
             const response = await fetch('http://localhost:3000/invoices');
             const data = await response.json();
             setInvoices(data);
+            console.log(invoices);
         } catch (error) {
             console.error('Error fetching data:', error);
         }
@@ -102,8 +105,8 @@ export function DataTableR(){
         <div className="flex items-center justify-between">
             <form className="flex items-center gap-8">
                 <Input
-                value={searchRepairs}
-                onChange={handleSearchChange}
+                /*value={searchRepairs}
+                onChange={handleSearchChange}*/
                 id="search"
                 placeholder="Pesquisar Dados"
                 />
@@ -163,12 +166,14 @@ export function DataTableR(){
         <div className="border rounded-lg p-2">
             <Table>
                 <TableHeader>
-                    <TableHead className="w-[130px]">Nome do Cliente</TableHead>
-                    <TableHead>Veículo</TableHead>
-                    <TableHead className="w-[130px]">Matrícula</TableHead>
-                    <TableHead>Descrição</TableHead>
-                    <TableHead className="w-[150px]">Valor</TableHead>
-                    <TableHead>Data</TableHead>
+                    <TableRow>
+                        <TableHead className="w-[130px]">Nome do Cliente</TableHead>
+                        <TableHead>Veículo</TableHead>
+                        <TableHead className="w-[130px]">Matrícula</TableHead>
+                        <TableHead>Descrição</TableHead>
+                        <TableHead className="w-[150px]">Valor</TableHead>
+                        <TableHead>Data</TableHead>
+                    </TableRow>
                 </TableHeader>
                 {invoices.length > 0 ? (
                 <TableBody>
