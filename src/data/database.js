@@ -52,7 +52,7 @@ export async function getCarPlate(nomeCliente) {
 }
 
 export async function getRepairs(searchRepairs) {
-  const query = `SELECT * FROM reparacoes JOIN veiculos ON reparacoes.veiculo = veiculos.id WHERE veiculos.matricula LIKE ?;`;
+  const query = `SELECT reparacoes.ID, clientes.nome AS cliente, veiculos.marca AS veiculo, veiculos.matricula AS matricula, reparacoes.descricao, reparacoes.valor, reparacoes.data FROM reparacoes INNER JOIN clientes ON reparacoes.cliente= clientes.id INNER JOIN veiculos ON reparacoes.veiculo = veiculos.id WHERE clientes.nome = ?`;
   const [rows] = await pool.query(query, [searchRepairs]);
   return rows;
 }
@@ -69,6 +69,42 @@ export async function getUsersRole(user, password) {
   return rows.length > 0 ? rows[0].cargo : null;
 }
 
+export async function createCarRepair(plate, description, value, date) {
+  try {
+    console.log("Parameters:", { plate, description, value, date });
+
+    const [clientResult] = await pool.query(
+      "SELECT clientes.id FROM clientes JOIN veiculos ON clientes.id = veiculos.cliente WHERE veiculos.matricula = ?",
+      [plate]
+    );
+    const [vehicleResult] = await pool.query(
+      "SELECT veiculos.id FROM veiculos WHERE veiculos.matricula = ?",
+      [plate]
+    );
+
+    if (clientResult.length === 0 || vehicleResult.length === 0) {
+      throw new Error("Cliente ou veículo não encontrado");
+    }
+
+    const clientId = clientResult[0].id;
+    const vehicleId = vehicleResult[0].id;
+
+    const query = `
+      INSERT INTO reparacoes (
+        cliente, veiculo, descricao, valor, data
+      ) VALUES (?, ?, ?, ?, ?);
+    `;
+    const values = [clientId, vehicleId, description, value, date];
+    await pool.query(query, values);
+
+  } catch (error) {
+    console.error("Erro ao criar reparação:", error);
+    throw error;
+  }
+}
+
+
+
 export async function createCarCheck(name, phone, car, plate, checkDate) {
   const query = "INSERT INTO revisoes (nome, numero_tele, carro, matricula, data_agendada) VALUES (?,?,?,?,?);";
   const values = [name, phone, car, plate, checkDate];
@@ -78,12 +114,6 @@ export async function createCarCheck(name, phone, car, plate, checkDate) {
 export async function createReview(name, email, description, rating) {
   const query = "INSERT INTO avaliacoes (nome, email, descricao, estrelas) VALUES (?,?,?,?);";
   const values = [name, email, description, rating];
-  await pool.query(query, values);
-}
-
-export async function createCarRepair(name, plate, description, value, date) {
-  const query = "INSERT INTO reparacoes (cliente, veiculo, descricao, valor, data) VALUES (?,?,?,?,?);";
-  const values = [name, plate, description, value, date];
   await pool.query(query, values);
 }
 

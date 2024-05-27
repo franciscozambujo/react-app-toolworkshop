@@ -150,15 +150,15 @@ app.post("/createReviews", async (req, res) => {
 });
 
 app.post("/createCarRepairs", async (req, res) => {
-  const { name, plate, description, value, date } = req.body;
+  const { plate, description, value, date } = req.body;
   try {
-    await createCarRepair(name, plate, description, value, date);
+    await createCarRepair(plate, description, value, date);
     res.send({ message: "Reparação de carro criada com sucesso!" });
   } catch (err) {
     console.error(err);
     res.status(500).send({ message: "Erro ao criar reparação de carro" });
   }
-});
+})
 
 app.post("/createUser", async (req, res) => {
   const { user, email, password} = req.body;
