@@ -15,6 +15,9 @@ import { OwnerPage } from './routes/ownerPage.tsx';
 import { PoliciesPage } from './routes/policiesPage.tsx';
 import { EmployeePage } from './routes/employeePage.tsx';
 import { RepairsPage } from './routes/repairsPage.tsx';
+import { VehiclesPage } from './routes/vehiclesPage.tsx';
+import { ClientsPage } from './routes/clientsPage.tsx';
+import { HeaderOwner } from './components/header-owner.tsx';
 
 const router = createBrowserRouter([
   {
@@ -50,6 +53,22 @@ const router = createBrowserRouter([
   {
     path: "/empresa/carRepairs",
     element: <RepairsPage/>,
+    errorElement: <ErrorPage/>,
+  },
+  {
+    path: "/empresa/geral",
+    element: <HeaderOwner/>,
+    errorElement: <ErrorPage/>,
+  },
+  {
+    path: "/empresa/clients",
+    element: <ClientsPage/>,
+    errorElement: <ErrorPage/>,
+  },
+  {
+    path: "/empresa/vehicles",
+    element: <VehiclesPage/>,
+    errorElement: <ErrorPage/>,
   },
   {
     path: "/policies",

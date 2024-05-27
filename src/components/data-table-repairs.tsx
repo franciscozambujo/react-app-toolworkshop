@@ -21,6 +21,8 @@ import {
 import { useEffect, useState } from "react";
 import { format } from 'date-fns';
 import debounce from 'lodash.debounce';
+import { Calendar } from "./ui/calendar";
+import React from "react";
 
 export function DataTableR() {
   const [invoices, setInvoices] = useState<any[]>([]);
@@ -29,6 +31,7 @@ export function DataTableR() {
   const [searchRepairs, setRepairs] = useState('');
   const [nomeCliente, setNomeCliente] = useState('');
   const [isOpen, setIsOpen] = useState(false);
+  const [date, setDate] = React.useState<Date>();
   const API_URL = "http://localhost:3000";
 
   const debouncedFetchMatriculas = debounce(async (nomeCliente: string) => {
@@ -63,19 +66,19 @@ export function DataTableR() {
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const searchRepairs = e.target.value;
     setRepairs(searchRepairs);
-    console.log(searchRepairs);
     if (searchRepairs !== '') {
       debouncedFetchRepairs(searchRepairs);
     }
   };
 
+  const formattedDate = date ? format(date, 'yyyy-MM-dd') : '';
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = {
       plate: (event.target as HTMLFormElement).matricula.value,
       description: (event.target as HTMLFormElement).descricao.value,
       value: (event.target as HTMLFormElement).valor.value,
-      date: format(new Date((event.target as HTMLFormElement).data.value), 'yyyy-MM-dd'),
+      date: formattedDate,
     };
 
     fetch(`${API_URL}/createCarRepairs`, {
@@ -160,9 +163,15 @@ export function DataTableR() {
                 <Label>Descrição</Label>
                 <Input className="col-span-3" id="descricao" name="descricao" required />
                 <Label>Valor</Label>
-                <Input className="col-span-3" id="valor" name="valor" required />
-                <Label>Data</Label>
-                <Input className="col-span-3" id="data" name="data" required />
+                <Input type="number" className="col-span-3" id="valor" name="valor" required />
+                <Calendar
+                  className="col-span-2 pl-28"
+                  mode="single"
+                  selected={date}
+                  onSelect={setDate}
+                  required
+                  initialFocus
+                />
               </div>
               <DialogFooter>
                 <Button type="submit" className="bg-body">Criar</Button>

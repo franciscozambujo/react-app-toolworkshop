@@ -8,7 +8,7 @@ import * as React from "react"
 import { cn } from "@/lib/utils"
 import { Link } from "react-router-dom";
 
-export function HeaderEnterprise() {
+export function HeaderOwner() {
   const imgHeader = new URL("@/public/images/header_branco.png", import.meta.url).href;
   return (
     <div className="bg-green-500 h-16 grid content-center font-bodyfooter text-white py-2 z-0">

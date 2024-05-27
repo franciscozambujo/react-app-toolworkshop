@@ -1,10 +1,10 @@
 import { OwnerPageMain } from '../components/ownerPage-main.tsx';
-import { HeaderEnterprise } from '../components/header-enterprise.tsx'
+import { HeaderOwner } from '@/components/header-owner.tsx';
 
 export function OwnerPage() {
   return (
     <div>
-      <HeaderEnterprise/>
+      <HeaderOwner/>
       <OwnerPageMain/> 
     </div>
   );

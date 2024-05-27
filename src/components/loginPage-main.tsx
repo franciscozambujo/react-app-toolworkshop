@@ -27,7 +27,7 @@ export function LoginForm() {
           duration: 5000,
         });
         setTimeout(() => {
-          window.location.href = '/empresa/ownerpage';
+          window.location.href = '/empresa/geral';
         }, 2000);
       } else if (data === 'employee') {
         console.log(data);
@@ -38,7 +38,7 @@ export function LoginForm() {
           window.location.href = '/empresa/employeepage';
         }, 2000);
       } else if (data === 'client') {
-        // Generate token for user
+        console.log(data);
       } else {
         toast.error('Credenciais inválidas!')
       }
@@ -48,7 +48,7 @@ export function LoginForm() {
     }
   };
   return (
-    <div className="flex items-center justify-center">
+    <div className="h-screen flex items-center justify-center">
       <div className="max-w-md flex flex-col p-4 rounded-md text-black font-bodyfooter">
         <div className="text-2xl font-bold mb-2 text-white text-center">
           Oficina Fernando Costa Fialho <span className="text-[#53AE6E]"><br />Área do Cliente</span>
