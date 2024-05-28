@@ -165,7 +165,7 @@ export function DataTableR() {
                 <Label>Valor</Label>
                 <Input type="number" className="col-span-3" id="valor" name="valor" required />
                 <Calendar
-                  className="col-span-2 pl-28"
+                  className="col-span-2 pl-28 w-3/6"
                   mode="single"
                   selected={date}
                   onSelect={setDate}

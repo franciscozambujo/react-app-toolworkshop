@@ -57,7 +57,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/empresa/geral",
-    element: <HeaderOwner/>,
+    element: <OwnerPage/>,
     errorElement: <ErrorPage/>,
   },
   {
