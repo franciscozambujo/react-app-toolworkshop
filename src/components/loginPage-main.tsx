@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from './ui/button';
 import { Toaster, toast } from 'sonner';
+import { AuthContext } from "@/data/AuthContext";
 
 export function LoginForm() {
   const [user, setUser] = useState('');
   const [password, setPassword] = useState('');
+  const { login } = useContext(AuthContext);
 
   const handleSubmit = async (event:any) => {
     event.preventDefault();
@@ -23,14 +25,18 @@ export function LoginForm() {
 
       if (data === 'owner') {
         console.log(data);
+        login(formData.user, 'owner');
+        localStorage.setItem('isLoggedIn', 'true');
         toast.success(`Login efetuado com sucesso!`, {
           duration: 5000,
         });
         setTimeout(() => {
-          window.location.href = '/empresa/geral';
+          window.location.href = '/empresa/ownerpage';
         }, 2000);
       } else if (data === 'employee') {
         console.log(data);
+        login(formData.user, 'employee');
+        localStorage.setItem('isLoggedIn', 'true');
         toast.success(`Login efetuado com sucesso!`, {
           duration: 5000,
         });
@@ -39,8 +45,10 @@ export function LoginForm() {
         }, 2000);
       } else if (data === 'client') {
         console.log(data);
+        login(formData.user, 'client');
       } else {
         toast.error('Credenciais inválidas!')
+        localStorage.setItem('isLoggedIn', 'false');
       }
     } catch (error) {
       console.error('Error fetching users:', error);

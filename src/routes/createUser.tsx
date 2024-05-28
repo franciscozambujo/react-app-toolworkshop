@@ -6,10 +6,12 @@ export function CreateNewUser () {
   const imgBg = new URL("@/public/images/oficina_login.png", import.meta.url).href;
 
   return (
-    <div className="bg-slate-800">
-        <HeaderMenuNav />
-      <div className="relative">
-        <CreateUser />
+    <div>
+      <div className="bg-[#282828]">
+          <HeaderMenuNav />
+      </div>
+      <div className="bg-[#181818]">
+          <CreateUser />
       </div>
     </div>
   );

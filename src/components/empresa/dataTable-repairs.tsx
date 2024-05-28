@@ -1,7 +1,7 @@
 import { DialogDescription } from "@radix-ui/react-dialog";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
-import { Label } from "./ui/label";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
+import { Label } from "../ui/label";
 import {
   Table,
   TableBody,
@@ -9,7 +9,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "./ui/table";
+} from "../ui/table";
 import {
   Dialog,
   DialogContent,
@@ -21,7 +21,7 @@ import {
 import { useEffect, useState } from "react";
 import { format } from 'date-fns';
 import debounce from 'lodash.debounce';
-import { Calendar } from "./ui/calendar";
+import { Calendar } from "../ui/calendar";
 import React from "react";
 
 export function DataTableR() {
@@ -109,7 +109,7 @@ export function DataTableR() {
   }, [searchRepairs]);
 
   return (
-    <div className="p-8 max-w-5xl mx-auto space-y-4">
+    <div className="p-8 max-w-5xl space-y-4 m-auto">
       <div className="flex items-center justify-between">
         <form className="flex items-center gap-8">
           <Input
@@ -121,7 +121,7 @@ export function DataTableR() {
         </form>
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
           <DialogTrigger asChild>
-            <Button className="bg-body font-bodyfooter">Nova Reparação</Button>
+            <Button className="bg-[#00865A] font-bodyfooter">Nova Reparação</Button>
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
@@ -174,7 +174,7 @@ export function DataTableR() {
                 />
               </div>
               <DialogFooter>
-                <Button type="submit" className="bg-body">Criar</Button>
+                <Button type="submit" className="bg-[#00865A]">Criar</Button>
               </DialogFooter>
             </form>
           </DialogContent>
