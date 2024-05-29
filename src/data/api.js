@@ -16,6 +16,8 @@ import { getUsers,
   getUsersByEmail,
   getUsersRole,
   getRepairs,
+  getClientsByName,
+  getCarsByClient,
   }  from  './database.js';
 
 const app = express();
@@ -121,6 +123,34 @@ app.get('/repairs', async (req, res) => {
   try {
     const searchedRepairs = await getRepairs(searchRepairs);
     res.json(searchedRepairs);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+app.get('/clientsByName', async (req, res) => {
+  const { searchClients } = req.query;
+  if (!searchClients) {
+    return res.status(400).json({ error: 'searchClients is required' });
+  }
+  try {
+    const searchedClients = await getClientsByName(searchClients);
+    res.json(searchedClients);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+app.get('/getCarsByClient', async (req, res) => {
+  const { clientID } = req.query;
+  if (!clientID) {
+    return res.status(400).json({ error: 'clientID is required' });
+  }
+  try {
+    const searchedCars = await getCarsByClient(clientID);
+    res.json(searchedCars);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal server error' });

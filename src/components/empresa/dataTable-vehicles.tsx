@@ -24,7 +24,7 @@ import debounce from 'lodash.debounce';
 import { Calendar } from "../ui/calendar";
 import React from "react";
 
-export function DataTableR() {
+export function DataTableV() {
   const [invoices, setInvoices] = useState<any[]>([]);
   const [matriculas, setMatriculas] = useState<any[]>([]);
   const [selectedMatricula, setSelectedMatricula] = useState('');
@@ -98,7 +98,7 @@ export function DataTableR() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`${API_URL}/invoices`);
+        const response = await fetch('http://localhost:3000/invoices');
         const data = await response.json();
         setInvoices(data);
       } catch (error) {

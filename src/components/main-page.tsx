@@ -66,8 +66,9 @@ export function MainPage() {
   }
 
   return(
+    <div className="flex justify-center">
     <div className="font-bodyfooter m-12 max-w-screen-xl">
-      <div className="relative left-1/3 w-1/2 pb-40">
+      <div className="relative w-1/2 pb-40">
         <img src={imgRevisao} alt="Revisão" className="h-64 float-left mr-10"/>
         <div className="grid grid-rows-1 gap-2 row-span-3 self-center">
           <div className="w-20 origin-top-left rotate-[90deg] border-4 border-body"/>
@@ -139,15 +140,15 @@ export function MainPage() {
           </div>
         </div>
         <Toaster richColors/>
-      <div className="relative left-1/3 w-1/2 pb-40">
-        <img src={imgInspecionar} alt="Revisão" className="h-64 float-right -mr-44"/>
+      <div className="relative w-1/2 pb-40">
         <div className="grid grid-rows-1 gap-2 row-span-3 self-center">
           <div className="w-20 origin-top-left rotate-[90deg] border-4 border-body"/>
             <h2 className="text-body text-3xl font-bold pl-2 -mt-2">Os Nossos <br/> Serviços</h2>
             <p className="w-96 font-medium text-base pl-2">Lorem Ipsum is simply dummy text of the printing and  typesetting industry. Lorem Ipsum has been the industry's standard  dummy text. Lorem Ipsum is simply dummy text of the printing and  typesetting.</p>
+            <img src={imgInspecionar} alt="Revisão" className="h-64 absolute ml-96 float-right"/>
         </div>
       </div>
-      <div className="relative left-1/3 w-1/2 pb-40">
+      <div className="relative w-1/2 pb-40">
         <img src={imgInstalacoes} alt="Revisão" className="h-64 float-left mr-10"/>
         <div className="grid grid-rows-1 gap-2 row-span-3 self-center">
           <div className="w-20 origin-top-left rotate-[90deg] border-4 border-body"/>
@@ -155,6 +156,7 @@ export function MainPage() {
             <p className="w-96 font-medium text-base pl-2">Lorem Ipsum is simply dummy text of the printing and  typesetting industry. Lorem Ipsum has been the industry's standard  dummy tex.</p>
           </div>
       </div>
+    </div>
     </div>
   )
 }

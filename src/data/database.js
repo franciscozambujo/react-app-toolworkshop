@@ -57,6 +57,18 @@ export async function getRepairs(searchRepairs) {
   return rows;
 }
 
+export async function getClientsByName(searchClients) {
+  const query = `SELECT * FROM clientes WHERE clientes.nome = ?`;
+  const [rows] = await pool.query(query, [searchClients]);
+  return rows;
+}
+
+export async function getCarsByClient(clientID) {
+  const query = `SELECT marca, modelo, matricula FROM veiculos JOIN clientes ON veiculos.cliente = clientes.id WHERE clientes.id = ?`;
+  const [rows] = await pool.query(query, [clientID]);
+  return rows;
+}
+
 export async function getUsersByEmail(email) {
   const query = `SELECT utilizadores FROM utilizadores WHERE utilizadores.email LIKE ?;`;
   const [rows] = await pool.query(query, [email]);
