@@ -14,9 +14,10 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 
 export function DataTableC() {
   const [clients, setClients] = useState<any[]>([]);
-  const [selectedClient, setSelectedClient] = useState<any>(null); // State to hold the selected client
-  const [cars, setCars] = useState<any[]>([]); // State to hold fetched cars for the selected client
+  const [selectedClient, setSelectedClient] = useState<any>(null);
+  const [cars, setCars] = useState<any[]>([]);
   const [searchClients, setSearchedClients] = useState("");
+  const [isCarDialogOpen, setIsCarDialogOpen] = useState(false);
   const API_URL = "http://localhost:3000";
 
   const debouncedFetchClients = debounce(async (searchClients: string) => {
@@ -41,6 +42,7 @@ export function DataTableC() {
   const handleClientSelect = (client: any) => {
     setSelectedClient(client);
     debouncedFetchCarsByClient(client.id);
+    setIsCarDialogOpen(true);
   };
 
   const debouncedFetchCarsByClient = debounce(async (clientId: number) => {
@@ -96,7 +98,7 @@ export function DataTableC() {
                   <TableCell>{client.nome}</TableCell>
                   <TableCell>{client.telemovel}</TableCell>
                   <TableCell>{client.email}</TableCell>
-                  <Dialog open={selectedClient?.id === client.id}>
+                  <Dialog open={selectedClient?.id === client.id && isCarDialogOpen} onOpenChange={setIsCarDialogOpen}>
                     <DialogTrigger>
                       <button onClick={() => handleClientSelect(client)}>
                         <TableCell className="line-clamp-1">
@@ -117,22 +119,22 @@ export function DataTableC() {
                     ) : (
                       <p>Este cliente não tem carros registados.</p>
                     )}
-                                        </DialogContent>
-                                      </Dialog>
-                                    </TableRow>
-                                  ))}
-                                </TableBody>
-                              ) : (
-                                <TableBody>
-                                  <TableRow>
-                                    <TableCell colSpan={4} align="center">
-                                      Nenhum registo encontrado
-                                    </TableCell>
-                                  </TableRow>
-                                </TableBody>
-                              )}
-                            </Table>
-                          </div>
-                        </div>
-                      );
-                    }
+                      </DialogContent>
+                    </Dialog>
+                  </TableRow>
+              ))}
+              </TableBody>
+          ) : (
+            <TableBody>
+              <TableRow>
+                <TableCell colSpan={4} align="center">
+                  Nenhum registo encontrado
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          )}
+          </Table>
+        </div>
+      </div>
+  );
+}

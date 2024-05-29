@@ -1,6 +1,4 @@
-import { useContext } from "react";
 import { SideBarEnterprise } from "./sidebar-enterprise";
-import { AuthContext } from "@/data/AuthContext";
 
 export function OwnerPageMain(){
     return (
