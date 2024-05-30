@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Input } from "../ui/input";
-import { Search, User, Wrench, AreaChart, Car, LogOut } from "lucide-react";
+import { Search, User, Wrench, AreaChart, Settings, LogOut } from "lucide-react";
 import { useContext } from 'react';
 import { AuthContext } from '@/data/AuthContext';
 
@@ -39,6 +39,10 @@ export function SideBarEnterprise() {
       </div>
       <hr className="my-4"/>
       <div className="mt-auto p-2 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-[#151515]">
+        <Settings />
+        <Link to="/empresa/accountSettings"><span className="text-[15px] ml-4">Definições de conta</span></Link>
+      </div>
+      <div className="mt-2 mb-2 p-2 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-[#151515]">
         <LogOut />
         <span className="text-[15px] ml-4">LogOut</span>
       </div>

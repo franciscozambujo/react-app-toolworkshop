@@ -195,7 +195,7 @@ export function DataTableR() {
           {invoices.length > 0 || searchRepairs === '' ? (
             <TableBody>
               {invoices.map((invoice) => (
-                <TableRow key={invoice.id}>
+                <TableRow key={invoice.id} className="hover:bg-muted/50">
                   <TableCell>{invoice.cliente}</TableCell>
                   <TableCell>{invoice.veiculo}</TableCell>
                   <TableCell>{invoice.matricula}</TableCell>

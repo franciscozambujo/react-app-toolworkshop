@@ -46,6 +46,13 @@ export function LoginForm() {
       } else if (data === 'client') {
         console.log(data);
         login(formData.user, 'client');
+        localStorage.setItem('isLoggedIn', 'true');
+        toast.success(`Login efetuado com sucesso!`, {
+          duration: 5000,
+        });
+        setTimeout(() => {
+          window.location.href = '/cliente/clientArea';
+        }, 2000);
       } else {
         toast.error('Credenciais inválidas!')
         localStorage.setItem('isLoggedIn', 'false');

@@ -1,16 +1,16 @@
-import { SideBarEnterprise } from "@/components/empresa/sidebar-enterprise";
+import { SideBarClients } from "@/components/cliente/sidebar-clients";
 
-export function VehiclesPage() {
+export function ClientsArea () {
   return (
     <div className="h-screen flex flex-col">
       <div className="flex">
           <aside>
-              <SideBarEnterprise/>
+              <SideBarClients/>
           </aside>
           <main className="bg-[#181818] w-screen text-white font-bodyfooter">
-              <h1>Veículos</h1>
+              <h1>Main Clientes</h1>
           </main>
       </div>
   </div>
   );
-}
+};

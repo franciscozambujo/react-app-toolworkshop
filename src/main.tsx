@@ -6,16 +6,18 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { LoginPage } from "./routes/loginPage.tsx";
 import { App } from "./App.tsx";
 import { ErrorPage } from "./routes/errorPage.tsx";
-import { ServicesPage } from "./routes/empresa/servicePage.tsx";
+import { ServicesPage } from "./routes/servicePage.tsx";
 import { CreateNewUser } from "./routes/createUser.tsx";
 import { PoliciesPage } from "./routes/policiesPage.tsx";
 import { EmployeePage } from "./routes/empresa/employeePage.tsx";
 import { RepairsPage } from "./routes/empresa/repairsPage.tsx";
-import { VehiclesPage } from "./routes/empresa/vehiclesPage.tsx";
 import { ClientsPage } from "./routes/empresa/clientsPage.tsx";
+import { ClientsArea } from "./routes/cliente/clientsArea-main.tsx";
 import { EmpresaPage } from "./routes/empresa/empresaPage.tsx";
 import { AuthProvider } from "./data/AuthContext.tsx";
 import { OwnerPage } from "./routes/empresa/ownerPage.tsx";
+import { SettingsPage } from "./routes/empresa/settingsPage.tsx";
+import { ClientAccountSettings } from "./routes/cliente/clientsSettings.tsx";
 
 const router = createBrowserRouter([
   {
@@ -49,8 +51,28 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
+    path: "/empresa/clientpage",
+    element: <ClientsPage />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/cliente/clientArea",
+    element: <ClientsArea />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/cliente/clientSettings",
+    element: <ClientAccountSettings />,
+    errorElement: <ErrorPage />,
+  },
+  {
     path: "/empresa/carRepairs",
     element: <RepairsPage />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/empresa/accountSettings",
+    element: <SettingsPage />,
     errorElement: <ErrorPage />,
   },
   {
@@ -61,11 +83,6 @@ const router = createBrowserRouter([
   {
     path: "/empresa/clients",
     element: <ClientsPage />,
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: "/empresa/vehicles",
-    element: <VehiclesPage />,
     errorElement: <ErrorPage />,
   },
   {

@@ -29,7 +29,7 @@ export function DataTableC() {
     } catch (error) {
       console.error("Error fetching clients:", error);
     }
-  }, 500);
+  }, 100);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const searchClients = e.target.value;
@@ -94,7 +94,7 @@ export function DataTableC() {
           {clients.length > 0 ? (
             <TableBody>
               {clients.map((client) => (
-                <TableRow key={client.id}>
+                <TableRow key={client.id} className="hover:bg-muted/50">
                   <TableCell>{client.nome}</TableCell>
                   <TableCell>{client.telemovel}</TableCell>
                   <TableCell>{client.email}</TableCell>
@@ -102,7 +102,7 @@ export function DataTableC() {
                     <DialogTrigger>
                       <button onClick={() => handleClientSelect(client)}>
                         <TableCell className="line-clamp-1">
-                          Veiculos deste cliente
+                          Clique para ver os veículos
                         </TableCell>
                       </button>
                     </DialogTrigger>
