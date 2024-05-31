@@ -70,7 +70,7 @@ export async function getCarsByClient(clientID) {
 }
 
 export async function getUsersByEmail(email) {
-  const query = `SELECT utilizadores FROM utilizadores WHERE utilizadores.email LIKE ?;`;
+  const query = `SELECT * FROM utilizadores WHERE utilizadores.email LIKE ?;`;
   const [rows] = await pool.query(query, [email]);
   return rows;
 }
@@ -115,8 +115,6 @@ export async function createCarRepair(plate, description, value, date) {
   }
 }
 
-
-
 export async function createCarCheck(name, phone, car, plate, checkDate) {
   const query = "INSERT INTO revisoes (nome, numero_tele, carro, matricula, data_agendada) VALUES (?,?,?,?,?);";
   const values = [name, phone, car, plate, checkDate];
@@ -129,8 +127,8 @@ export async function createReview(name, email, description, rating) {
   await pool.query(query, values);
 }
 
-export async function createUser(user, email, password) {
-  const query = "INSERT INTO utilizadores (user, email, pass) VALUES (?,?,?);";
-  const values = [user, email, password];
+export async function createUser(user, password, email) {
+  const query = "INSERT INTO utilizadores (user, password, email, cargo) VALUES (?, ?, ?, 'client');";
+  const values = [user, password, email];
   await pool.query(query, values);
 }

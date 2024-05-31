@@ -1,3 +1,4 @@
+import { Toaster, toast } from "sonner";
 import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
 
@@ -13,14 +14,14 @@ export function CreateUser() {
     console.log(email);
     console.log(password);
     try {
-      const searchResponse = await fetch(`${API_URL}/users?email=${encodeURIComponent(email)}`);
+      const searchResponse = await fetch(`${API_URL}/usersByemail?email=${encodeURIComponent(email)}`);
   
       if (!searchResponse.ok) {
         throw new Error(`Error searching for user: ${searchResponse.statusText}`);
       }
       const searchData = await searchResponse.json();
       if (searchData.length > 0) {
-        console.log("conassada");
+        toast.error('Este utilizador já existe.');
         return;
       }
     } catch (error) {
@@ -28,7 +29,7 @@ export function CreateUser() {
       return;
     }
   
-    const formData = { user, email, password };
+    const formData = { user, password, email };
     fetch(`${API_URL}/createUser`, {
       method: "POST",
       headers: {
@@ -71,12 +72,14 @@ export function CreateUser() {
                     className="input-login"
                   />
                 </div>
-                <Button type="submit" className="bg-body w-max m-auto px-6 py-2 rounded text-white text-sm font-normal">Criar</Button>
+                <Button type="submit" className="bg-body w-max m-auto px-6 py-2 rounded text-white text-sm font-normal">
+                 Criar
+                </Button>            
             </form>
         <div className="text-sm text-center mt-[1.6rem] text-[#53AE6E]">Já tem uma conta? <Link to="/login"><a className="text-sm text-white">Inicie sessão aqui!</a></Link>
-
       </div>
     </div>
+    <Toaster richColors/>
     </div>
    )
 }

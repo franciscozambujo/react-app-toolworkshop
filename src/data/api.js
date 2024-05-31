@@ -191,9 +191,9 @@ app.post("/createCarRepairs", async (req, res) => {
 })
 
 app.post("/createUser", async (req, res) => {
-  const { user, email, password} = req.body;
+  const { user, password, email} = req.body;
   try {
-    await createUser(user, email, password);
+    await createUser(user, password, email);
     res.send({ message: "Utilizador criado com sucesso!" });
   } catch (err) {
     console.error(err);
