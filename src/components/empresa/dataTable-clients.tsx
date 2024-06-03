@@ -10,12 +10,16 @@ import {
 import { useEffect, useState } from "react";
 import debounce from "lodash.debounce";
 import React from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
+import { Button } from "../ui/button";
+import { Label } from "../ui/label";
+import { Calendar } from "../ui/calendar";
 
 export function DataTableC() {
   const [clients, setClients] = useState<any[]>([]);
   const [selectedClient, setSelectedClient] = useState<any>(null);
   const [cars, setCars] = useState<any[]>([]);
+  const [isOpen, setIsOpen] = useState(false);
   const [searchClients, setSearchedClients] = useState("");
   const [isCarDialogOpen, setIsCarDialogOpen] = useState(false);
   const API_URL = "http://localhost:3000";
@@ -56,6 +60,28 @@ export function DataTableC() {
     }
   },100);
 
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = {
+      clientName: (event.target as HTMLFormElement).nomeCliente.value,
+      phoneNumber: (event.target as HTMLFormElement).ntelemovel.value,
+      email: (event.target as HTMLFormElement).email.value,
+    };
+
+    fetch(`${API_URL}/createClient`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data))
+      .catch((error) => console.error(`Error creating client: ${error}`));
+    setIsOpen(false);
+    window.location.reload();
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -80,6 +106,100 @@ export function DataTableC() {
             placeholder="Pesquisar Dados"
           />
         </form>
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button className="bg-[#00865A] font-bodyfooter">Adicionar carros a um cliente</Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Adicionar carros a um cliente</DialogTitle>
+              <DialogDescription>Preencha os campos necessários.</DialogDescription>
+            </DialogHeader>
+            <form onSubmit={handleSubmit} className="space-y-8">
+              <div className="grid grid-cols-4 items-center text-right gap-5">
+                <Label>Cliente</Label>
+                <select
+                className="col-span-3 select"
+                >
+                  {clients.map((client) => (
+                    <option key={client.id} value={client.nome}>
+                      {client.nome}
+                    </option>
+                  ))}
+                </select>
+                <Label>Marca</Label>
+                <Input 
+                className="col-span-3"
+                type="text"
+                pattern="^9[1236]\d{7}$"
+                placeholder="Mercedes"
+                id="carBrand"
+                name="carBrand"
+                required />
+                <Label>Modelo</Label>
+                <Input 
+                className="col-span-3"
+                placeholder="C200D"
+                id="carModel" 
+                name="carModel"
+                required />
+                <Label>Matrícula</Label>
+                <Input 
+                className="col-span-3"
+                placeholder="AA-00-AA ou 04-GF-00 ou "
+                id="carPlate" 
+                name="carPlate"
+                required />
+              </div>
+              <DialogFooter>
+                <Button type="submit" className="bg-[#00865A]">Criar</Button>
+              </DialogFooter>
+            </form>
+          </DialogContent>
+        </Dialog>
+        <Dialog open={isOpen} onOpenChange={setIsOpen}>
+          <DialogTrigger asChild>
+            <Button className="bg-[#00865A] font-bodyfooter">Novo Cliente</Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Novo Cliente</DialogTitle>
+              <DialogDescription>Preencha os campos necessários.</DialogDescription>
+            </DialogHeader>
+            <form onSubmit={handleSubmit} className="space-y-8">
+              <div className="grid grid-cols-4 items-center text-right gap-5">
+                <Label>Nome do Cliente</Label>
+                <Input
+                  className="col-span-3"
+                  type="text"
+                  placeholder="Francisco"
+                  id="nomeCliente"
+                  name="nomeCliente"
+                  required
+                />
+                <Label>Nº de telemóvel</Label>
+                <Input 
+                className="col-span-3"
+                type="text"
+                pattern="^9[1236]\d{7}$"
+                placeholder="968111222"
+                id="ntelemovel"
+                name="ntelemovel"
+                required />
+                <Label>Email</Label>
+                <Input 
+                className="col-span-3"
+                placeholder="cliente@gmail.com"
+                id="email" 
+                name="email"
+                required />
+              </div>
+              <DialogFooter>
+                <Button type="submit" className="bg-[#00865A]">Criar</Button>
+              </DialogFooter>
+            </form>
+          </DialogContent>
+        </Dialog>
       </div>
       <div className="border rounded-lg p-2">
         <Table>
@@ -110,10 +230,10 @@ export function DataTableC() {
                       <DialogHeader>
                         <DialogTitle>Veículos registados</DialogTitle>
                       </DialogHeader>
-                      {cars.length > 0 ? (
+                      {cars.length > 0 ? (  
                       <ul>
                         {cars.map((car) => (
-                          <li key={car.id}>{car.marca} {car.modelo}</li>
+                          <li key={car.id}>{car.marca} {car.modelo} - {car.matricula}</li>
                         ))}
                       </ul>
                     ) : (

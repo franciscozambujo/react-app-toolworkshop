@@ -18,6 +18,8 @@ import { getUsers,
   getRepairs,
   getClientsByName,
   getCarsByClient,
+  createClient,
+  createCarByClient,
   }  from  './database.js';
 
 const app = express();
@@ -198,6 +200,28 @@ app.post("/createUser", async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).send({ message: "Erro ao criar utilizador" });
+  }
+});
+
+app.post("/createClient", async (req, res) => {
+  const { clientName, phoneNumber, email} = req.body;
+  try {
+    await createClient(clientName, phoneNumber, email);
+    res.send({ message: "Cliente criado com sucesso!" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({ message: "Erro ao criar utilizador" });
+  }
+});
+
+app.post("/createCarClient", async (req, res) => {
+  const { carBrand, carModel, carPlate, clientID} = req.body;
+  try {
+    await createCarByClient(carBrand, carModel, carPlate, clientID);
+    res.send({ message: "Veículo do cliente criado com sucesso!" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({ message: "Erro ao criar veiculo" });
   }
 });
 
