@@ -11,7 +11,6 @@ export function App() {
       <HeaderMenuNav/>
       <HeaderImage/>
       <MainPage />
-      <ReviewsMenu/>
       <Footer/>
     </div>
   )
