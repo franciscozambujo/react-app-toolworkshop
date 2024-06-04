@@ -64,17 +64,6 @@ export function MainPage() {
       duration: 2000,
     });
   }
-  
-  fetch(`https://api-j2xzxjxa5-xico144s-projects.vercel.app/api/v1`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
-  .then((response) => response.json())
-  .then((data) => console.log(data))
-  .catch((error) => console.error(`Error creating review: ${error}`));
-  setIsOpen(false);
 
   return(
     <div className="flex justify-center">
