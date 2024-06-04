@@ -72,10 +72,16 @@ export async function getUsersByEmail(email) {
   return rows;
 }
 
-export async function getUsersRole(user, password) {
-  const query =  ("SELECT utilizadores.cargo FROM utilizadores WHERE utilizadores.user = ? AND utilizadores.password = ?;");
-  const [rows] = await pool.query(query, [user, password]);
+export async function getUsersRole(user) {
+  const query =  ("SELECT utilizadores.cargo FROM utilizadores WHERE utilizadores.user = ?;");
+  const [rows] = await pool.query(query, [user]);
   return rows.length > 0 ? rows[0].cargo : null;
+}
+
+export async function getUsersPass(user) {
+  const query =  ("SELECT utilizadores.password, utilizadores.cargo FROM utilizadores WHERE utilizadores.user = ?;");
+  const [rows] = await pool.query(query, [user]);
+  return rows;
 }
 
 export async function createCarRepair(plate, description, value, date) {

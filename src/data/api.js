@@ -18,7 +18,10 @@ import { getUsers,
   getClientsByName,
   getCarsByClient,
   createCarByClient,
+  getUsersPass,
   }  from  './database.js';
+  import * as bcrypt from 'bcryptjs';
+
 
 const app = express();
 app.use(bodyParser.json());
@@ -80,15 +83,40 @@ app.get("/usersByemail", async (req, res) => {
 });
 
 app.get("/usersByRole", async (req, res) => {
-  const { user, password } = req.query;
+  const { user } = req.query;
   if (!user) {
     return res.status(400).json({ error: 'user is required' });
   }
-  if (!password) {
-    return res.status(400).json({ error: 'password is required' });
+  try {
+    const cargo = await getUsersRole(user);
+    res.json(cargo);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+app.get("/usersPass", async (req, res) => {
+  const { user } = req.query;
+  if (!user) {
+    return res.status(400).json({ error: 'user is required' });
   }
   try {
-    const cargo = await getUsersRole(user, password);
+    const cargo = await getUsersPass(user);
+    res.json(cargo);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+app.get("/usersByRole", async (req, res) => {
+  const { user } = req.query;
+  if (!user) {
+    return res.status(400).json({ error: 'user is required' });
+  }
+  try {
+    const cargo = await getUsersRole(user);
     res.json(cargo);
   } catch (error) {
     console.error(error);
@@ -195,7 +223,6 @@ app.post("/createUser", async (req, res) => {
     res.status(500).send({ message: "Erro ao criar utilizador" });
   }
 });
-
 
 app.post("/createCarClient", async (req, res) => {
   const { carBrand, carModel, carPlate, clientID} = req.body;

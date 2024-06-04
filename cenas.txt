@@ -1,2 +1,3 @@
 um utilizador consiga ver os seus carros, reparacoes, revisoes e reviews como cliente
 um utilizador nao pode adicionar carros apenas o empregado
+meter create user a com "users" unicos

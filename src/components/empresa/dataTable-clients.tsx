@@ -62,7 +62,7 @@ export function DataTableC() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = {
-
+      
     };
   };
 

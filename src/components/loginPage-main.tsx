@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Button } from './ui/button';
 import { Toaster, toast } from 'sonner';
 import { AuthContext } from "@/data/AuthContext";
+import * as bcrypt from 'bcryptjs';
 
 export function LoginForm() {
   const [user, setUser] = useState('');
@@ -11,50 +12,65 @@ export function LoginForm() {
 
   const handleSubmit = async (event:any) => {
     event.preventDefault();
-
+  
     const formData = {
       user: (event.target as HTMLFormElement).user.value,
       password: (event.target as HTMLFormElement).password.value,
     };
-
+  
     try {
       const response = await fetch(
-        `http://localhost:3000/usersByRole?user=${formData.user}&password=${formData.password}`
+        `http://localhost:3000/usersPass?user=${formData.user}`
       );
       const data = await response.json();
+      const userFromDB = data[0];
+  
+      if (userFromDB) {
+        const passwordFromDB = userFromDB.password;
+        console.log('Senha do banco de dados:', passwordFromDB);
+        console.log(userFromDB.cargo);
+        console.log('Senha do user introduzida:', formData.password);
 
-      if (data === 'owner') {
-        console.log(data);
-        login(formData.user, 'owner');
-        localStorage.setItem('isLoggedIn', 'true');
-        toast.success(`Login efetuado com sucesso!`, {
-          duration: 5000,
-        });
-        setTimeout(() => {
-          window.location.href = '/empresa/ownerpage';
-        }, 2000);
-      } else if (data === 'employee') {
-        console.log(data);
-        login(formData.user, 'employee');
-        localStorage.setItem('isLoggedIn', 'true');
-        toast.success(`Login efetuado com sucesso!`, {
-          duration: 5000,
-        });
-        setTimeout(() => {
-          window.location.href = '/empresa/employeepage';
-        }, 2000);
-      } else if (data === 'client') {
-        console.log(data);
-        login(formData.user, 'client');
-        localStorage.setItem('isLoggedIn', 'true');
-        toast.success(`Login efetuado com sucesso!`, {
-          duration: 5000,
-        });
-        setTimeout(() => {
-          window.location.href = '/cliente/clientArea';
-        }, 2000);
+        const isValid = bcrypt.compareSync(formData.password, passwordFromDB);
+
+        if (isValid) {
+          if (userFromDB.cargo === 'owner') {
+            console.log(userFromDB.cargo);
+            login(formData.user, 'owner');
+            localStorage.setItem('isLoggedIn', 'true');
+            toast.success(`Login efetuado com sucesso!`, {
+              duration: 5000,
+            });
+            setTimeout(() => {
+              window.location.href = '/empresa/ownerpage';
+            }, 2000);
+          } else if (userFromDB.cargo === 'employee') {
+            console.log(userFromDB.cargo);
+            login(formData.user, 'employee');
+            localStorage.setItem('isLoggedIn', 'true');
+            toast.success(`Login efetuado com sucesso!`, {
+              duration: 5000,
+            });
+            setTimeout(() => {
+              window.location.href = '/empresa/employeepage';
+            }, 2000);
+          } else if (userFromDB.cargo === 'client') {
+            console.log(userFromDB.cargo);
+            login(formData.user, 'client');
+            localStorage.setItem('isLoggedIn', 'true');
+            toast.success(`Login efetuado com sucesso!`, {
+              duration: 5000,
+            });
+            setTimeout(() => {
+              window.location.href = '/cliente/clientArea';
+            }, 2000);
+          }
+        } else {
+          toast.error('Credenciais inválidas!')
+          localStorage.setItem('isLoggedIn', 'false');
+        }
       } else {
-        toast.error('Credenciais inválidas!')
+        toast.error('Usuário não encontrado!')
         localStorage.setItem('isLoggedIn', 'false');
       }
     } catch (error) {

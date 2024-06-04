@@ -14,7 +14,6 @@ export function CreateUser() {
     const email = (event.target as HTMLFormElement).email.value;
     const password = (event.target as HTMLFormElement).password.value;
 
-    // Check for existing user before hashing password
     try {
       const searchResponse = await fetch(`${API_URL}/usersByemail?email=${encodeURIComponent(email)}`);
 
@@ -32,10 +31,9 @@ export function CreateUser() {
     }
 
     try {
-      const saltRounds = 10;
-      const hashedPassword = await bcrypt.hash(password, saltRounds);
-
-      const formData = { user, password: hashedPassword, FullName, email }; // Use hashed password
+      const salt = bcrypt.genSaltSync(10);
+      const hashedPassword = await bcrypt.hash(password, salt);
+      const formData = { user, password: hashedPassword, FullName, email };
 
       fetch(`${API_URL}/createUser`, {
         method: "POST",
