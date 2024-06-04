@@ -44,7 +44,7 @@ export function SideBarEnterprise() {
       </div>
       <div className="mt-2 mb-2 p-2 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-[#151515]">
         <LogOut />
-        <span className="text-[15px] ml-4">LogOut</span>
+        <Link to="/login"><span className="text-[15px] ml-4">LogOut</span></Link>
       </div>
     </div>
   );

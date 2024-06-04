@@ -13,7 +13,6 @@ import React from "react";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";
-import { Calendar } from "../ui/calendar";
 
 export function DataTableC() {
   const [clients, setClients] = useState<any[]>([]);
@@ -63,29 +62,14 @@ export function DataTableC() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = {
-      clientName: (event.target as HTMLFormElement).nomeCliente.value,
-      phoneNumber: (event.target as HTMLFormElement).ntelemovel.value,
-      email: (event.target as HTMLFormElement).email.value,
-    };
 
-    fetch(`${API_URL}/createClient`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    })
-      .then((response) => response.json())
-      .then((data) => console.log(data))
-      .catch((error) => console.error(`Error creating client: ${error}`));
-    setIsOpen(false);
-    window.location.reload();
+    };
   };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`${API_URL}/clients`);
+        const response = await fetch(`${API_URL}/users`);
         const data = await response.json();
         setClients(data);
       } catch (error) {
@@ -131,7 +115,6 @@ export function DataTableC() {
                 <Input 
                 className="col-span-3"
                 type="text"
-                pattern="^9[1236]\d{7}$"
                 placeholder="Mercedes"
                 id="carBrand"
                 name="carBrand"
@@ -146,52 +129,9 @@ export function DataTableC() {
                 <Label>Matrícula</Label>
                 <Input 
                 className="col-span-3"
-                placeholder="AA-00-AA ou 04-GF-00 ou "
+                placeholder="AA-00-AA"
                 id="carPlate" 
                 name="carPlate"
-                required />
-              </div>
-              <DialogFooter>
-                <Button type="submit" className="bg-[#00865A]">Criar</Button>
-              </DialogFooter>
-            </form>
-          </DialogContent>
-        </Dialog>
-        <Dialog open={isOpen} onOpenChange={setIsOpen}>
-          <DialogTrigger asChild>
-            <Button className="bg-[#00865A] font-bodyfooter">Novo Cliente</Button>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Novo Cliente</DialogTitle>
-              <DialogDescription>Preencha os campos necessários.</DialogDescription>
-            </DialogHeader>
-            <form onSubmit={handleSubmit} className="space-y-8">
-              <div className="grid grid-cols-4 items-center text-right gap-5">
-                <Label>Nome do Cliente</Label>
-                <Input
-                  className="col-span-3"
-                  type="text"
-                  placeholder="Francisco"
-                  id="nomeCliente"
-                  name="nomeCliente"
-                  required
-                />
-                <Label>Nº de telemóvel</Label>
-                <Input 
-                className="col-span-3"
-                type="text"
-                pattern="^9[1236]\d{7}$"
-                placeholder="968111222"
-                id="ntelemovel"
-                name="ntelemovel"
-                required />
-                <Label>Email</Label>
-                <Input 
-                className="col-span-3"
-                placeholder="cliente@gmail.com"
-                id="email" 
-                name="email"
                 required />
               </div>
               <DialogFooter>
@@ -233,7 +173,7 @@ export function DataTableC() {
                       {cars.length > 0 ? (  
                       <ul>
                         {cars.map((car) => (
-                          <li key={car.id}>{car.marca} {car.modelo} - {car.matricula}</li>
+                          <li key={car.id}>{car.marca} {car.modelo} | {car.matricula}</li>
                         ))}
                       </ul>
                     ) : (

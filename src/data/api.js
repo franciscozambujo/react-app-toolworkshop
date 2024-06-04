@@ -2,8 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import { getUsers, 
   getInvoices, 
-  getClients, 
-  getVehicles, 
+  getVehicles,
   createReview, 
   getLastReview, 
   getPenultimateReview, 
@@ -18,7 +17,6 @@ import { getUsers,
   getRepairs,
   getClientsByName,
   getCarsByClient,
-  createClient,
   createCarByClient,
   }  from  './database.js';
 
@@ -40,11 +38,6 @@ app.get("/users", async (req, res) => {
 app.get("/vehicles", async (req, res) => {
   const vehicles = await getVehicles();
   res.send(vehicles);
-});
-
-app.get("/clients", async (req, res) => {
-  const clients = await getClients();
-  res.send(clients);
 });
 
 app.get("/invoices", async (req, res) => {
@@ -193,9 +186,9 @@ app.post("/createCarRepairs", async (req, res) => {
 })
 
 app.post("/createUser", async (req, res) => {
-  const { user, password, email} = req.body;
+  const { user, password, FullName, email} = req.body;
   try {
-    await createUser(user, password, email);
+    await createUser(user, password, FullName, email);
     res.send({ message: "Utilizador criado com sucesso!" });
   } catch (err) {
     console.error(err);
@@ -203,16 +196,6 @@ app.post("/createUser", async (req, res) => {
   }
 });
 
-app.post("/createClient", async (req, res) => {
-  const { clientName, phoneNumber, email} = req.body;
-  try {
-    await createClient(clientName, phoneNumber, email);
-    res.send({ message: "Cliente criado com sucesso!" });
-  } catch (err) {
-    console.error(err);
-    res.status(500).send({ message: "Erro ao criar utilizador" });
-  }
-});
 
 app.post("/createCarClient", async (req, res) => {
   const { carBrand, carModel, carPlate, clientID} = req.body;
