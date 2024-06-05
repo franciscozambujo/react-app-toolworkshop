@@ -55,7 +55,7 @@ export async function getRepairs(searchRepairs) {
 }
 
 export async function getClientsByName(searchClients) {
-  const query =  await pool.query("SELECT * FROM utilizadores WHERE utilizadores.nome = ?;");
+  const query =  `SELECT * FROM utilizadores WHERE utilizadores.nome = ?`;
   const [rows] = await pool.query(query, [searchClients]);
   return rows;
 }
@@ -89,7 +89,7 @@ export async function createCarRepair(plate, description, value, date) {
     console.log("Parameters:", { plate, description, value, date });
 
     const [clientResult] = await pool.query(
-      "SELECT utilizadores.id FROM clientes JOIN veiculos ON utilizadores.id = veiculos.cliente WHERE veiculos.matricula = ?",
+      "SELECT utilizadores.id FROM utilizadores JOIN veiculos ON utilizadores.id = veiculos.cliente WHERE veiculos.matricula = ?",
       [plate]
     );
     const [vehicleResult] = await pool.query(
@@ -136,8 +136,8 @@ export async function createUser(user, password, FullName, email) {
   await pool.query(query, values);
 }
 
-export async function createCarByClient(carBrand, carModel, carPlate, clientID) {
-  const query =  `INSERT INTO veiculos (marca, modelo, matricula, cliente) VALUES (?, ?, ?, (SELECT id FROM utilizadores WHERE nome = ?))`;
-  const values = [carBrand, carModel, carPlate, clientID];
+export async function createCarByClient(carBrand, carModel, carPlate, clientEmail) {
+  const query =  `INSERT INTO veiculos (marca, modelo, matricula, cliente) VALUES (?, ?, ?, (SELECT id FROM utilizadores WHERE email = ?))`;
+  const values = [carBrand, carModel, carPlate, clientEmail];
   await pool.query(query, values);
 }

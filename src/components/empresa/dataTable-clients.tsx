@@ -13,13 +13,14 @@ import React from "react";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";
+import { toast, Toaster } from "sonner";
 
 export function DataTableC() {
   const [clients, setClients] = useState<any[]>([]);
   const [selectedClient, setSelectedClient] = useState<any>(null);
   const [cars, setCars] = useState<any[]>([]);
-  const [isOpen, setIsOpen] = useState(false);
   const [searchClients, setSearchedClients] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
   const [isCarDialogOpen, setIsCarDialogOpen] = useState(false);
   const API_URL = "http://localhost:3000";
 
@@ -62,8 +63,31 @@ export function DataTableC() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = {
-      
+      carBrand: (event.target as HTMLFormElement).carBrand.value,
+      carModel: (event.target as HTMLFormElement).carModel.value,
+      carPlate: (event.target as HTMLFormElement).carPlate.value,
+      clientEmail: (event.target as HTMLFormElement).clientID.value,
     };
+    console.log(formData.carBrand);
+    console.log(formData.carModel);
+    console.log(formData.carPlate);
+    console.log(formData.clientEmail);
+
+    fetch(`${API_URL}/createCarClient`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    })
+    .then((response) => response.json())
+    .then((data) => console.log(data))
+    .catch((error) => console.error(`Error creating repair: ${error}`));
+    setIsOpen(false);
+    toast.success(`Reparação criada com sucesso!`)
+    setTimeout(() => {
+      window.location.reload();
+    }, 1500);
   };
 
   useEffect(() => {
@@ -90,7 +114,7 @@ export function DataTableC() {
             placeholder="Pesquisar Dados"
           />
         </form>
-        <Dialog>
+        <Dialog open={isOpen} onOpenChange={setIsOpen}>
           <DialogTrigger asChild>
             <Button className="bg-[#00865A] font-bodyfooter">Adicionar carros a um cliente</Button>
           </DialogTrigger>
@@ -104,9 +128,11 @@ export function DataTableC() {
                 <Label>Cliente</Label>
                 <select
                 className="col-span-3 select"
+                name="clientID"
+                id="clientID"
                 >
-                  {clients.map((client) => (
-                    <option key={client.id} value={client.nome}>
+                  {clients.map((client) => (                    
+                    <option key={client.id} value={client.email}>
                       {client.nome}
                     </option>
                   ))}
@@ -128,7 +154,7 @@ export function DataTableC() {
                 required />
                 <Label>Matrícula</Label>
                 <Input 
-                className="col-span-3"
+                className="col-span-3 uppercase"
                 placeholder="AA-00-AA"
                 id="carPlate" 
                 name="carPlate"
@@ -195,6 +221,7 @@ export function DataTableC() {
           )}
           </Table>
         </div>
+        <Toaster richColors/>
       </div>
   );
 }

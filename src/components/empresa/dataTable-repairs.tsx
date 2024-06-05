@@ -23,15 +23,17 @@ import { format } from 'date-fns';
 import debounce from 'lodash.debounce';
 import { Calendar } from "../ui/calendar";
 import React from "react";
+import { toast, Toaster } from "sonner";
 
 export function DataTableR() {
-  const [invoices, setInvoices] = useState<any[]>([]);
+  const [allInvoices, setAllInvoices] = useState<any[]>([]);
+  const [filteredInvoices, setFilteredInvoices] = useState<any[]>([]);
   const [matriculas, setMatriculas] = useState<any[]>([]);
   const [selectedMatricula, setSelectedMatricula] = useState('');
-  const [searchRepairs, setRepairs] = useState('');
   const [nomeCliente, setNomeCliente] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const [date, setDate] = React.useState<Date>();
+  const [searchInput, setSearchInput] = useState('');
   const API_URL = "http://localhost:3000";
 
   const debouncedFetchMatriculas = debounce(async (nomeCliente: string) => {
@@ -52,11 +54,16 @@ export function DataTableR() {
     debouncedFetchMatriculas(nomeCliente);
   };
 
-  const debouncedFetchRepairs = debounce(async (searchRepairs: string) => {
+  const debouncedFetchRepairs = debounce(async (searchInput: string) => {
+    console.log(searchInput);
     try {
-      const response = await fetch(`${API_URL}/repairs?searchRepairs=${searchRepairs}`);
+      const response = await fetch(`${API_URL}/repairs?searchRepairs=${searchInput}`);
       const data = await response.json();
-      setInvoices(data);
+      if (data.length === 0) {
+        setFilteredInvoices([]);
+      } else {
+        setFilteredInvoices(data);
+      }
       console.log(data);
     } catch (error) {
       console.error('Error fetching repairs:', error);
@@ -64,15 +71,15 @@ export function DataTableR() {
   }, 500);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const searchRepairs = e.target.value;
-    setRepairs(searchRepairs);
-    if (searchRepairs !== '') {
-      debouncedFetchRepairs(searchRepairs);
+    const searchInput = e.target.value;
+    setSearchInput(searchInput);
+    if (searchInput!== '') {
+      debouncedFetchRepairs(searchInput);
     }
   };
 
-  const formattedDate = date ? format(date, 'yyyy-MM-dd') : '';
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    const formattedDate = date ? format(date, 'yyyy-MM-dd') : '';
     event.preventDefault();
     const formData = {
       plate: (event.target as HTMLFormElement).matricula.value,
@@ -80,6 +87,13 @@ export function DataTableR() {
       value: (event.target as HTMLFormElement).valor.value,
       date: formattedDate,
     };
+
+    const today = new Date();
+    if (new Date(formData.date) >  today)  
+    {
+      toast.error('Erro ao criar utilizador.'); 
+      return;
+    }
 
     fetch(`${API_URL}/createCarRepairs`, {
       method: "POST",
@@ -92,7 +106,10 @@ export function DataTableR() {
       .then((data) => console.log(data))
       .catch((error) => console.error(`Error creating repair: ${error}`));
     setIsOpen(false);
-    window.location.reload();
+    toast.success(`Reparação criada com sucesso!`)
+    setTimeout(() => {
+      window.location.reload();
+    }, 1500);
   };
 
   useEffect(() => {
@@ -100,20 +117,20 @@ export function DataTableR() {
       try {
         const response = await fetch(`${API_URL}/invoices`);
         const data = await response.json();
-        setInvoices(data);
+        setAllInvoices(data);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
     fetchData();
-  }, [searchRepairs]);
+  }, []);
 
   return (
     <div className="p-8 max-w-5xl space-y-4 m-auto">
       <div className="flex items-center justify-between">
         <form className="flex items-center gap-8">
           <Input
-            value={searchRepairs}
+            value={searchInput}
             onChange={handleSearchChange}
             id="search"
             placeholder="Pesquisar Dados"
@@ -181,51 +198,87 @@ export function DataTableR() {
         </Dialog>
       </div>
       <div className="border rounded-lg p-2">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead className="w-[130px]">Nome do Cliente</TableHead>
-              <TableHead>Veículo</TableHead>
-              <TableHead className="w-[130px]">Matrícula</TableHead>
-              <TableHead>Descrição</TableHead>
-              <TableHead className="w-[150px]">Valor</TableHead>
-              <TableHead>Data</TableHead>
-            </TableRow>
-          </TableHeader>
-          {invoices.length > 0 || searchRepairs === '' ? (
-            <TableBody>
-              {invoices.map((invoice) => (
-                <TableRow key={invoice.id} className="hover:bg-muted/50">
-                  <TableCell>{invoice.cliente}</TableCell>
-                  <TableCell>{invoice.veiculo}</TableCell>
-                  <TableCell>{invoice.matricula}</TableCell>
-                  <Dialog>
-                    <DialogTrigger>
-                      <button><TableCell className="line-clamp-1">{invoice.descricao}</TableCell></button>
-                    </DialogTrigger>
-                    <DialogContent>
-                      <DialogHeader>
-                        <DialogTitle>
-                          Descrição da Reparação
-                        </DialogTitle>
-                      </DialogHeader>
-                      {invoice.descricao}
-                    </DialogContent>
-                  </Dialog>
-                  <TableCell>{invoice.valor}€</TableCell>
-                  <TableCell className="w-24">{format(new Date(invoice.data), 'dd-MM-yyyy')}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          ) : (
-            <TableBody>
-              <TableRow>
-                <TableCell colSpan={4} align="center">Nenhum registro encontrado</TableCell>
-              </TableRow>
-            </TableBody>
-          )}
-        </Table>
+      <Table>
+  <TableHeader>
+    <TableRow>
+      <TableHead className="w-[200px]">Nome do Cliente</TableHead>
+      <TableHead>Veículo</TableHead>
+      <TableHead className="w-[130px]">Matrícula</TableHead>
+      <TableHead>Descrição</TableHead>
+      <TableHead className="w-[80px]">Valor</TableHead>
+      <TableHead>Data</TableHead>
+    </TableRow>
+  </TableHeader>
+  {searchInput === '' ? (
+    allInvoices.length > 0 ? (
+      <TableBody>
+        {allInvoices.map((invoice) => (
+          <TableRow key={invoice.id} className="hover:bg-muted/50">
+            <TableCell>{invoice.cliente}</TableCell>
+            <TableCell>{invoice.veiculo}</TableCell>
+            <TableCell>{invoice.matricula}</TableCell>
+            <Dialog>
+              <DialogTrigger>
+                <button><TableCell className="line-clamp-1">{invoice.descricao}</TableCell></button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>
+                    Descrição da Reparação
+                  </DialogTitle>
+                </DialogHeader>
+                {invoice.descricao}
+              </DialogContent>
+            </Dialog>
+            <TableCell>{invoice.valor}€</TableCell>
+            <TableCell className="w-28">{format(new Date(invoice.data), 'dd-MM-yyyy')}</TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    ) : (
+      <TableBody>
+        <TableRow>
+          <TableCell colSpan={4} align="center">Nenhum registro encontrado</TableCell>
+        </TableRow>
+      </TableBody>
+    )
+  ) : (
+    filteredInvoices.length > 0 ? (
+      <TableBody>
+        {filteredInvoices.map((invoice) => (
+          <TableRow key={invoice.id} className="hover:bg-muted/50">
+            <TableCell>{invoice.nome}</TableCell>
+            <TableCell>{invoice.veiculo}</TableCell>
+            <TableCell>{invoice.matricula}</TableCell>
+            <Dialog>
+              <DialogTrigger>
+                <button><TableCell className="line-clamp-1">{invoice.descricao}</TableCell></button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>
+                    Descrição da Reparação
+                  </DialogTitle>
+                </DialogHeader>
+                {invoice.descricao}
+              </DialogContent>
+            </Dialog>
+            <TableCell>{invoice.valor}€</TableCell>
+            <TableCell className="w-28">{format(new Date(invoice.data), 'dd-MM-yyyy')}</TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    ) : (
+      <TableBody>
+        <TableRow>
+          <TableCell colSpan={4} align="center">Nenhum registro encontrado</TableCell>
+        </TableRow>
+      </TableBody>
+    )
+  )}
+</Table>
       </div>
+      <Toaster richColors/>
     </div>
   )
 }

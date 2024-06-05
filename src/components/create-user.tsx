@@ -48,14 +48,14 @@ export function CreateUser() {
           toast.success(`Utilizador criado com sucesso!`, {
             duration: 5000,
           });
-          /*setTimeout(() => {
+          setTimeout(() => {
             window.location.href = '/login';
-          }, 2000);*/
+          }, 2000);
         })
         .catch((error) => console.error(`Error creating repair: ${error}`));
     } catch (error) {
       console.error('Error hashing password:', error);
-      toast.error('Erro ao criar utilizador.'); // Handle error gracefully
+      toast.error('Erro ao criar utilizador.');
     }
   }
   return ( 

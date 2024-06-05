@@ -70,7 +70,7 @@ export function LoginForm() {
           localStorage.setItem('isLoggedIn', 'false');
         }
       } else {
-        toast.error('Usuário não encontrado!')
+        toast.error('Utilizador não encontrado!')
         localStorage.setItem('isLoggedIn', 'false');
       }
     } catch (error) {
