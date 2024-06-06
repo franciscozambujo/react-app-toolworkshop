@@ -1,3 +1,27 @@
-um utilizador consiga ver os seus carros, reparacoes, revisoes e reviews como cliente
-um utilizador nao pode adicionar carros apenas o empregado
-meter create user a com "users" unicos
+um utilizador consiga ver os seus carros, reparacoes, revisoes e reviews como cliente 
+um utilizador nao pode adicionar carros apenas o empregado ---
+meter create user a com "users" unicos ----
+
+
+clientes:
+- introduzir o seu nr de telemovel nas "definições de conta", 
+- mudar o seu email, 
+- mudar o seu username (fazer verificações de email e de user)
+
+revisões:
+- meter só para utilizadores com conta criada (verificar se tem carros registados)
+
+reparacoes:
+- criar tabela serviços com os serviços mais usados
+- relacionar serviços com reparacoes
+
+fazer cliente criar conta para fazer um agendamento, como irá ter uma conta criada no agendamento vai poder meter o carro 
+e assim posso logo adicionar o carro a esse cliente
+
+fazer pesquisa à db se existe o carro do cliente inserido no agendar revisao, se nao houver insere-se senão faz a revisao
+
+fazer verificacoes de carros ja adicionados a um cliente
+
+
+NOME NO CARCHECK TEM de ser o user não pode ser o nome proprio, o user é unico, 
+tem de se dar import ao authcontext para ir buscar o user logado e meter logo no form do agendamento

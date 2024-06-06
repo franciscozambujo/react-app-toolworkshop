@@ -166,7 +166,7 @@ export function DataTableR() {
                 <select
                   value={selectedMatricula}
                   onChange={(e) => setSelectedMatricula(e.target.value)}
-                  className="col-span-3 select"
+                  className="col-span-3 select uppercase"
                   name="matricula"
                   id="matricula"
                   required
@@ -226,7 +226,7 @@ export function DataTableR() {
           <TableRow key={invoice.id} className="hover:bg-muted/50">
             <TableCell>{invoice.cliente}</TableCell>
             <TableCell>{invoice.veiculo}</TableCell>
-            <TableCell>{invoice.matricula}</TableCell>
+            <TableCell className="uppercase">{invoice.matricula}</TableCell>
             <Dialog>
               <DialogTrigger>
                 <button><TableCell className="line-clamp-1">{invoice.descricao}</TableCell></button>

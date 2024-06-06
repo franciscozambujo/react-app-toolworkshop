@@ -42,6 +42,7 @@
     "embla-carousel-autoplay": "^8.0.0-rc22",
     "embla-carousel-react": "^8.0.0-rc22",
     "express": "^4.19.2",
+    "framer-motion": "^11.2.10",
     "json-mapper": "^0.0.12",
     "json-mapper-json": "^1.3.3",
     "json-object-mapper": "^1.7.2",

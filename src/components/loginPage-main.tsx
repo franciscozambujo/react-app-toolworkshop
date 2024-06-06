@@ -4,6 +4,7 @@ import { Button } from './ui/button';
 import { Toaster, toast } from 'sonner';
 import { AuthContext } from "@/data/AuthContext";
 import * as bcrypt from 'bcryptjs';
+import { motion } from 'framer-motion';
 
 export function LoginForm() {
   const [user, setUser] = useState('');
@@ -42,7 +43,7 @@ export function LoginForm() {
               duration: 5000,
             });
             setTimeout(() => {
-              window.location.href = '/empresa/ownerpage';
+              window.location.href = '/empresa/geral';
             }, 2000);
           } else if (userFromDB.cargo === 'employee') {
             console.log(userFromDB.cargo);
@@ -79,6 +80,12 @@ export function LoginForm() {
     }
   };
   return (
+    <motion.div
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0 }}
+    transition={{ duration: 2.5 }}
+  >
     <div className="h-screen flex items-center justify-center">
       <div className="max-w-md flex flex-col p-4 rounded-md text-black font-bodyfooter">
         <div className="text-2xl font-bold mb-2 text-white text-center">
@@ -119,5 +126,6 @@ export function LoginForm() {
       </div>
       <Toaster richColors/>
     </div>
+    </motion.div>
   );
 }

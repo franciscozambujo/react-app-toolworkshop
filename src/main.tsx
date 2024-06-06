@@ -15,9 +15,10 @@ import { ClientsPage } from "./routes/empresa/clientsPage.tsx";
 import { ClientsArea } from "./routes/cliente/clientsArea-main.tsx";
 import { EmpresaPage } from "./routes/empresa/empresaPage.tsx";
 import { AuthProvider } from "./data/AuthContext.tsx";
-import { OwnerPage } from "./routes/empresa/ownerPage.tsx";
 import { SettingsPage } from "./routes/empresa/settingsPage.tsx";
 import { ClientAccountSettings } from "./routes/cliente/clientsSettings.tsx";
+import { AnimatePresence } from "framer-motion";
+import { ClientCarCheck } from "./routes/cliente/clientCarCheck.tsx";
 
 const router = createBrowserRouter([
   {
@@ -41,11 +42,6 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: "/empresa/ownerpage",
-    element: <OwnerPage />,
-    errorElement: <ErrorPage />,
-  },
-  {
     path: "/empresa/employeepage",
     element: <EmployeePage />,
     errorElement: <ErrorPage />,
@@ -63,6 +59,11 @@ const router = createBrowserRouter([
   {
     path: "/cliente/clientSettings",
     element: <ClientAccountSettings />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/cliente/clientCarCheck",
+    element: <ClientCarCheck />,
     errorElement: <ErrorPage />,
   },
   {
@@ -95,7 +96,9 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <AuthProvider>
-      <RouterProvider router={router} />
+      <AnimatePresence>
+        <RouterProvider router={router} />
+      </AnimatePresence>
     </AuthProvider>
   </React.StrictMode>
 );

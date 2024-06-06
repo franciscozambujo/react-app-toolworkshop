@@ -2,6 +2,7 @@ import { Toaster, toast } from "sonner";
 import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
 import * as bcrypt from 'bcryptjs';
+import { motion } from "framer-motion";
 
 export function CreateUser() {
   const API_URL = "http://localhost:3000";
@@ -64,6 +65,12 @@ export function CreateUser() {
     }
   }
   return ( 
+    <motion.div
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0 }}
+    transition={{ duration: 1.5 }}
+  >
     <div className="h-screen flex items-center justify-center">
       <div className="max-w-md flex flex-col p-4 rounded-md text-black font-bodyfooter">
             <div className="text-2xl font-bold mb-2 text-white text-center">Oficina Fernando Costa Fialho <span className="text-[#53AE6E]"><br />Área do Cliente</span></div>
@@ -112,5 +119,6 @@ export function CreateUser() {
     </div>
     <Toaster richColors/>
     </div>
+    </motion.div>
    )
 }

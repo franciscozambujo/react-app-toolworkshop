@@ -66,6 +66,12 @@ export async function getCarsByClient(clientID) {
   return rows;
 }
 
+export async function getCarsByInfo(name) {
+  const query =  `SELECT marca, modelo, matricula FROM veiculos JOIN utilizadores ON veiculos.cliente = utilizadores.id WHERE utilizadores.nome = ?`;
+  const [rows] = await pool.query(query, [name]);
+  return rows;
+}
+
 export async function getUsersByEmail(email) {
   const query =  `SELECT * FROM utilizadores WHERE utilizadores.email LIKE ?`;
   const [rows] = await pool.query(query, [email]);

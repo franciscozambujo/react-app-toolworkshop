@@ -52,7 +52,7 @@ export function DataTableC() {
   const debouncedFetchCarsByClient = debounce(async (clientId: number) => {
     console.log(clientId);
     try {
-      const response = await fetch(`${API_URL}/getCarsByClient?clientID=${clientId}`);
+      const response = await fetch(`${API_URL}/carsByClient?clientID=${clientId}`);
       const data = await response.json();
       setCars(data);
     } catch (error) {
@@ -84,7 +84,7 @@ export function DataTableC() {
     .then((data) => console.log(data))
     .catch((error) => console.error(`Error creating repair: ${error}`));
     setIsOpen(false);
-    toast.success(`Reparação criada com sucesso!`)
+    toast.success(`Carro adicionado ao cliente!`)
     setTimeout(() => {
       window.location.reload();
     }, 1500);
@@ -199,7 +199,7 @@ export function DataTableC() {
                       {cars.length > 0 ? (  
                       <ul>
                         {cars.map((car) => (
-                          <li key={car.id}>{car.marca} {car.modelo} | {car.matricula}</li>
+                          <li key={car.id}>{car.marca} {car.modelo} | <span className="uppercase">{car.matricula}</span></li>
                         ))}
                       </ul>
                     ) : (
