@@ -8,21 +8,26 @@ export function CreateUser() {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
     const user = (event.target as HTMLFormElement).user.value;
     const FullName = (event.target as HTMLFormElement).FullName.value;
     const email = (event.target as HTMLFormElement).email.value;
     const password = (event.target as HTMLFormElement).password.value;
 
     try {
-      const searchResponse = await fetch(`${API_URL}/usersByemail?email=${encodeURIComponent(email)}`);
+      const searchResponseEmail = await fetch(`${API_URL}/usersByemail?email=${email}`);
+      const searchResponseUser = await fetch(`${API_URL}/usersByuser?user=${user}`);
 
-      if (!searchResponse.ok) {
-        throw new Error(`Error searching for user: ${searchResponse.statusText}`);
+      if (!searchResponseEmail.ok) {
+        throw new Error(`Error searching for user: ${searchResponseEmail.statusText}`);
       }
-      const searchData = await searchResponse.json();
-      if (searchData.length > 0) {
-        toast.error('Este utilizador já existe.');
+      const searchDataEmail = await searchResponseEmail.json();
+      const searchDataUser = await searchResponseUser.json();
+
+      console.log(searchDataEmail)
+      console.log(searchDataUser)
+
+      if (searchDataEmail.length > 0 || searchDataUser.length > 0) {
+        toast.error('Este utilizador já existe. Tente outro Email e outro Username.');
         return;
       }
     } catch (error) {

@@ -1,11 +1,10 @@
 import { Link } from "react-router-dom";
-import { Input } from "../ui/input";
-import { Search, User, Wrench, AreaChart, Settings, LogOut } from "lucide-react";
+import { User, Wrench, AreaChart, Settings, LogOut } from "lucide-react";
 import { useContext } from 'react';
 import { AuthContext } from '@/data/AuthContext';
 
 export function SideBarEnterprise() {
-  const { userRole } = useContext(AuthContext);
+  const { userRole, username } = useContext(AuthContext);
   const logo = new URL("@/public/images/header.png", import.meta.url).href;
   return (
     <div className="text-white top-0 bottom-0 lg:left-0 p-2 w-72 overflow-y-auto text-center bg-[#282828] h-screen font-bodyfooter flex flex-col justify-between">
@@ -14,14 +13,10 @@ export function SideBarEnterprise() {
         Gestão de Empresa
         <div className="p-2 mt-1 flex items-center">
           <h1 className="font-bold text-gray-200 ml-3">
-            {userRole === 'owner'? 'Administrador' : 'Empregado'}
+            {userRole === 'owner'? username : username}
           </h1>
         </div>
         <hr className="my-2"/>
-      </div>
-      <div className="p-2 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer">
-        <Search />
-        <Input type="text" placeholder="Pesquisar" className="ml-4 w-full bg-transparent focus:outline-none"/>
       </div>
       {userRole === 'owner' && (
         <div className="p-2 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-[#151515]">

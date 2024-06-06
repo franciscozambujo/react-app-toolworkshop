@@ -19,6 +19,7 @@ import { getUsers,
   getCarsByClient,
   createCarByClient,
   getUsersPass,
+  getUsersByUser,
   }  from  './database.js';
   import * as bcrypt from 'bcryptjs';
 
@@ -74,8 +75,22 @@ app.get("/usersByemail", async (req, res) => {
     return res.status(400).json({ error: 'email is required' });
   }
   try {
-    const emails = await getUsersByEmail(email);
-    res.json(emails);
+    const users = await getUsersByEmail(email);
+    res.json(users);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+app.get("/usersByuser", async (req, res) => {
+  const { user } = req.query;
+  if (!user) {
+    return res.status(400).json({ error: 'user is required' });
+  }
+  try {
+    const users = await getUsersByUser(user);
+    res.json(users);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal server error' });

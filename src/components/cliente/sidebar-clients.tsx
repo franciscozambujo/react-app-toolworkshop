@@ -4,7 +4,7 @@ import { useContext } from 'react';
 import { AuthContext } from '@/data/AuthContext';
 
 export function SideBarClients() {
-  const { userRole } = useContext(AuthContext);
+  const { userRole, username } = useContext(AuthContext);
   const logo = new URL("@/public/images/header.png", import.meta.url).href;
   return (
     <div className="text-white top-0 bottom-0 lg:left-0 p-2 w-72 overflow-y-auto text-center bg-[#282828] h-screen font-bodyfooter flex flex-col justify-between">
@@ -13,7 +13,7 @@ export function SideBarClients() {
         Área de Cliente
         <div className="p-2 mt-1 flex items-center">
           <h1 className="font-bold text-gray-200 ml-3">
-            Cliente
+            {username}
           </h1>
         </div>
         <hr className="my-2"/>
