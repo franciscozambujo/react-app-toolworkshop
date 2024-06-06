@@ -17,7 +17,7 @@ import { getUsers,
   getRepairs,
   getClientsByName,
   getCarsByClient,
-  createCarByClient,
+  createCarClientByEmail,
   getUsersPass,
   getUsersByUser,
   getCarsByInfo,
@@ -254,10 +254,10 @@ app.post("/createUser", async (req, res) => {
   }
 });
 
-app.post("/createCarClient", async (req, res) => {
+app.post("/createCarClientByEmail", async (req, res) => {
   const { carBrand, carModel, carPlate, clientEmail} = req.body;
   try {
-    await createCarByClient(carBrand, carModel, carPlate, clientEmail);
+    await createCarClientByEmail(carBrand, carModel, carPlate, clientEmail);
     res.send({ message: "Veículo do cliente criado com sucesso!" });
   } catch (err) {
     console.error(err);

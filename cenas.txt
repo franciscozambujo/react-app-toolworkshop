@@ -23,5 +23,5 @@ fazer pesquisa à db se existe o carro do cliente inserido no agendar revisao, s
 fazer verificacoes de carros ja adicionados a um cliente
 
 
-NOME NO CARCHECK TEM de ser o user não pode ser o nome proprio, o user é unico, 
+o cliente tem de preencher a revisao normalmente como anonymous
 tem de se dar import ao authcontext para ir buscar o user logado e meter logo no form do agendamento

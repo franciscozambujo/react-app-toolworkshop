@@ -148,7 +148,7 @@ export async function createUser(user, password, FullName, email) {
   await pool.query(query, values);
 }
 
-export async function createCarByClient(carBrand, carModel, carPlate, clientEmail) {
+export async function createCarClientByEmail(carBrand, carModel, carPlate, clientEmail) {
   const query =  `INSERT INTO veiculos (marca, modelo, matricula, cliente) VALUES (?, ?, ?, (SELECT id FROM utilizadores WHERE email = ?))`;
   const values = [carBrand, carModel, carPlate, clientEmail];
   await pool.query(query, values);

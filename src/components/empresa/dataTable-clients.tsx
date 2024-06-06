@@ -73,7 +73,7 @@ export function DataTableC() {
     console.log(formData.carPlate);
     console.log(formData.clientEmail);
 
-    fetch(`${API_URL}/createCarClient`, {
+    fetch(`${API_URL}/createCarClientByEmail`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

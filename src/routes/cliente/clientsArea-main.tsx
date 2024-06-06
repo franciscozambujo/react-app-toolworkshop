@@ -1,3 +1,4 @@
+import { ClientsAreaMain } from "@/components/cliente/ClientsAreaMain";
 import { SideBarClients } from "@/components/cliente/sidebar-clients";
 
 export function ClientsArea () {
@@ -8,7 +9,9 @@ export function ClientsArea () {
               <SideBarClients/>
           </aside>
           <main className="bg-[#181818] w-screen text-white font-bodyfooter">
-              <h1>Main Clientes</h1>
+            <div>
+              <ClientsAreaMain/>
+            </div>
           </main>
       </div>
   </div>
