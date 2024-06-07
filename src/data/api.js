@@ -21,9 +21,8 @@ import { getUsers,
   getUsersPass,
   getUsersByUser,
   getCarsByInfo,
+  getRepairsLastWeek,
   }  from  './database.js';
-  import * as bcrypt from 'bcryptjs';
-
 
 const app = express();
 app.use(bodyParser.json());
@@ -68,6 +67,11 @@ app.get("/antePenultimateReview", async (req, res) => {
 app.get("/antantePenultimateReview", async (req, res) => {
   const antantePenultimateReview = await getAntantepenultimateReview();
   res.send(antantePenultimateReview);
+});
+
+app.get("/repairsLastWeek", async (req, res) => {
+  const repairsLastWeek = await getRepairsLastWeek();
+  res.send(repairsLastWeek);
 });
 
 app.get("/usersByemail", async (req, res) => {

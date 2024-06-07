@@ -1,3 +1,4 @@
+import { OwnerGeralMain } from "@/components/empresa/ownerGeral";
 import { SideBarEnterprise } from "@/components/empresa/sidebar-enterprise";
 
 export function EmpresaPage() {
@@ -8,7 +9,7 @@ export function EmpresaPage() {
               <SideBarEnterprise/>
           </aside>
           <main className="bg-[#181818] w-screen text-white font-bodyfooter">
-              <h1>Visão Geral</h1>
+              <OwnerGeralMain/>
           </main>
       </div>
   </div>

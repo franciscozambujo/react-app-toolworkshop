@@ -48,6 +48,11 @@ export async function getCarPlate(nomeCliente) {
   return rows;
 }
 
+export async function getRepairsLastWeek() {
+  const [rows] =  await pool.query("SELECT COUNT(*) AS reparacoes_ultima_semana FROM reparacoes WHERE data >= DATE_SUB(CURDATE(), INTERVAL 7 DAY);");
+  return rows;
+}
+
 export async function getRepairs(searchRepairs) {
   const query = `SELECT reparacoes.ID, utilizadores.nome, veiculos.marca AS veiculo, veiculos.matricula AS matricula, reparacoes.descricao, reparacoes.valor, reparacoes.data FROM reparacoes INNER JOIN utilizadores ON reparacoes.cliente = utilizadores.id INNER JOIN veiculos ON reparacoes.veiculo = veiculos.id WHERE utilizadores.nome LIKE ?`;
   const [rows] = await pool.query(query, [searchRepairs]);
