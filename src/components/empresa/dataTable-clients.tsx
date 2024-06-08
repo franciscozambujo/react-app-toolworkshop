@@ -22,6 +22,7 @@ export function DataTableC() {
   const [searchClients, setSearchedClients] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [isCarDialogOpen, setIsCarDialogOpen] = useState(false);
+  const [selectedClientId, setSelectedClientId] = useState(null);
   const API_URL = "http://localhost:3000";
 
   const debouncedFetchClients = debounce(async (searchClients: string) => {
@@ -45,6 +46,7 @@ export function DataTableC() {
 
   const handleClientSelect = (client: any) => {
     setSelectedClient(client);
+    setSelectedClientId(client.id);
     debouncedFetchCarsByClient(client.id);
     setIsCarDialogOpen(true);
   };
@@ -68,12 +70,28 @@ export function DataTableC() {
       carPlate: (event.target as HTMLFormElement).carPlate.value,
       clientEmail: (event.target as HTMLFormElement).clientID.value,
     };
+    const plateUpper = formData.carPlate.toUpperCase();
     console.log(formData.carBrand);
     console.log(formData.carModel);
-    console.log(formData.carPlate);
+    console.log(plateUpper);
     console.log(formData.clientEmail);
 
-    fetch(`${API_URL}/createCarClientByEmail`, {
+      try{
+        const searchResponseChecks = await fetch(`${API_URL}/vehicles`);
+        const searchDataChecks = await searchResponseChecks.json();
+        const encontrado = searchDataChecks.some((item: { id: number, marca: string, modelo: string, matricula: string, cliente: number })  => item.matricula === plateUpper);
+  
+        if (encontrado) {
+          toast.error(`Essa matricula já existe.`, {
+            duration: 3500,
+          });
+          return;
+        }
+      }catch(error) {
+        console.error("Check error fetching:", error);
+      }
+
+    /*fetch(`${API_URL}/createCarClientByEmail`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -86,8 +104,8 @@ export function DataTableC() {
     setIsOpen(false);
     toast.success(`Carro adicionado ao cliente!`)
     setTimeout(() => {
-      window.location.reload();
-    }, 1500);
+      //window.location.reload();
+    }, 1500);*/
   };
 
   useEffect(() => {
@@ -102,7 +120,6 @@ export function DataTableC() {
     };
     fetchData();
   }, [searchClients]);
-
   return (
     <div className="p-8 max-w-5xl space-y-4 m-auto">
       <div className="flex items-center justify-between">
@@ -154,7 +171,7 @@ export function DataTableC() {
                 required />
                 <Label>Matrícula</Label>
                 <Input 
-                className="col-span-3 uppercase"
+                className="col-span-3"
                 placeholder="AA-00-AA"
                 id="carPlate" 
                 name="carPlate"

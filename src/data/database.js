@@ -17,6 +17,17 @@ export async function getVehicles(){
   return rows;
 }
 
+export async function getCarChecks(){
+  const [rows] = await pool.query("SELECT * FROM revisoes;");
+  return rows;
+}
+
+export async function getCarChecksByUser(user){
+  const query = `SELECT * FROM revisoes WHERE nome_cliente = ?;`;
+  const [rows] = await pool.query(query, [user]);
+  return rows;
+}
+
 export async function getInvoices(){
   const [rows] = await pool.query("SELECT reparacoes.ID, utilizadores.nome AS cliente, veiculos.marca AS veiculo, veiculos.matricula AS matricula, reparacoes.descricao, reparacoes.valor, reparacoes.data FROM reparacoes INNER JOIN utilizadores ON reparacoes.cliente = utilizadores.id INNER JOIN veiculos ON reparacoes.veiculo = veiculos.id;");
   return rows;
@@ -136,7 +147,7 @@ export async function createCarRepair(plate, description, value, date) {
 }
 
 export async function createCarCheck(name, phone, car, plate, checkDate) {
-  const query =  await pool.query("INSERT INTO revisoes (nome, numero_tele, carro, matricula, data_agendada) VALUES (?,?,?,?,?);");
+  const query =  `INSERT INTO revisoes (nome_cliente, numero_tele, carro, matricula, data_agendada, estado) VALUES (?,?,?,?,?, "Por aprovar");`;
   const values = [name, phone, car, plate, checkDate];
   await pool.query(query, values);
 }
@@ -148,7 +159,7 @@ export async function createReview(name, email, description, rating) {
 }
 
 export async function createUser(user, password, FullName, email) {
-  const query =  `INSERT INTO utilizadores (user, password, nome, email, cargo) VALUES (?, ?, ?, ?, 'client');` ;
+  const query =  `INSERT INTO utilizadores (user, password, nome, email, cargo) VALUES (?, ?, ?, ?, 'client');`;
   const values = [user, password, FullName, email];
   await pool.query(query, values);
 }
@@ -156,5 +167,11 @@ export async function createUser(user, password, FullName, email) {
 export async function createCarClientByEmail(carBrand, carModel, carPlate, clientEmail) {
   const query =  `INSERT INTO veiculos (marca, modelo, matricula, cliente) VALUES (?, ?, ?, (SELECT id FROM utilizadores WHERE email = ?))`;
   const values = [carBrand, carModel, carPlate, clientEmail];
+  await pool.query(query, values);
+}
+
+export async function changeCheckState(checkId) {
+  const query =  `UPDATE revisoes SET estado = 'Aceite' WHERE id = ?;`;
+  const values = [checkId];
   await pool.query(query, values);
 }

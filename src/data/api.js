@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import bodyParser from 'body-parser';
 import { getUsers, 
   getInvoices, 
@@ -22,6 +23,9 @@ import { getUsers,
   getUsersByUser,
   getCarsByInfo,
   getRepairsLastWeek,
+  getCarChecksByUser,
+  getCarChecks,
+  changeCheckState,
   }  from  './database.js';
 
 const app = express();
@@ -33,6 +37,12 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   next();
 });
+
+app.use(cors({
+  origin: ['http://localhost:5173'],
+  methods: ['GET', 'PUT', 'POST', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 app.get("/users", async (req, res) => {
   const users = await getUsers();
@@ -47,6 +57,25 @@ app.get("/vehicles", async (req, res) => {
 app.get("/invoices", async (req, res) => {
   const invoices = await getInvoices();
   res.send(invoices);
+});
+
+app.get("/carChecks", async (req, res) => {
+  const invoices = await getCarChecks();
+  res.send(invoices);
+});
+
+app.get("/carChecksByUser", async (req, res) => {
+  const { user } = req.query;
+  if (!user) {
+    return res.status(400).json({ error: 'user is required' });
+  }
+  try {
+    const users = await getCarChecksByUser(user);
+    res.json(users);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
 });
 
 app.get("/lastReview", async (req, res) => {
@@ -266,6 +295,17 @@ app.post("/createCarClientByEmail", async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).send({ message: "Erro ao criar veiculo" });
+  }
+});
+
+app.put("/changeCheckState/:checkId", async (req, res) => {
+  const { checkId } = req.params;
+  try {
+    await changeCheckState(checkId);
+    res.send({ message: "deu" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({ message: "Erro ao alterar estado" });
   }
 });
 

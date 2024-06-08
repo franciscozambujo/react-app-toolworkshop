@@ -23,5 +23,4 @@ fazer pesquisa à db se existe o carro do cliente inserido no agendar revisao, s
 fazer verificacoes de carros ja adicionados a um cliente
 
 
-o cliente tem de preencher a revisao normalmente como anonymous
-tem de se dar import ao authcontext para ir buscar o user logado e meter logo no form do agendamento
+cliente preenche o agendamento com o seu carro etc. mas aguarda resposta da oficina e so depois se houver mesmo uma revisao é que é criadoo carro desse cliente
