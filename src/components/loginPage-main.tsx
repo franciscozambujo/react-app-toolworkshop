@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from './ui/button';
 import { Toaster, toast } from 'sonner';
-import { AuthContext } from "@/data/AuthContext";
+import { AuthContext } from "@/data/AuthProvider";
 import * as bcrypt from 'bcryptjs';
 import { motion } from 'framer-motion';
 
@@ -25,18 +25,15 @@ export function LoginForm() {
       );
       const data = await response.json();
       const userFromDB = data[0];
+      console.log(userFromDB)
   
       if (userFromDB) {
         const passwordFromDB = userFromDB.password;
-        console.log('Senha do banco de dados:', passwordFromDB);
-        console.log(userFromDB.cargo);
-        console.log('Senha do user introduzida:', formData.password);
-
         const isValid = bcrypt.compareSync(formData.password, passwordFromDB);
 
         if (isValid) {
           if (userFromDB.cargo === 'owner') {
-            console.log(userFromDB.cargo);
+            console.log(formData.user);
             login(formData.user, 'owner');
             localStorage.setItem('isLoggedIn', 'true');
             toast.success(`Login efetuado com sucesso!`, {

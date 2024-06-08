@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { User, Wrench, AreaChart, Settings, LogOut } from "lucide-react";
 import { useContext } from 'react';
-import { AuthContext } from '@/data/AuthContext';
+import { AuthContext } from '@/data/AuthProvider';
 
 export function SideBarEnterprise() {
   const { userRole, username } = useContext(AuthContext);

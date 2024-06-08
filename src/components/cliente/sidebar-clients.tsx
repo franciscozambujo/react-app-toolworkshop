@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";  
 import { Settings, LogOut, User,NotepadText } from "lucide-react";
 import { useContext } from 'react';
-import { AuthContext } from '@/data/AuthContext';
+import { AuthContext } from '@/data/AuthProvider';
 
 export function SideBarClients() {
   const { username } = useContext(AuthContext);

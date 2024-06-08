@@ -39,6 +39,7 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
   const handleLogin = (username: string, role: string) => {
     setUserRole(role);
     setUsername(username);
+    setIsLoggedIn(true);
     localStorage.setItem('userRole', role);
     localStorage.setItem('username', username);
   };
@@ -50,6 +51,7 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
     localStorage.removeItem('userRole');
     localStorage.removeItem('username'); 
   };
+  console.log(isLoggedIn);
 
   const value = {
     isLoggedIn,

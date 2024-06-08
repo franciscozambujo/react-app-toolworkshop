@@ -14,11 +14,12 @@ import { RepairsPage } from "./routes/empresa/repairsPage.tsx";
 import { ClientsPage } from "./routes/empresa/clientsPage.tsx";
 import { ClientsArea } from "./routes/cliente/clientsArea-main.tsx";
 import { EmpresaPage } from "./routes/empresa/empresaPage.tsx";
-import { AuthProvider } from "./data/AuthContext.tsx";
+import { AuthProvider } from "./data/AuthProvider.tsx";
 import { SettingsPage } from "./routes/empresa/settingsPage.tsx";
 import { ClientAccountSettings } from "./routes/cliente/clientsSettings.tsx";
 import { AnimatePresence } from "framer-motion";
 import { ClientCarCheck } from "./routes/cliente/clientCarCheck.tsx";
+import ProtectedRoute from "./utils/ProtectedRoutes.tsx";
 
 const router = createBrowserRouter([
   {
@@ -78,7 +79,12 @@ const router = createBrowserRouter([
   },
   {
     path: "/empresa/geral",
-    element: <EmpresaPage />,
+    element: (
+        //<ProtectedRoute>
+          <EmpresaPage />
+        //</ProtectedRoute>
+
+    ),
     errorElement: <ErrorPage />,
   },
   {
