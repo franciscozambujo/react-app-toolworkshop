@@ -7,7 +7,8 @@ export function TesteCenas () {
     const fetchData = async () => {
       const response = await fetch('https://react-app-toolworkshop-server.vercel.app/');
       const data = await response.json();
-      setData(data[0].name);
+      setData(data);
+      console.log(data);
     };
     fetchData();
   }, []);
