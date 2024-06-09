@@ -3,6 +3,7 @@ import { MainPage } from "./components/main-page";
 import { Footer } from "./components/footer";
 import { HeaderImage } from "./components/headerImage";
 import { ReviewsMenu } from "./components/reviewsMenu";
+import { TesteCenas } from "./components/TesteCenas";
 
 export function App() {
   return (
@@ -10,7 +11,7 @@ export function App() {
       <HeaderMenuNav/>
       <HeaderImage/>
       <MainPage />
-      <ReviewsMenu/>
+      <TesteCenas/>
       <Footer/>
     </div>
   )

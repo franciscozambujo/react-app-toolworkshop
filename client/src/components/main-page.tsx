@@ -3,7 +3,6 @@ import { Toaster, toast } from 'sonner'
 import { Link } from "react-router-dom";
 import { motion } from 'framer-motion';
 
-
 export function MainPage() {
   const imgRevisao = new URL("@/public/images/give_car_keys.jpg", import.meta.url).href;
   const imgInspecionar = new URL("@/public/images/inspecionar.jpg", import.meta.url).href;
