@@ -36,7 +36,16 @@ export function MainPage() {
         <div className="grid grid-rows-1 gap-2 row-span-3 self-center">
           <div className="w-20 origin-top-left rotate-[90deg] border-4 border-body"/>
             <h2 className="text-body text-3xl font-bold pl-2 -mt-2">Os Nossos <br/> Serviços</h2>
-            <p className="w-96 font-medium text-base pl-2">Lorem Ipsum is simply dummy text of the printing and  typesetting industry. Lorem Ipsum has been the industry's standard  dummy text. Lorem Ipsum is simply dummy text of the printing and  typesetting.</p>
+            <div className="w-96 font-medium text-base">
+              <ul className="list-disc pl-6">
+                  <li>Mecânica Geral</li>
+                  <li>Substituição de baterias</li>
+                  <li>Travagem</li>
+                  <li>Suspensão</li>
+                  <li>Eletricidade Auto</li>
+                  <li>Diagnóstico Auto</li>
+              </ul>
+            </div>
             <img src={imgInspecionar} alt="Revisão" className="h-64 absolute ml-96 float-right"/>
         </div>
       </div>
