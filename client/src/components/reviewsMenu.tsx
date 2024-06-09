@@ -25,7 +25,7 @@ export function ReviewsMenu() {
   const [penultimateReview, setPenultimateReview] = useState<any[]>([]);
   const [antePenultimateReview, setAntePenultimateReview] = useState<any[]>([]);
   const [antantePenultimateReview, setAntantePenultimateReview] = useState<any[]>([]);
-  const API_URL = "https://react-app-toolworkshop-server.vercel.app";
+  const API_URL = "http://localhost:3000";
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {    
     event.preventDefault();
