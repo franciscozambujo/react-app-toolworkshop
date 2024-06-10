@@ -1,0 +1,17 @@
+um utilizador consiga ver os seus carros, reparacoes, revisoes e reviews como cliente 
+um utilizador nao pode adicionar carros apenas o empregado ---
+meter create user a com "users" unicos ----
+
+
+clientes:
+- introduzir o seu nr de telemovel nas "definições de conta", 
+- mudar o seu email, 
+- mudar o seu username (fazer verificações de email e de user)
+
+revisões:
+- meter só para utilizadores com conta criada--
+
+fazer verificacoes de carros ja adicionados a um cliente--
+
+cliente preenche o agendamento com o seu carro etc. mas aguarda resposta da oficina,
+só depois se a revisao for aceite é que é criado o carro desse cliente pela empresa
