@@ -6,13 +6,26 @@ import {
     TableHead,
     TableHeader,
     TableRow,
-  } from "../ui/table";
+  } from "../ui/table"
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationNext,
+  PaginationPrevious,
+} from "../ui/pagination"
 import { format } from "date-fns";
 import { Button } from "../ui/button";
   
 export function CarChecksEnterprise () {
     const [searchDataChecks, setSearchDataChecks] = useState<any[]>([]);
     const API_URL = "http://localhost:3000";
+    const rowsPerPage = 2;
+    const [data, setData] = useState<any[]>([]);
+    const [startIndex, setStartIndex] = useState(0);
+    const [endIndex, setEndIndex] = useState(rowsPerPage);
+    const [totalPages, setTotalPages] = useState(0);
+    const currentPage = Math.floor(startIndex / rowsPerPage) + 1;
 
     useEffect(() => {
         const fetchData = async()=> {
@@ -20,12 +33,28 @@ export function CarChecksEnterprise () {
                 const searchResponseChecks = await fetch(`${API_URL}/carChecks`)
                 const searchDataChecks = await searchResponseChecks.json();
                 setSearchDataChecks(searchDataChecks);
+                setData(searchDataChecks);
+                setTotalPages(Math.ceil(searchDataChecks.length / rowsPerPage));
             }catch (error){
                 console.error("Error fetchind data:", error);
             }
         };
         fetchData();
     },[]);
+
+    const handlePagination = (direction: 'next' | 'prev') => {
+      if (direction === 'next') {
+        if (endIndex < searchDataChecks.length) {
+          setStartIndex(startIndex + rowsPerPage);
+          setEndIndex(endIndex + rowsPerPage);
+        }
+      } else {
+        if (startIndex > 0) {
+          setStartIndex(startIndex - rowsPerPage);
+          setEndIndex(endIndex - rowsPerPage);
+        }
+      }
+    };
 
     const handleCheckState = async (checkId: number, newState: string) => {
         console.log(checkId);
@@ -69,7 +98,7 @@ export function CarChecksEnterprise () {
             </TableHeader>
             {searchDataChecks.length > 0 && (
                 <TableBody>
-                {searchDataChecks.map((checkData) => (
+                {data.slice(startIndex, endIndex).map((checkData) => (
                 <TableRow key={checkData.id} className="hover:bg-muted/50">
                     <TableCell>{checkData.nome_cliente}</TableCell>
                     <TableCell>{checkData.numero_tele}</TableCell>
@@ -97,7 +126,27 @@ export function CarChecksEnterprise () {
             )}
             </Table>
         </div>
+        <div>
+        <Pagination>
+          <PaginationContent>
+            <PaginationItem>
+              <PaginationPrevious
+                onClick={() => handlePagination('prev')} 
+                />
+            </PaginationItem>
+            <PaginationItem>
+              <span>
+                Página {currentPage} de {totalPages}
+              </span>
+            </PaginationItem>
+            <PaginationItem>
+              <PaginationNext
+                onClick={() => handlePagination('next')} 
+              />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
+        </div>
     </div>
-    
   )
 }

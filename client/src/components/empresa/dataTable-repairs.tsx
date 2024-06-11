@@ -18,6 +18,13 @@ import {
   DialogTrigger,
   DialogFooter,
 } from "@/components/ui/dialog";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationNext,
+  PaginationPrevious,
+} from "../ui/pagination"
 import { useEffect, useState } from "react";
 import { format } from 'date-fns';
 import debounce from 'lodash.debounce';
@@ -34,6 +41,12 @@ export function DataTableR() {
   const [isOpen, setIsOpen] = useState(false);
   const [date, setDate] = React.useState<Date>();
   const [searchInput, setSearchInput] = useState('');
+  const rowsPerPage = 2;
+  const [data, setData] = useState<any[]>([]);
+  const [startIndex, setStartIndex] = useState(0);
+  const [endIndex, setEndIndex] = useState(rowsPerPage);
+  const [totalPages, setTotalPages] = useState(0);
+  const currentPage = Math.floor(startIndex / rowsPerPage) + 1;
   const API_URL = "http://localhost:3000";
 
   const debouncedFetchMatriculas = debounce(async (nomeCliente: string) => {
@@ -122,12 +135,28 @@ export function DataTableR() {
         const response = await fetch(`${API_URL}/invoices`);
         const data = await response.json();
         setAllInvoices(data);
+        setData(data);
+        setTotalPages(Math.ceil(data.length / rowsPerPage));
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
     fetchData();
   }, []);
+
+  const handlePagination = (direction: 'next' | 'prev') => {
+    if (direction === 'next') {
+      if (endIndex < data.length) {
+        setStartIndex(startIndex + rowsPerPage);
+        setEndIndex(endIndex + rowsPerPage);
+      }
+    } else {
+      if (startIndex > 0) {
+        setStartIndex(startIndex - rowsPerPage);
+        setEndIndex(endIndex - rowsPerPage);
+      }
+    }
+  };
 
   return (
     <div className="p-8 max-w-5xl space-y-4 m-auto">
@@ -288,6 +317,25 @@ export function DataTableR() {
   )}
 </Table>
       </div>
+      <Pagination>
+          <PaginationContent>
+            <PaginationItem>
+              <PaginationPrevious
+                onClick={() => handlePagination('prev')} 
+                />
+            </PaginationItem>
+            <PaginationItem>
+              <span>
+                Página {currentPage} de {totalPages}
+              </span>
+            </PaginationItem>
+            <PaginationItem>
+              <PaginationNext
+                onClick={() => handlePagination('next')} 
+              />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
       <Toaster richColors/>
     </div>
   )
