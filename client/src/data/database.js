@@ -60,7 +60,7 @@ export async function getCarPlate(nomeCliente) {
 }
 
 export async function getRepairsLastWeek() {
-  const [rows] =  await pool.query("SELECT COUNT(*) AS reparacoes_ultima_semana FROM reparacoes WHERE data >= DATE_SUB(CURDATE(), INTERVAL 7 DAY);");
+  const [rows] =  await pool.query("SELECT YEAR(data) AS ano, DATE_FORMAT(data, '%u') AS semana, COUNT(*) AS reparacoes FROM reparacoes GROUP BY ano, semana ORDER BY ano, semana;");
   return rows;
 }
 

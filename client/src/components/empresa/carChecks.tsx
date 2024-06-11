@@ -47,6 +47,7 @@ export function CarChecksEnterprise () {
         if (endIndex < searchDataChecks.length) {
           setStartIndex(startIndex + rowsPerPage);
           setEndIndex(endIndex + rowsPerPage);
+
         }
       } else {
         if (startIndex > 0) {

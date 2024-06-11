@@ -14,6 +14,13 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";
 import { toast, Toaster } from "sonner";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationNext,
+  PaginationPrevious,
+} from "../ui/pagination"
 
 export function DataTableC() {
   const [clients, setClients] = useState<any[]>([]);
@@ -23,6 +30,12 @@ export function DataTableC() {
   const [isOpen, setIsOpen] = useState(false);
   const [isCarDialogOpen, setIsCarDialogOpen] = useState(false);
   const [selectedClientId, setSelectedClientId] = useState(null);
+  const rowsPerPage = 2;
+  const [data, setData] = useState<any[]>([]);
+  const [startIndex, setStartIndex] = useState(0);
+  const [endIndex, setEndIndex] = useState(rowsPerPage);
+  const [totalPages, setTotalPages] = useState(0);
+  const currentPage = Math.floor(startIndex / rowsPerPage) + 1;
   const API_URL = "http://localhost:3000";
 
   const debouncedFetchClients = debounce(async (searchClients: string) => {
@@ -114,12 +127,28 @@ export function DataTableC() {
         const response = await fetch(`${API_URL}/users`);
         const data = await response.json();
         setClients(data);
+        setData(data);
+        setTotalPages(Math.ceil(data.length / rowsPerPage));
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
     fetchData();
   }, [searchClients]);
+
+  const handlePagination = (direction: 'next' | 'prev') => {
+    if (direction === 'next') {
+      if (endIndex < data.length) {
+        setStartIndex(startIndex + rowsPerPage);
+        setEndIndex(endIndex + rowsPerPage);
+      }
+    } else {
+      if (startIndex > 0) {
+        setStartIndex(startIndex - rowsPerPage);
+        setEndIndex(endIndex - rowsPerPage);
+      }
+    }
+  };
   return (
     <div className="p-8 max-w-5xl space-y-4 m-auto">
       <div className="flex items-center justify-between">
@@ -196,7 +225,7 @@ export function DataTableC() {
           </TableHeader>
           {clients.length > 0 ? (
             <TableBody>
-              {clients.map((client) => (
+              {data.slice(startIndex, endIndex).map((client) => (
                 <TableRow key={client.id} className="hover:bg-muted/50">
                   <TableCell>{client.nome}</TableCell>
                   <TableCell>{client.telemovel}</TableCell>
@@ -238,6 +267,25 @@ export function DataTableC() {
           )}
           </Table>
         </div>
+        <Pagination>
+          <PaginationContent>
+            <PaginationItem>
+              <PaginationPrevious
+                onClick={() => handlePagination('prev')} 
+                />
+            </PaginationItem>
+            <PaginationItem>
+              <span>
+                Página {currentPage} de {totalPages}
+              </span>
+            </PaginationItem>
+            <PaginationItem>
+              <PaginationNext
+                onClick={() => handlePagination('next')} 
+              />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
         <Toaster richColors/>
       </div>
   );

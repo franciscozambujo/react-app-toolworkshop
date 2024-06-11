@@ -251,7 +251,7 @@ export function DataTableR() {
   {searchInput === '' ? (
     allInvoices.length > 0 ? (
       <TableBody>
-        {allInvoices.map((invoice) => (
+        {data.slice(startIndex, endIndex).map((invoice) => (
           <TableRow key={invoice.id} className="hover:bg-muted/50">
             <TableCell>{invoice.cliente}</TableCell>
             <TableCell>{invoice.veiculo}</TableCell>
