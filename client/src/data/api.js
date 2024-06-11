@@ -26,6 +26,7 @@ import { getUsers,
   getCarChecksByUser,
   getCarChecks,
   changeCheckState,
+  getRepairsByClientID,
   }  from  './database.js';
 
 const app = express();
@@ -201,6 +202,20 @@ app.get('/repairs', async (req, res) => {
   }
 });
 
+app.get('/repairsByClientID', async (req, res) => {
+  const { clientID } = req.query;
+  if (!clientID) {
+    return res.status(400).json({ error: 'clientID is required' });
+  }
+  try {
+    const searchedRepairs = await getRepairsByClientID(clientID);
+    res.json(searchedRepairs);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 app.get('/clientsByName', async (req, res) => {
   const { searchClients } = req.query;
   if (!searchClients) {
@@ -302,7 +317,7 @@ app.put("/changeCheckState/:checkId", async (req, res) => {
   const { checkId } = req.params;
   try {
     await changeCheckState(checkId);
-    res.send({ message: "deu" });
+    res.send({ message: "checkState alterado" });
   } catch (err) {
     console.error(err);
     res.status(500).send({ message: "Erro ao alterar estado" });

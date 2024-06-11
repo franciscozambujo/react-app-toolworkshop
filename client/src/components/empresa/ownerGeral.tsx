@@ -31,13 +31,6 @@ const [reparacoesUltimaSemana, setReparacoesUltimaSemana] = useState<RepairData[
         ticks: [1, 2, 3, 4, 5],
      },
     vAxis: { title: 'Quantidade de Reparações' },
-    chartArea: {
-        'backgroundColor': {
-            'fill': '#53AE6E',
-            'opacity': 100
-        },
-    },
-    legend: 'none',
     colors: ['#53AE6E'],
   };
   return (

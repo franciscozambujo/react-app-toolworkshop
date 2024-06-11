@@ -20,7 +20,7 @@ import { Button } from "../ui/button";
 export function CarChecksEnterprise () {
     const [searchDataChecks, setSearchDataChecks] = useState<any[]>([]);
     const API_URL = "http://localhost:3000";
-    const rowsPerPage = 2;
+    const rowsPerPage = 10;
     const [data, setData] = useState<any[]>([]);
     const [startIndex, setStartIndex] = useState(0);
     const [endIndex, setEndIndex] = useState(rowsPerPage);

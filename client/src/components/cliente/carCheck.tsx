@@ -31,7 +31,6 @@ export function CarCheck() {
   const API_URL = "http://localhost:3000";
   const { username } = useContext(AuthContext);
   
-  
   const formattedDate = date ? format(date, 'yyyy-MM-dd') : '';
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -70,7 +69,7 @@ export function CarCheck() {
       return;
     }
     try {
-        fetch(`http://localhost:3000/createCarChecks`, {
+        fetch(`${API_URL}/createCarChecks`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

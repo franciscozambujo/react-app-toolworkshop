@@ -41,7 +41,7 @@ export function DataTableR() {
   const [isOpen, setIsOpen] = useState(false);
   const [date, setDate] = React.useState<Date>();
   const [searchInput, setSearchInput] = useState('');
-  const rowsPerPage = 2;
+  const rowsPerPage = 10;
   const [data, setData] = useState<any[]>([]);
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(rowsPerPage);

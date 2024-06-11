@@ -29,7 +29,7 @@ export async function getCarChecksByUser(user){
 }
 
 export async function getInvoices(){
-  const [rows] = await pool.query("SELECT reparacoes.ID, utilizadores.nome AS cliente, veiculos.marca AS veiculo, veiculos.matricula AS matricula, reparacoes.descricao, reparacoes.valor, reparacoes.data FROM reparacoes INNER JOIN utilizadores ON reparacoes.cliente = utilizadores.id INNER JOIN veiculos ON reparacoes.veiculo = veiculos.id;");
+  const [rows] = await pool.query("SELECT reparacoes.ID, utilizadores.nome AS cliente, veiculos.marca AS veiculo, veiculos.matricula AS matricula, reparacoes.descricao, reparacoes.valor, reparacoes.data FROM reparacoes INNER JOIN veiculos ON reparacoes.veiculo = veiculos.id INNER JOIN utilizadores ON veiculos.cliente = utilizadores.id;");
   return rows;
 }
 
@@ -65,8 +65,14 @@ export async function getRepairsLastWeek() {
 }
 
 export async function getRepairs(searchRepairs) {
-  const query = `SELECT reparacoes.ID, utilizadores.nome, veiculos.marca AS veiculo, veiculos.matricula AS matricula, reparacoes.descricao, reparacoes.valor, reparacoes.data FROM reparacoes INNER JOIN utilizadores ON reparacoes.cliente = utilizadores.id INNER JOIN veiculos ON reparacoes.veiculo = veiculos.id WHERE utilizadores.nome LIKE ?`;
+  const query = `SELECT reparacoes.ID, utilizadores.nome, veiculos.marca AS veiculo, veiculos.matricula AS matricula, reparacoes.descricao, reparacoes.valor, reparacoes.data FROM reparacoes INNER JOIN veiculos ON reparacoes.veiculo = veiculos.id INNER JOIN utilizadores ON veiculos.cliente = utilizadores.id WHERE utilizadores.nome LIKE ?;`;
   const [rows] = await pool.query(query, [searchRepairs]);
+  return rows;
+}
+
+export async function getRepairsByClientID(clientID) {
+  const query = `SELECT reparacoes.ID, utilizadores.nome, veiculos.marca AS veiculo, veiculos.matricula AS matricula, reparacoes.descricao, reparacoes.valor, reparacoes.data FROM reparacoes INNER JOIN veiculos ON reparacoes.veiculo = veiculos.id INNER JOIN utilizadores ON veiculos.cliente = utilizadores.id WHERE utilizadores.id LIKE ?;`;
+  const [rows] = await pool.query(query, [clientID]);
   return rows;
 }
 

@@ -30,7 +30,7 @@ export function DataTableC() {
   const [isOpen, setIsOpen] = useState(false);
   const [isCarDialogOpen, setIsCarDialogOpen] = useState(false);
   const [selectedClientId, setSelectedClientId] = useState(null);
-  const rowsPerPage = 2;
+  const rowsPerPage = 10;
   const [data, setData] = useState<any[]>([]);
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(rowsPerPage);
