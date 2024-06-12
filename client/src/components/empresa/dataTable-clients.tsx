@@ -104,7 +104,7 @@ export function DataTableC() {
         console.error("Check error fetching:", error);
       }
 
-    /*fetch(`${API_URL}/createCarClientByEmail`, {
+    fetch(`${API_URL}/createCarClientByEmail`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -117,8 +117,7 @@ export function DataTableC() {
     setIsOpen(false);
     toast.success(`Carro adicionado ao cliente!`)
     setTimeout(() => {
-      //window.location.reload();
-    }, 1500);*/
+    }, 1500);
   };
 
   useEffect(() => {

@@ -19,7 +19,6 @@ import { SettingsPage } from "./routes/empresa/settingsPage.tsx";
 import { ClientAccountSettings } from "./routes/cliente/clientsSettings.tsx";
 import { AnimatePresence } from "framer-motion";
 import { ClientCarCheck } from "./routes/cliente/clientCarCheck.tsx";
-import ProtectedRoute from "./utils/ProtectedRoutes.tsx";
 
 const router = createBrowserRouter([
   {

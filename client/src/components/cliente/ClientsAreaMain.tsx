@@ -37,7 +37,7 @@ export function ClientsAreaMain() {
     };
     fetchData();
   }, [username]);
-  
+    
   useEffect(() => {
     if (clientID) {
       const fetchData = async () => {

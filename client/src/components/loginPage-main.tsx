@@ -1,81 +1,57 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { Link } from 'react-router-dom';
-import { Button } from './ui/button';
-import { Toaster, toast } from 'sonner';
-import { AuthContext } from "@/data/AuthProvider";
-import * as bcrypt from 'bcryptjs';
+import React, { useState } from 'react';
+import axios from 'axios';
 import { motion } from 'framer-motion';
+import { Button } from './ui/button';
+import { Link } from 'react-router-dom';
+import { Toaster, toast } from 'sonner';
 
 export function LoginForm() {
-  const [user, setUser] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const { login } = useContext(AuthContext);
+  const [token, setToken] = useState('');
 
   const handleSubmit = async (event:any) => {
     event.preventDefault();
-  
-    const formData = {
-      user: (event.target as HTMLFormElement).user.value,
-      password: (event.target as HTMLFormElement).password.value,
-    };
-  
+    try {
+      const response = await axios.post('http://localhost:3000/auth/login', { user: username, password: password });
+      const { token: tokenReceived } = response.data;
+      setToken(tokenReceived);
+      localStorage.setItem('token', tokenReceived);
+    } catch (error) {
+      console.error(error);
+    }
     try {
       const response = await fetch(
-        `http://localhost:3000/usersPass?user=${formData.user}`
+        `http://localhost:3000/usersByRole?user=${username}`
       );
       const data = await response.json();
-      const userFromDB = data[0];
-      console.log(userFromDB)
   
-      if (userFromDB) {
-        const passwordFromDB = userFromDB.password;
-        const isValid = bcrypt.compareSync(formData.password, passwordFromDB);
-
-        if (isValid) {
-          if (userFromDB.cargo === 'owner') {
-            console.log(formData.user);
-            login(formData.user, 'owner');
-            localStorage.setItem('isLoggedIn', 'true');
-            toast.success(`Login efetuado com sucesso!`, {
-              duration: 5000,
-            });
-            setTimeout(() => {
-              window.location.href = '/empresa/geral';
-            }, 2000);
-          } else if (userFromDB.cargo === 'employee') {
-            console.log(userFromDB.cargo);
-            login(formData.user, 'employee');
-            localStorage.setItem('isLoggedIn', 'true');
-            toast.success(`Login efetuado com sucesso!`, {
-              duration: 5000,
-            });
-            setTimeout(() => {
-              window.location.href = '/empresa/employeepage';
-            }, 2000);
-          } else if (userFromDB.cargo === 'client') {
-            console.log(userFromDB.cargo);
-            login(formData.user, 'client');
-            localStorage.setItem('isLoggedIn', 'true');
-            toast.success(`Login efetuado com sucesso!`, {
-              duration: 5000,
-            });
-            setTimeout(() => {
-              window.location.href = '/cliente/clientArea';
-            }, 2000);
-          }
-        } else {
-          toast.error('Credenciais inválidas!')
-          localStorage.setItem('isLoggedIn', 'false');
-        }
-      } else {
-        toast.error('Utilizador não encontrado!')
-        localStorage.setItem('isLoggedIn', 'false');
+      if (data === 'owner') {
+          toast.success(`Login efetuado com sucesso!`, {
+          duration: 5000,
+        });
+        setTimeout(() => {
+          window.location.href = '/empresa/geral';
+        }, 2000);
+      } else if (data === 'employee') {
+        toast.success(`Login efetuado com sucesso!`, {
+          duration: 5000,
+        });
+        setTimeout(() => {
+          window.location.href = '/empresa/employeepage';
+        }, 2000);
+      } else if (data === 'client') {
+        toast.success(`Login efetuado com sucesso!`, {
+          duration: 5000,
+        });
+        setTimeout(() => {
+          window.location.href = '/cliente/clientArea';
+        }, 2000);
       }
     } catch (error) {
-      console.error('Error fetching users:', error);
-      toast.error('Erro ao iniciar sessão. Tente novamente.');
+      console.error(error);
     }
-  };
+  }
   return (
     <motion.div
     initial={{ opacity: 0 }}
@@ -86,7 +62,7 @@ export function LoginForm() {
     <div className="h-screen flex items-center justify-center">
       <div className="max-w-md flex flex-col p-4 rounded-md text-black font-bodyfooter">
         <div className="text-2xl font-bold mb-2 text-white text-center">
-          Oficina Fernando Costa Fialho <span className="text-[#53AE6E]"><br />Área do Cliente</span>
+          Oficina Fernando Costa Fialho <span className="text-[#53AE6E]"><br />Área de Cliente</span>
         </div>
         <div className="text-sm font-normal mb-4 text-center text-white">Inicie sessão na sua conta</div>
         <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
@@ -96,8 +72,8 @@ export function LoginForm() {
               type="text"
               id="user"
               className="input-login"
-              value={user}
-              onChange={(e) => setUser(e.target.value)}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               required
             />
             <label className="label-login mt-6">Password</label>
@@ -125,4 +101,8 @@ export function LoginForm() {
     </div>
     </motion.div>
   );
+}
+
+function verifyToken(tokenReceived: any) {
+  throw new Error('Function not implemented.');
 }
