@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 export const useVerifyToken = () => {
@@ -15,7 +15,7 @@ export const useVerifyToken = () => {
       axios.get('http://localhost:3000/token-auth', { headers: { Authorization: `Bearer ${token}` } })
         .then(response => {
           if (response.data.message === 'Token válido!') {
-            console.log(token)
+            //console.log(token)
             setIsValid(true);
           } else {
             setIsValid(false);

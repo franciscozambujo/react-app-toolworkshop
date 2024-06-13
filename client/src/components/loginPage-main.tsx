@@ -13,53 +13,66 @@ export function LoginForm() {
   const handleSubmit = async (event:any) => {
     event.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3000/auth/login', { user: username, password: password });
-      const { token: tokenReceived } = response.data;
-      setToken(tokenReceived);
-      localStorage.setItem('token', tokenReceived);
-      console.log(tokenReceived);
-      axios.defaults.headers.common['Authorization'] = `Bearer ${tokenReceived}`;
-    } catch (error) {
-      console.error(error);
-    }
-    axios.get('http://localhost:3000/test-token')
-    .then(response => {
-        console.log(response.data);
-      })
-    .catch(error => {
-        console.error(error);
-      });
-    try {
       const response = await fetch(
         `http://localhost:3000/usersByRole?user=${username}`
       );
       const data = await response.json();
+      const userFromDB = data;
   
-      if (data === 'owner') {
-          toast.success(`Login efetuado com sucesso!`, {
-          duration: 5000,
-        });
-        setTimeout(() => {
-          window.location.href = '/empresa/geral';
-        }, 2000);
-      } else if (data === 'employee') {
-        toast.success(`Login efetuado com sucesso!`, {
-          duration: 5000,
-        });
-        setTimeout(() => {
-          window.location.href = '/empresa/employeepage';
-        }, 2000);
-      } else if (data === 'client') {
-        toast.success(`Login efetuado com sucesso!`, {
-          duration: 5000,
-        });
-        setTimeout(() => {
-          window.location.href = '/cliente/clientArea';
-        }, 2000);
+      if (userFromDB) {
+          try {
+            const response = await axios.post('http://localhost:3000/auth/login', { user: username, password: password });
+            const { token: tokenReceived } = response.data;
+            setToken(tokenReceived);
+            localStorage.setItem('token', tokenReceived);
+            //console.log(tokenReceived);
+            axios.defaults.headers.common['Authorization'] = `Bearer ${tokenReceived}`;
+          } catch (error) {
+            console.error(error);
+          }
+          axios.get('http://localhost:3000/token-auth')
+          .catch(error => {
+              console.error(error);
+            });
+          try {
+            const response = await fetch(
+              `http://localhost:3000/usersByRole?user=${username}`
+            );
+            const data = await response.json();
+        
+            if (data === 'owner') {
+                toast.success(`Login efetuado com sucesso!`, {
+                duration: 5000,
+              });
+              setTimeout(() => {
+                window.location.href = '/empresa/geral';
+              }, 2000);
+            } else if (data === 'employee') {
+              toast.success(`Login efetuado com sucesso!`, {
+                duration: 5000,
+              });
+              setTimeout(() => {
+                window.location.href = '/empresa/employeepage';
+              }, 2000);
+            } else if (data === 'client') {
+              toast.success(`Login efetuado com sucesso!`, {
+                duration: 5000,
+              });
+              setTimeout(() => {
+                window.location.href = '/cliente/clientArea';
+              }, 2000);
+            }
+          } catch (error) {
+            console.error(error);
+          } 
+        }else{
+          toast.error(`Credenciais inválidas!`, {
+            duration: 5000,
+          });
+        }
+      } catch (error) {
+        console.error(error);
       }
-    } catch (error) {
-      console.error(error);
-    }
   }
   return (
     <motion.div

@@ -68,7 +68,7 @@ app.post('/auth/login', async (req, res) => {
     id: userFound.id,
     name: userFound.user,
     role: userFound.cargo
-  }, secretKey, { expiresIn: 30 });
+  }, secretKey, { expiresIn: "1 day" });
 
   res.json({ token });
 });

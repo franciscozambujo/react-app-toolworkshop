@@ -15,3 +15,6 @@ fazer verificacoes de carros ja adicionados a um cliente--
 
 cliente preenche o agendamento com o seu carro etc. mas aguarda resposta da oficina,
 só depois se a revisao for aceite é que é criado o carro desse cliente pela empresa
+
+- poder eliminar carros dos clientes
+- poder editar info de reparacoes
