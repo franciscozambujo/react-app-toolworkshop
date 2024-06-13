@@ -29,15 +29,15 @@ export function CarChecksEnterprise () {
 
     useEffect(() => {
         const fetchData = async()=> {
-            try{
-                const searchResponseChecks = await fetch(`${API_URL}/carChecks`)
-                const searchDataChecks = await searchResponseChecks.json();
-                setSearchDataChecks(searchDataChecks);
-                setData(searchDataChecks);
-                setTotalPages(Math.ceil(searchDataChecks.length / rowsPerPage));
-            }catch (error){
-                console.error("Error fetchind data:", error);
-            }
+          try{
+              const searchResponseChecks = await fetch(`${API_URL}/carChecks`)
+              const searchDataChecks = await searchResponseChecks.json();
+              setSearchDataChecks(searchDataChecks);
+              setData(searchDataChecks);
+              setTotalPages(Math.ceil(searchDataChecks.length / rowsPerPage));
+          }catch (error){
+              console.error("Error fetchind data:", error);
+          }
         };
         fetchData();
     },[]);

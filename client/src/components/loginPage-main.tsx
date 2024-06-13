@@ -17,9 +17,18 @@ export function LoginForm() {
       const { token: tokenReceived } = response.data;
       setToken(tokenReceived);
       localStorage.setItem('token', tokenReceived);
+      console.log(tokenReceived);
+      axios.defaults.headers.common['Authorization'] = `Bearer ${tokenReceived}`;
     } catch (error) {
       console.error(error);
     }
+    axios.get('http://localhost:3000/test-token')
+    .then(response => {
+        console.log(response.data);
+      })
+    .catch(error => {
+        console.error(error);
+      });
     try {
       const response = await fetch(
         `http://localhost:3000/usersByRole?user=${username}`

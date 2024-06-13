@@ -175,6 +175,7 @@ export function DataTableC() {
                 className="col-span-3 select"
                 name="clientID"
                 id="clientID"
+                required
                 >
                   {clients.map((client) => (                    
                     <option key={client.id} value={client.email}>
