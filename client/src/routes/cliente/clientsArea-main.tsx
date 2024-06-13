@@ -1,10 +1,12 @@
 import { ClientsAreaMain } from "@/components/cliente/ClientsAreaMain";
 import { SideBarClients } from "@/components/cliente/sidebar-clients";
+import { Redirect } from "@/data/Redirect";
 
 export function ClientsArea () {
   return (
     <div className="h-screen flex flex-col">
       <div className="flex">
+        <Redirect/>
           <aside>
               <SideBarClients/>
           </aside>

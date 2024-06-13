@@ -1,9 +1,11 @@
 import { CarCheck } from "@/components/cliente/carCheck";
 import { SideBarClients } from "@/components/cliente/sidebar-clients";
+import { Redirect } from "@/data/Redirect";
 
 export function ClientCarCheck () {
   return (
     <div className="h-screen flex flex-col">
+      <Redirect/>
       <div className="flex">
           <aside>
               <SideBarClients/>

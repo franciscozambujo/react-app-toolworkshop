@@ -6,6 +6,9 @@ import { AuthContext } from '@/data/AuthProvider';
 export function SideBarEnterprise() {
   const { userRole, username } = useContext(AuthContext);
   const logo = new URL("@/public/images/header.png", import.meta.url).href;
+  console.log(userRole)
+  console.log(username)
+
   return (
     <div className="text-white top-0 bottom-0 lg:left-0 p-2 w-72 overflow-y-auto text-center bg-[#282828] h-svh font-bodyfooter flex flex-col justify-between">
       <Link to = {`/empresa/${userRole}page`}><img src={logo} alt="Logotipo" /></Link>

@@ -1,8 +1,7 @@
-import { AuthContext } from "@/data/AuthContext";
 import { SideBarEnterprise } from "./sidebar-enterprise";
-import { useContext } from "react";
 
 export function MainEmployeePage(){    
+
     return(
         <div className="h-screen flex flex-col">
             <div className="flex">

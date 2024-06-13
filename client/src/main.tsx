@@ -78,12 +78,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/empresa/geral",
-    element: (
-        //<ProtectedRoute>
-          <EmpresaPage />
-        //</ProtectedRoute>
-
-    ),
+    element: <EmpresaPage />,
     errorElement: <ErrorPage />,
   },
   {

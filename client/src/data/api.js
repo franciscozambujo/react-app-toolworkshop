@@ -28,9 +28,6 @@ import { getUsers,
   changeCheckState,
   getRepairsByClientID,
   }  from  './database.js';
-import jwt from 'jsonwebtoken'
-import bcrypt from 'bcryptjs';
-const secretKey = "JWTSecret";
 
 const app = express();
 app.use(bodyParser.json());
@@ -47,52 +44,6 @@ app.use(cors({
   methods: ['GET', 'PUT', 'POST', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
-
-app.post('/auth/login', async (req, res) => {
-  const { user, password } = req.body;
-
-  const userData = await getUsersByUser(user);
-
-  if (!userData || userData.length === 0) {
-    return res.status(404).json({ message: 'User não encontrado' });
-  }
-
-  const userFound = userData[0];
-  const isPasswordValid = bcrypt.compareSync(password, userFound.password);
-
-  if (!isPasswordValid) {
-    return res.status(401).json({ message: 'Senha inválida' });
-  }
-
-  const token = jwt.sign({
-    id: userFound.id,
-    name: userFound.user,
-    role: userFound.cargo
-  }, secretKey, { expiresIn: "1 day" });
-
-  res.json({ token });
-});
-
-export const verifyToken = (req, res, next) => {
-  const bearerHeader = req.headers['authorization'];
-  if (typeof bearerHeader!== 'undefined') {
-    const bearerToken = bearerHeader.split(' ')[1];
-    jwt.verify(bearerToken, secretKey, (err, data) => {
-      if (err) {
-        return res.status(401).json({ message: 'Invalid token' });
-      }
-      req.user = { user: data.name, verified: true };
-      next();
-    });
-  } else {
-    return res.status(401).json({ message: 'No token provided' });
-  }
-};
-
-app.get('/token-auth', verifyToken, (req, res) => {
-  res.json({ message: 'Token válido!' });
-});
-
 
 app.get("/users", async (req, res) => {
   const users = await getUsers();

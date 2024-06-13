@@ -1,15 +1,12 @@
-import {useVerifyToken} from '../verifyToken';
+import {AuthContext} from '@/data/AuthProvider'
+import { useContext } from 'react';
 
 export function OwnerGeralMain() {
-  const isValid = useVerifyToken();
-
-  if (!isValid) {
-    return <div>Você não está autenticado</div>;
-  }
+  const { username } = useContext(AuthContext);
 
   return (
     <div>
-      <h1>Bem-vindo, você está autenticado!</h1>
+      <h1>Bem-vindo {username}</h1>
     </div>
   );
 }
