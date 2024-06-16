@@ -28,13 +28,6 @@ export function Footer() {
             <Clock3 className="-ml-0.5 size-10"/>
             <p className="px-2">8:30 - 12:30 <br /> 14:30 - 18:30</p>
           </div>
-          <Link to ="/policies"><button className="underline underline-offset-4 pt-2 bg-transparent hover:font-bold">
-            Política de privacidade
-          </button></Link>
-          <br/>
-          <Link to ="/policies"><button className="underline underline-offset-4 bg-transparent hover:font-bold">
-            Termos e Condições
-          </button></Link>
         </div>
       </div>
       <hr className="m-auto mt-4 mb-4 border-[#E1DACB] w-4/5"/>

@@ -1,3 +1,4 @@
+import { CarCheck } from "@/components/cliente/carCheck";
 import { ClientsAreaMain } from "@/components/cliente/ClientsAreaMain";
 import { SideBarClients } from "@/components/cliente/sidebar-clients";
 import { Redirect } from "@/data/Redirect";
@@ -13,6 +14,7 @@ export function ClientsArea () {
           <main className="bg-[#181818] w-screen text-white font-bodyfooter">
             <div>
               <ClientsAreaMain/>
+              <CarCheck/>
             </div>
           </main>
       </div>

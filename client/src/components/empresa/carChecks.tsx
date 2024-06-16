@@ -20,7 +20,7 @@ import { Button } from "../ui/button";
 export function CarChecksEnterprise () {
     const [searchDataChecks, setSearchDataChecks] = useState<any[]>([]);
     const API_URL = "http://localhost:3000";
-    const rowsPerPage = 10;
+    const rowsPerPage = 6;
     const [data, setData] = useState<any[]>([]);
     const [startIndex, setStartIndex] = useState(0);
     const [endIndex, setEndIndex] = useState(rowsPerPage);
@@ -60,7 +60,7 @@ export function CarChecksEnterprise () {
     const handleCheckState = async (checkId: number, newState: string) => {
         console.log(checkId);
         try {
-          const response = await fetch(`${API_URL}/changeCheckState/${checkId}`, {
+          const response = await fetch(`${API_URL}/changeCheckState/${checkId}/${newState}`, {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",
@@ -74,7 +74,7 @@ export function CarChecksEnterprise () {
             const updatedData = searchDataChecks.map((check) =>
               check.id === checkId ? { ...check, estado: newState } : check
             );
-            setSearchDataChecks(updatedData);
+            setData(updatedData);
           } else {
             console.error("Error changing check state:", await response.text());
           }
@@ -82,9 +82,13 @@ export function CarChecksEnterprise () {
           console.error("Error during update:", error);
         }
       };
+
+      useEffect(() => {
+        setSearchDataChecks(data);
+      }, [data]);
   return (
     <div className="p-8 max-w-5xl space-y-4 m-auto">
-        <h1 className="text-4xl">Revisões agendadas por clientes</h1>
+        <h1 className="text-3xl">Revisões agendadas por clientes</h1>
         <div className="border rounded-lg p-2">
             <Table>
             <TableHeader>

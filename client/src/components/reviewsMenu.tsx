@@ -314,7 +314,7 @@ export function ReviewsMenu() {
                 />
                 <Label>Email (Não obrigatório)</Label>
                 <Input
-                  className="col-span-3"
+                  className="col-span-3 h-9"
                   id="email"
                   type="email"
                   placeholder="Ex: fernando@gmail.com"

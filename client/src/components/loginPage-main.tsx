@@ -47,22 +47,25 @@ export function LoginForm() {
                 duration: 5000,
               });
               setTimeout(() => {
-                window.location.href = '/empresa/employeepage';
+                window.location.href = '/empresa/clients';
               }, 2000);
-            }
             } else if (userFromDB.cargo === 'client') {
               console.log(userFromDB.cargo);
               login(formData.user, 'client');
               localStorage.setItem('isLoggedIn', 'true');
               toast.success(`Login efetuado com sucesso!`, {
-                duration: 5000,
+              duration: 5000,
               });
               setTimeout(() => {
               window.location.href = '/cliente/clientArea';
               }, 2000);
             }
+        }else{
+          toast.error('Credenciais inválidas!')
+          localStorage.setItem('isLoggedIn', 'false');
+        }
       } else {
-        toast.error('Credenciais inválidas!')
+        toast.error('Utilizador não encontrado!')
         localStorage.setItem('isLoggedIn', 'false');
       }
     }catch(error){
@@ -84,7 +87,7 @@ export function LoginForm() {
         <div className="text-sm font-normal mb-4 text-center text-white">Inicie sessão na sua conta</div>
         <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
           <div className="block relative">
-            <label className="label-login">Username</label>
+            <label className="label-login">Nome de utilizador</label>
             <input
               type="text"
               id="user"
@@ -118,8 +121,4 @@ export function LoginForm() {
     </div>
     </motion.div>
   );
-}
-
-function verifyToken(tokenReceived: any) {
-  throw new Error('Function not implemented.');
 }

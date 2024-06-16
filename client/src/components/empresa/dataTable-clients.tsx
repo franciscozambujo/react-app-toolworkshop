@@ -38,6 +38,7 @@ export function DataTableC() {
   const currentPage = Math.floor(startIndex / rowsPerPage) + 1;
   const API_URL = "http://localhost:3000";
 
+
   const debouncedFetchClients = debounce(async (searchClients: string) => {
     console.log(searchClients);
     try {
@@ -84,11 +85,6 @@ export function DataTableC() {
       clientEmail: (event.target as HTMLFormElement).clientID.value,
     };
     const plateUpper = formData.carPlate.toUpperCase();
-    console.log(formData.carBrand);
-    console.log(formData.carModel);
-    console.log(plateUpper);
-    console.log(formData.clientEmail);
-
       try{
         const searchResponseChecks = await fetch(`${API_URL}/vehicles`);
         const searchDataChecks = await searchResponseChecks.json();
@@ -148,6 +144,21 @@ export function DataTableC() {
       }
     }
   };
+
+  const handleDeleteCar = async (clientId: any, carPlate:any) => {
+    try {
+      const response = await fetch(`${API_URL}/deleteCar/${clientId}/${carPlate}`, {
+        method: 'DELETE',
+      });
+      console.log(data);
+      setCars(cars.filter((c) => c.id !== clientId));
+      setIsCarDialogOpen(false);
+      toast.success(`Carro eliminado com sucesso!`);
+    } catch (error) {
+      console.error(`Error deleting car: ${error}`);
+      toast.error(`Erro ao eliminar veículo. Tente novamente.`);
+    }
+  };
   return (
     <div className="p-8 max-w-5xl space-y-4 m-auto">
       <div className="flex items-center justify-between">
@@ -165,7 +176,7 @@ export function DataTableC() {
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>Adicionar carros a um cliente</DialogTitle>
+              <DialogTitle>Adicionar veículos a um cliente</DialogTitle>
               <DialogDescription>Preencha os campos necessários.</DialogDescription>
             </DialogHeader>
             <form onSubmit={handleSubmit} className="space-y-8">
@@ -242,17 +253,25 @@ export function DataTableC() {
                       <DialogHeader>
                         <DialogTitle>Veículos registados</DialogTitle>
                       </DialogHeader>
-                      {cars.length > 0 ? (  
-                      <ul>
-                        {cars.map((car) => (
-                          <li key={car.id}>{car.marca} {car.modelo} | <span className="uppercase">{car.matricula}</span></li>
-                        ))}
-                      </ul>
-                    ) : (
-                      <p>Este cliente não tem carros registados.</p>
-                    )}
-                      </DialogContent>
-                    </Dialog>
+                      {cars.length > 0 ? (
+                        <ul>
+                          {cars.map((car) => (
+                            <li key={car.id} className="pb-2">
+                              {car.marca} {car.modelo} | <span className="uppercase pr-8">{car.matricula}</span>
+                              <Button
+                                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                                onClick={() => handleDeleteCar(client.id, car.matricula)}
+                              >
+                                Eliminar veículo
+                              </Button>
+                            </li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <p>Este cliente não tem carros registados.</p>
+                      )}
+                    </DialogContent>
+                  </Dialog>
                   </TableRow>
               ))}
               </TableBody>

@@ -45,7 +45,7 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
     setUsername(null);
     localStorage.removeItem('userRole');
     localStorage.removeItem('username');
-    localStorage.removeItem('isLoggedIn');
+    localStorage.setItem('isLoggedIn', 'false');
   };
 
   const value = {

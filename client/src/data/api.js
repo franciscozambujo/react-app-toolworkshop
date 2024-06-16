@@ -22,11 +22,15 @@ import { getUsers,
   getUsersPass,
   getUsersByUser,
   getCarsByInfo,
-  getRepairsLastWeek,
+  getRepairsPerMonthByYear,
   getCarChecksByUser,
   getCarChecks,
   changeCheckState,
   getRepairsByClientID,
+  getTotalValueRepairs,
+  deleteCar,
+  deleteRepair,
+  getReviews,
   }  from  './database.js';
 
 const app = express();
@@ -50,6 +54,11 @@ app.get("/users", async (req, res) => {
   res.send(users);
 });
 
+app.get("/reviews", async (req, res) => {
+  const reviews = await getReviews();
+  res.send(reviews);
+});
+
 app.get("/vehicles", async (req, res) => {
   const vehicles = await getVehicles();
   res.send(vehicles);
@@ -68,7 +77,7 @@ app.get("/carChecks", async (req, res) => {
 app.get("/carChecksByUser", async (req, res) => {
   const { user } = req.query;
   if (!user) {
-    return res.status(400).json({ error: 'user is required' });
+    return res.status(400).json({ eor: 'user is required' });
   }
   try {
     const users = await getCarChecksByUser(user);
@@ -99,9 +108,32 @@ app.get("/antantePenultimateReview", async (req, res) => {
   res.send(antantePenultimateReview);
 });
 
-app.get("/repairsLastWeek", async (req, res) => {
-  const repairsLastWeek = await getRepairsLastWeek();
-  res.send(repairsLastWeek);
+app.get('/totalValueRepairsPerMonth', async (req, res) => {
+  const { year } = req.query;
+  if (!year) {
+    return res.status(400).json({ error: 'year is required' });
+  }
+  try {
+    const repairs = await getTotalValueRepairs(year);
+    res.json(repairs);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+app.get('/repairsPerMonthByYear', async (req, res) => {
+  const { year } = req.query;
+  if (!year) {
+    return res.status(400).json({ error: 'year is required' });
+  }
+  try {
+    const repairs = await getRepairsPerMonthByYear(year);
+    res.json(repairs);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
 });
 
 app.get("/usersByemail", async (req, res) => {
@@ -313,14 +345,36 @@ app.post("/createCarClientByEmail", async (req, res) => {
   }
 });
 
-app.put("/changeCheckState/:checkId", async (req, res) => {
-  const { checkId } = req.params;
+app.put("/changeCheckState/:checkId/:newState", async (req, res) => {
+  const { checkId, newState } = req.params;
   try {
-    await changeCheckState(checkId);
+    await changeCheckState(checkId, newState);
     res.send({ message: "checkState alterado" });
   } catch (err) {
     console.error(err);
     res.status(500).send({ message: "Erro ao alterar estado" });
+  }
+});
+
+app.delete("/deleteCar/:carId/:carPlate", async (req, res) => {
+  const { carId, carPlate } = req.params;
+  try {
+    await deleteCar(carId, carPlate);
+    res.send({ message: "Carro eliminado" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({ message: "Erro ao eliminar carro" });
+  }
+});
+
+app.delete("/deleteRepair/:plateId", async (req, res) => {
+  const { plateId } = req.params;
+  try {
+    await deleteRepair(plateId);
+    res.send({ message: "Reparação eliminado" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({ message: "Erro ao eliminar reparação" });
   }
 });
 

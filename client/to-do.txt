@@ -1,20 +1,14 @@
-um utilizador consiga ver os seus carros, reparacoes, revisoes e reviews como cliente 
-um utilizador nao pode adicionar carros apenas o empregado ---
-meter create user a com "users" unicos ----
-
-
-clientes:
-- introduzir o seu nr de telemovel nas "definições de conta", 
-- mudar o seu email, 
-- mudar o seu username (fazer verificações de email e de user)
-
-revisões:
-- meter só para utilizadores com conta criada--
-
-fazer verificacoes de carros ja adicionados a um cliente--
-
 cliente preenche o agendamento com o seu carro etc. mas aguarda resposta da oficina,
 só depois se a revisao for aceite é que é criado o carro desse cliente pela empresa
 
-- poder eliminar carros dos clientes
-- poder editar info de reparacoes
+-------------------------------------------------------------------------------------------
+
+- poder eliminar carros dos clientes ✅
+- poder eliminar reparacoes ✅
+
+- grafico dinheiro de reparacoes por mes ✅ 
+- dono ver empregados e clientes todos registados no site ✅
+
+- fazer select de avaliacoes
+- quando se introduz uma avaliacao meter data do dia
+- arranjar cargos no /empresa/allusers

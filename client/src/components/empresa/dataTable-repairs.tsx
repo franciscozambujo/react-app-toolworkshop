@@ -6,6 +6,7 @@ import {
   Table,
   TableBody,
   TableCell,
+  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
@@ -41,11 +42,12 @@ export function DataTableR() {
   const [isOpen, setIsOpen] = useState(false);
   const [date, setDate] = React.useState<Date>();
   const [searchInput, setSearchInput] = useState("");
-  const rowsPerPage = 10;
+  const rowsPerPage = 6;
   const [data, setData] = useState<any[]>([]);
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(rowsPerPage);
   const [totalPages, setTotalPages] = useState(0);
+  const [totalValue, setTotalValue] = useState(0);
   const currentPage = Math.floor(startIndex / rowsPerPage) + 1;
   const API_URL = "http://localhost:3000";
 
@@ -164,6 +166,31 @@ export function DataTableR() {
     }
   };
 
+  const handleDeleteRepair = async (plateId: string) => {
+    console.log(plateId)
+    try {
+      const response = await fetch(`${API_URL}/deleteRepair/${plateId}`, {
+        method: 'DELETE',
+      });
+      const data = await response.json();
+      console.log(data);
+      toast.success(`Reparação excluída com sucesso!`);
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    } catch (error) {
+      console.error(`Error deleting repair: ${error}`);
+      toast.error(`Erro ao excluir reparação: ${error}`);
+    }
+  };
+
+  useEffect(() => {
+    let total = 0;
+    data.slice(startIndex, endIndex).forEach((invoice) => {
+      total += invoice.valor;
+    });
+    setTotalValue(total);
+  }, [data, startIndex, endIndex]);
   return (
     <div className="p-8 max-w-5xl space-y-4 m-auto">
       <div className="flex items-center justify-between">
@@ -279,7 +306,7 @@ export function DataTableR() {
                     <Dialog>
                       <DialogTrigger>
                         <button>
-                          <TableCell className="line-clamp-1">
+                          <TableCell className="line-clamp-1 pt-4">
                             {invoice.descricao}
                           </TableCell>
                         </button>
@@ -295,7 +322,14 @@ export function DataTableR() {
                     <TableCell className="w-28">
                       {format(new Date(invoice.data), "dd-MM-yyyy")}
                     </TableCell>
-                  </TableRow>
+                    <TableCell className="gap-x-6">
+                      <Button 
+                        onClick={() => handleDeleteRepair(invoice.matricula)}
+                        className="bg-red-600 text-white hover:bg-red-800">
+                        Eliminar reparação
+                      </Button>
+                    </TableCell>
+                    </TableRow>
                 ))}
               </TableBody>
             ) : (

@@ -22,6 +22,11 @@ export async function getCarChecks(){
   return rows;
 }
 
+export async function getReviews(){
+  const [rows] = await pool.query("SELECT * FROM avaliacoes;");
+  return rows;
+}
+
 export async function getCarChecksByUser(user){
   const query = `SELECT * FROM revisoes WHERE nome_cliente = ?;`;
   const [rows] = await pool.query(query, [user]);
@@ -59,8 +64,15 @@ export async function getCarPlate(nomeCliente) {
   return rows;
 }
 
-export async function getRepairsLastWeek() {
-  const [rows] =  await pool.query("SELECT YEAR(data) AS ano, DATE_FORMAT(data, '%u') AS semana, COUNT(*) AS reparacoes FROM reparacoes GROUP BY ano, semana ORDER BY ano, semana;");
+export async function getRepairsPerMonthByYear(year) {
+  const query =  `SELECT YEAR(data) AS ano, CASE MONTH(data) WHEN 1 THEN 'janeiro' WHEN 2 THEN 'fevereiro' WHEN 3 THEN 'março' WHEN 4 THEN 'abril' WHEN 5 THEN 'maio' WHEN 6 THEN 'junho' WHEN 7 THEN 'julho' WHEN 8 THEN 'agosto' WHEN 9 THEN 'setembro' WHEN 10 THEN 'outubro' WHEN 11 THEN 'novembro' WHEN 12 THEN 'dezembro'END AS mes, COUNT(*) AS reparacoes FROM reparacoes WHERE YEAR(data) = ? GROUP BY ano, MONTH(data), mes ORDER BY ano, MONTH(data);`;
+  const [rows] = await pool.query(query, [year]);
+  return rows;
+}
+
+export async function getTotalValueRepairs(year) {
+  const query =  `SELECT YEAR(data) AS ano, SUM(valor) AS valor_total, CASE MONTH(data) WHEN 1 THEN 'janeiro' WHEN 2 THEN 'fevereiro' WHEN 3 THEN 'março' WHEN 4 THEN 'abril' WHEN 5 THEN 'maio' WHEN 6 THEN 'junho' WHEN 7 THEN 'julho' WHEN 8 THEN 'agosto' WHEN 9 THEN 'setembro' WHEN 10 THEN 'outubro' WHEN 11 THEN 'novembro' WHEN 12 THEN 'dezembro' END AS mes, COUNT(*) AS reparacoes FROM   reparacoes WHERE   YEAR(data) = ?GROUP BY   ano,   mes ORDER BY   ano,   mes;`;
+  const [rows] = await pool.query(query, [year]);
   return rows;
 }
 
@@ -122,28 +134,22 @@ export async function createCarRepair(plate, description, value, date) {
   try {
     console.log("Parameters:", { plate, description, value, date });
 
-    const [clientResult] = await pool.query(
-      "SELECT utilizadores.id FROM utilizadores JOIN veiculos ON utilizadores.id = veiculos.cliente WHERE veiculos.matricula = ?",
-      [plate]
-    );
     const [vehicleResult] = await pool.query(
-      "SELECT veiculos.id FROM veiculos WHERE veiculos.matricula = ?",
+      "SELECT id FROM veiculos WHERE matricula =?",
       [plate]
     );
 
-    if (clientResult.length === 0 || vehicleResult.length === 0) {
-      throw new Error("Cliente ou veículo não encontrado");
+    if (vehicleResult.length === 0) {
+      throw new Error("Veículo não encontrado");
     }
 
-    const clientId = clientResult[0].id;
     const vehicleId = vehicleResult[0].id;
-
     const query = `
       INSERT INTO reparacoes (
-        cliente, veiculo, descricao, valor, data
-      ) VALUES (?, ?, ?, ?, ?);
+        veiculo, descricao, valor, data
+      ) VALUES (?,?,?,?);
     `;
-    const values = [clientId, vehicleId, description, value, date];
+    const values = [vehicleId, description, value, date];
     await pool.query(query, values);
 
   } catch (error) {
@@ -176,8 +182,20 @@ export async function createCarClientByEmail(carBrand, carModel, carPlate, clien
   await pool.query(query, values);
 }
 
-export async function changeCheckState(checkId) {
-  const query =  `UPDATE revisoes SET estado = 'Aceite' WHERE id = ?;`;
-  const values = [checkId];
+export async function changeCheckState(checkId, newState) {
+  const query =  `UPDATE revisoes SET estado = ? WHERE id = ?;`;
+  const values = [newState, checkId];
+  await pool.query(query, values);
+}
+
+export async function deleteCar(carId, carPlate) {
+  const query =  `DELETE v FROM veiculos v JOIN utilizadores u ON v.cliente = u.id WHERE u.id = ? AND v.matricula = ?;`;
+  const values = [carId, carPlate];
+  await pool.query(query, values);
+}
+
+export async function deleteRepair(plateId) {
+  const query =  `DELETE FROM reparacoes WHERE veiculo IN (SELECT id FROM veiculos WHERE matricula = ?)`;
+  const values = [plateId];
   await pool.query(query, values);
 }

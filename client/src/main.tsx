@@ -9,16 +9,14 @@ import { ErrorPage } from "./routes/errorPage.tsx";
 import { ServicesPage } from "./routes/servicePage.tsx";
 import { CreateNewUser } from "./routes/createUser.tsx";
 import { PoliciesPage } from "./routes/policiesPage.tsx";
-import { EmployeePage } from "./routes/empresa/employeePage.tsx";
 import { RepairsPage } from "./routes/empresa/repairsPage.tsx";
 import { ClientsPage } from "./routes/empresa/clientsPage.tsx";
 import { ClientsArea } from "./routes/cliente/clientsArea-main.tsx";
 import { EmpresaPage } from "./routes/empresa/empresaPage.tsx";
 import { AuthProvider } from "./data/AuthProvider.tsx";
-import { SettingsPage } from "./routes/empresa/settingsPage.tsx";
-import { ClientAccountSettings } from "./routes/cliente/clientsSettings.tsx";
 import { AnimatePresence } from "framer-motion";
 import { ClientCarCheck } from "./routes/cliente/clientCarCheck.tsx";
+import { AllUsersPage } from "./routes/empresa/allUsersPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -42,8 +40,8 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: "/empresa/employeepage",
-    element: <EmployeePage />,
+    path: "/empresa/allusers",
+    element: <AllUsersPage />,
     errorElement: <ErrorPage />,
   },
   {
@@ -57,11 +55,6 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: "/cliente/clientSettings",
-    element: <ClientAccountSettings />,
-    errorElement: <ErrorPage />,
-  },
-  {
     path: "/cliente/clientCarCheck",
     element: <ClientCarCheck />,
     errorElement: <ErrorPage />,
@@ -69,11 +62,6 @@ const router = createBrowserRouter([
   {
     path: "/empresa/carRepairs",
     element: <RepairsPage />,
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: "/empresa/accountSettings",
-    element: <SettingsPage />,
     errorElement: <ErrorPage />,
   },
   {
