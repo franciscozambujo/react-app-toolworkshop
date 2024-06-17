@@ -22,7 +22,12 @@ export function SideBarClients() {
           <User />
           <Link to="/cliente/clientArea"><span className="text-[15px] ml-4">Geral</span></Link>
         </div>
+        <div className="p-2 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-[#151515]">
+        <NotepadText />
+        <Link to="/cliente/clientCarCheck"><span className="text-[15px] ml-4">Agendar Revisão</span></Link>
       </div>
+      </div>
+      <hr className="my-2"/>
       <div className="mt-auto p-2 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-[#151515]">
         <LogOut />
         <Link to="/login" onClick={() => logout()}><span className="text-[15px] ml-4">LogOut</span></Link>

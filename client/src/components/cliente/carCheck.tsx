@@ -44,9 +44,19 @@ export function CarCheck() {
     };
 
     try{
-      const searchResponseChecks = await fetch(`${API_URL}/carChecksByUser?user=${formData.name}`);
-      const searchDataChecks = await searchResponseChecks.json();
-      setSearchDataChecks(searchDataChecks);
+      useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const searchResponseChecks = await fetch(`${API_URL}/carChecksByUser?user=${formData.name}`);
+            const searchDataChecks = await searchResponseChecks.json();
+            setSearchDataChecks(searchDataChecks);
+          } catch (error) {
+            console.error("Error fetching data:", error);
+          }
+        };
+        fetchData();
+      }, [formData.name]);
+      
 
       const dataAgendadaCom30Dias = addDays(searchDataChecks[0].data_agendada, 30);
       if (new Date(formData.checkDate) < dataAgendadaCom30Dias){
@@ -84,7 +94,6 @@ export function CarCheck() {
           duration: 3500,
         });
         setIsOpen(false);
-        window.location.reload();
       } catch (error) {
         console.error("Error fetching car information:", error);
       }
