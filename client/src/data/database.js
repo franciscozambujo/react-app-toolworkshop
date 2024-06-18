@@ -71,7 +71,7 @@ export async function getRepairsPerMonthByYear(year) {
 }
 
 export async function getTotalValueRepairs(year) {
-  const query =  `SELECT YEAR(data) AS ano, SUM(valor) AS valor_total, CASE MONTH(data) WHEN 1 THEN 'janeiro' WHEN 2 THEN 'fevereiro' WHEN 3 THEN 'março' WHEN 4 THEN 'abril' WHEN 5 THEN 'maio' WHEN 6 THEN 'junho' WHEN 7 THEN 'julho' WHEN 8 THEN 'agosto' WHEN 9 THEN 'setembro' WHEN 10 THEN 'outubro' WHEN 11 THEN 'novembro' WHEN 12 THEN 'dezembro' END AS mes, COUNT(*) AS reparacoes FROM   reparacoes WHERE   YEAR(data) = ?GROUP BY   ano,   mes ORDER BY   ano,   mes;`;
+  const query =  `SELECT YEAR(data) AS ano, SUM(valor) AS valor_total, CASE MONTH(data) WHEN 1 THEN 'janeiro' WHEN 2 THEN 'fevereiro' WHEN 3 THEN 'março' WHEN 4 THEN 'abril' WHEN 5 THEN 'maio' WHEN 6 THEN 'junho' WHEN 7 THEN 'julho' WHEN 8 THEN 'agosto' WHEN 9 THEN 'setembro' WHEN 10 THEN 'outubro' WHEN 11 THEN 'novembro' WHEN 12 THEN 'dezembro' END AS mes, COUNT(*) AS reparacoes FROM   reparacoes WHERE   YEAR(data) = ?GROUP BY   ano,   mes ORDER BY   ano,   MONTH(data);`;
   const [rows] = await pool.query(query, [year]);
   return rows;
 }

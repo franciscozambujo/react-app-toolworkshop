@@ -18,7 +18,7 @@ import Rating from '@mui/material/Rating'
 
 export function AllReviews() {
   const [reviews, setReviews] = useState<any[]>([]);
-  const rowsPerPage = 10;
+  const rowsPerPage = 6;
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(rowsPerPage);
   const [totalPages, setTotalPages] = useState(0);

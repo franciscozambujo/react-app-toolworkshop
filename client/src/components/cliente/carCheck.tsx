@@ -94,6 +94,7 @@ export function CarCheck() {
           duration: 3500,
         });
         setIsOpen(false);
+        window.location.reload();
       } catch (error) {
         console.error("Error fetching car information:", error);
       }

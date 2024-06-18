@@ -23,7 +23,7 @@ const userCargoMap = {
 
 export function AllUsers() {
   const [users, setUsers] = useState<any[]>([]);
-  const rowsPerPage = 10;
+  const rowsPerPage = 6;
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(rowsPerPage);
   const [totalPages, setTotalPages] = useState(0);
