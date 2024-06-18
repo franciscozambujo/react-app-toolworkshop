@@ -9,6 +9,8 @@ só depois se a revisao for aceite é que é criado o carro desse cliente pela e
 - grafico dinheiro de reparacoes por mes ✅ 
 - dono ver empregados e clientes todos registados no site ✅
 
-- fazer select de avaliacoes
+- fazer select de avaliacoes ✅
 - quando se introduz uma avaliacao meter data do dia
-- arranjar cargos no /empresa/allusers
+- arranjar cargos no /empresa/allusers ✅
+
+- ver select de delete repair, esta a eliminar todos os registos que tenham a mesma matricula

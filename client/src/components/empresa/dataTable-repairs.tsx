@@ -367,6 +367,13 @@ export function DataTableR() {
                   <TableCell className="w-28">
                     {format(new Date(invoice.data), "dd-MM-yyyy")}
                   </TableCell>
+                  <TableCell className="gap-x-6">
+                    <Button 
+                      onClick={() => handleDeleteRepair(invoice.matricula)}
+                      className="bg-red-600 text-white hover:bg-red-800">
+                      Eliminar reparação
+                    </Button>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>

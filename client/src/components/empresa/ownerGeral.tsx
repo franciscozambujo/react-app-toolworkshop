@@ -117,7 +117,7 @@ export function OwnerGeralMain() {
         text: "Quantidade de Reparações"
       },
       min: 0, 
-      max: 10, 
+      max: 30, 
       tickAmount: 10,
     },
     xaxis: {
@@ -145,7 +145,7 @@ export function OwnerGeralMain() {
         text: "Valor Total"
       },
       min: 0, 
-      max: 1000, 
+      max: 10000, 
       tickAmount: 10,
       labels: {
         formatter: function(val: number) {
@@ -169,22 +169,24 @@ export function OwnerGeralMain() {
           </select>
         </div>
         <div className="flex item-center justify-between gap-x-80 gap-y-16">
-          <div className="w-[500px] h-[350px] bg-white text-black border-4 border-white rounded-md">
+          <div className="w-[550px] h-[450px] bg-white text-black border-4 border-white rounded-md">
             <span className="font-bodyfooter pb-6">Reparações feitas por mês</span>
             <Chart
               options={OptionsBarChart}
               series={BarChartData.series}
               type="bar"
               width="500"
+              height="400px"
             />
           </div>
-          <div className="w-[500px] h-[350px] bg-white text-black border-4 border-white rounded-md">
+          <div className="w-[550px] h-[450px] bg-white text-black border-4 border-white rounded-md">
             <span className="font-bodyfooter pb-6">Valor total de reparações por mês</span>
             <Chart
               options={OptionsTotalValueChart}
               series={totalValueChartData.series}
               type="area"
               width="500"
+              height="400px"
             />
           </div>
         </div>

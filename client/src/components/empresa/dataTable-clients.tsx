@@ -29,6 +29,7 @@ export function DataTableC() {
   const [searchClients, setSearchedClients] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [isCarDialogOpen, setIsCarDialogOpen] = useState(false);
+  const [filteredClients, setfilteredClients] = useState<any[]>([]);
   const [selectedClientId, setSelectedClientId] = useState(null);
   const rowsPerPage = 10;
   const [data, setData] = useState<any[]>([]);
@@ -38,13 +39,17 @@ export function DataTableC() {
   const currentPage = Math.floor(startIndex / rowsPerPage) + 1;
   const API_URL = "http://localhost:3000";
 
-
   const debouncedFetchClients = debounce(async (searchClients: string) => {
     console.log(searchClients);
     try {
       const response = await fetch(`${API_URL}/clientsByName?searchClients=${searchClients}`);
       const data = await response.json();
-      setClients(data);
+      if (data.length === 0) {
+        setfilteredClients([]);
+      } else {
+        setfilteredClients(data);
+      }
+      console.log(filteredClients);
     } catch (error) {
       console.error("Error fetching clients:", error);
     }
@@ -66,7 +71,6 @@ export function DataTableC() {
   };
 
   const debouncedFetchCarsByClient = debounce(async (clientId: number) => {
-    console.log(clientId);
     try {
       const response = await fetch(`${API_URL}/carsByClient?clientID=${clientId}`);
       const data = await response.json();
@@ -129,7 +133,7 @@ export function DataTableC() {
       }
     };
     fetchData();
-  }, [searchClients]);
+  });
 
   const handlePagination = (direction: 'next' | 'prev') => {
     if (direction === 'next') {
@@ -225,87 +229,130 @@ export function DataTableC() {
         </Dialog>
       </div>
       <div className="border rounded-lg p-2">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead className="w-[130px]">Nome de cliente</TableHead>
-              <TableHead className="w-[130px]">Número de telemóvel</TableHead>
-              <TableHead className="w-[150px]">Email</TableHead>
-              <TableHead className="w-[150px]">Veículo/s registados</TableHead>
-            </TableRow>
-          </TableHeader>
-          {clients.length > 0 ? (
-            <TableBody>
-              {data.slice(startIndex, endIndex).map((client) => (
-                <TableRow key={client.id} className="hover:bg-muted/50">
-                  <TableCell>{client.nome}</TableCell>
-                  <TableCell>{client.telemovel}</TableCell>
-                  <TableCell>{client.email}</TableCell>
-                  <Dialog open={selectedClient?.id === client.id && isCarDialogOpen} onOpenChange={setIsCarDialogOpen}>
-                    <DialogTrigger>
-                      <button onClick={() => handleClientSelect(client)}>
-                        <TableCell className="line-clamp-1">
-                          Clique para ver os veículos
-                        </TableCell>
-                      </button>
-                    </DialogTrigger>
-                    <DialogContent>
-                      <DialogHeader>
-                        <DialogTitle>Veículos registados</DialogTitle>
-                      </DialogHeader>
-                      {cars.length > 0 ? (
-                        <ul>
-                          {cars.map((car) => (
-                            <li key={car.id} className="pb-2">
-                              {car.marca} {car.modelo} | <span className="uppercase pr-8">{car.matricula}</span>
-                              <Button
-                                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                                onClick={() => handleDeleteCar(client.id, car.matricula)}
-                              >
-                                Eliminar veículo
-                              </Button>
-                            </li>
-                          ))}
-                        </ul>
-                      ) : (
-                        <p>Este cliente não tem carros registados.</p>
-                      )}
-                    </DialogContent>
-                  </Dialog>
-                  </TableRow>
-              ))}
-              </TableBody>
-          ) : (
-            <TableBody>
-              <TableRow>
-                <TableCell colSpan={4} align="center">
-                  Nenhum registo encontrado
-                </TableCell>
-              </TableRow>
-            </TableBody>
-          )}
-          </Table>
-        </div>
-        <Pagination>
-          <PaginationContent>
-            <PaginationItem>
-              <PaginationPrevious
-                onClick={() => handlePagination('prev')} 
-                />
-            </PaginationItem>
-            <PaginationItem>
-              <span>
-                Página {currentPage} de {totalPages}
-              </span>
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationNext
-                onClick={() => handlePagination('next')} 
-              />
-            </PaginationItem>
-          </PaginationContent>
-        </Pagination>
-        <Toaster richColors/>
+      <Table>
+  <TableHeader>
+    <TableCell>Nome</TableCell>
+    <TableCell>Telemóvel</TableCell>
+    <TableCell>Email</TableCell>
+    <TableCell>Veículos</TableCell>
+  </TableHeader>
+  {searchClients !== "" && filteredClients.length > 0 ? (
+    <TableBody>
+      {filteredClients.map((client) => (
+        <TableRow key={client.id} className="hover:bg-muted/50">
+          <TableCell>{client.nome}</TableCell>
+          <TableCell>{client.telemovel}</TableCell>
+          <TableCell>{client.email}</TableCell>
+          <TableCell>
+            <Dialog open={selectedClient?.id === client.id && isCarDialogOpen} onOpenChange={setIsCarDialogOpen}>
+              <DialogTrigger>
+                <button onClick={() => handleClientSelect(client)}>
+                  Clique para ver os veículos
+                </button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Veículos registados</DialogTitle>
+                </DialogHeader>
+                {cars.length > 0 ? (
+                  <ul>
+                    {cars.map((car) => (
+                      <li key={car.id} className="pb-2">
+                        {car.marca} {car.modelo} | <span className="uppercase pr-8">{car.matricula}</span>
+                        <Button
+                          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                          onClick={() => handleDeleteCar(client.id, car.matricula)}
+                        >
+                          Eliminar veículo
+                        </Button>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <TableBody>
+                    <TableRow>
+                      <TableCell colSpan={4} align="center">
+                        Nenhum registro encontrado
+                      </TableCell>
+                    </TableRow>
+                  </TableBody>
+                )}
+              </DialogContent>
+            </Dialog>
+          </TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+  ) : (
+    <TableBody>
+      {data.slice(startIndex, endIndex).map((client) => (
+        <TableRow key={client.id} className="hover:bg-muted/50">
+          <TableCell>{client.nome}</TableCell>
+          <TableCell>{client.telemovel}</TableCell>
+          <TableCell>{client.email}</TableCell>
+          <TableCell>
+            <Dialog open={selectedClient?.id === client.id && isCarDialogOpen} onOpenChange={setIsCarDialogOpen}>
+              <DialogTrigger>
+                <button onClick={() => handleClientSelect(client)}>
+                  Clique para ver os veículos
+                </button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Veículos registados</DialogTitle>
+                </DialogHeader>
+                {cars.length > 0 ? (
+                  <ul>
+                    {cars.map((car) => (
+                      <li key={car.id} className="pb-2">
+                        {car.marca} {car.modelo} | <span className="uppercase pr-8">{car.matricula}</span>
+                        <Button
+                          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                          onClick={() => handleDeleteCar(client.id, car.matricula)}
+                        >
+                          Eliminar veículo
+                        </Button>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <TableBody>
+                    <TableRow>
+                      <TableCell colSpan={4} align="center">
+                        Nenhum registro encontrado
+                      </TableCell>
+                    </TableRow>
+                  </TableBody>
+                )}
+              </DialogContent>
+            </Dialog>
+          </TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+  )}
+</Table>
       </div>
+      <Pagination>
+        <PaginationContent>
+          <PaginationItem>
+            <PaginationPrevious
+              onClick={() => handlePagination('prev')} 
+              />
+          </PaginationItem>
+          <PaginationItem>
+            <span>
+              Página {currentPage} de {totalPages}
+            </span>
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationNext
+              onClick={() => handlePagination('next')} 
+            />
+          </PaginationItem>
+        </PaginationContent>
+      </Pagination>
+      <Toaster richColors/>
+    </div>
   );
 }

@@ -132,7 +132,7 @@ export async function getUsersPass(user) {
 
 export async function createCarRepair(plate, description, value, date) {
   try {
-    console.log("Parameters:", { plate, description, value, date });
+    //console.log("Parameters:", { plate, description, value, date });
 
     const [vehicleResult] = await pool.query(
       "SELECT id FROM veiculos WHERE matricula =?",

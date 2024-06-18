@@ -94,7 +94,6 @@ export function CarCheck() {
           duration: 3500,
         });
         setIsOpen(false);
-        window.location.reload();
       } catch (error) {
         console.error("Error fetching car information:", error);
       }
@@ -178,7 +177,8 @@ export function CarCheck() {
               <TableHead className="w-[150px]">Carro</TableHead>
               <TableHead className="w-[150px]">Matrícula</TableHead>
               <TableHead className="w-[150px]">Data agendada</TableHead>
-              <TableHead className="w-[150px]">Estado da revisão</TableHead>            </TableRow>
+              <TableHead className="w-[150px]">Estado da revisão</TableHead>            
+            </TableRow>
           </TableHeader>
           {searchDataChecks.length > 0 && (
             <TableBody>
@@ -192,7 +192,7 @@ export function CarCheck() {
                   <TableCell>{checkData.estado}</TableCell>
                   </TableRow>
               ))}
-              </TableBody>
+            </TableBody>
           )}
           </Table>
           </div>
