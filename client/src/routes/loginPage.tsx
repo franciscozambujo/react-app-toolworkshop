@@ -3,13 +3,13 @@ import { HeaderMenuNav } from "../components/headerMenu";
 
 export function LoginPage () {
   return (
-    <div>
+    <div className="h-screen flex flex-col">
       <div className="bg-[#282828]">
           <HeaderMenuNav />
       </div>
-      <div className="bg-[#181818]">
+      <div className="flex-1 bg-[#181818] overflow-y-auto">
           <LoginForm />
       </div>
-    </div>
+  </div>
   )
 }

@@ -166,10 +166,12 @@ export function DataTableR() {
     }
   };
 
-  const handleDeleteRepair = async (plateId: string) => {
+  const handleDeleteRepair = async (plateId: string , description: string, date:string) => {
     console.log(plateId)
+    console.log(description)
+    console.log((format(new Date(date), "yyyy-MM-dd")))
     try {
-      const response = await fetch(`${API_URL}/deleteRepair/${plateId}`, {
+      const response = await fetch(`${API_URL}/deleteRepair/${plateId}/${description}/${(format(new Date(date), "yyyy-MM-dd"))}`, {
         method: 'DELETE',
       });
       const data = await response.json();
@@ -183,14 +185,6 @@ export function DataTableR() {
       toast.error(`Erro ao excluir reparação: ${error}`);
     }
   };
-
-  useEffect(() => {
-    let total = 0;
-    data.slice(startIndex, endIndex).forEach((invoice) => {
-      total += invoice.valor;
-    });
-    setTotalValue(total);
-  }, [data, startIndex, endIndex]);
   return (
     <div className="p-8 max-w-5xl space-y-4 m-auto">
       <div className="flex items-center justify-between">
@@ -324,7 +318,7 @@ export function DataTableR() {
                     </TableCell>
                     <TableCell className="gap-x-6">
                       <Button 
-                        onClick={() => handleDeleteRepair(invoice.matricula)}
+                        onClick={() => handleDeleteRepair(invoice.matricula, invoice.descricao, invoice.data)}
                         className="bg-red-600 text-white hover:bg-red-800">
                         Eliminar reparação
                       </Button>
@@ -369,7 +363,7 @@ export function DataTableR() {
                   </TableCell>
                   <TableCell className="gap-x-6">
                     <Button 
-                      onClick={() => handleDeleteRepair(invoice.matricula)}
+                      onClick={() => handleDeleteRepair(invoice.matricula, invoice.descricao, invoice.data)}
                       className="bg-red-600 text-white hover:bg-red-800">
                       Eliminar reparação
                     </Button>

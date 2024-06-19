@@ -71,11 +71,11 @@ export function CreateUser() {
     exit={{ opacity: 0 }}
     transition={{ duration: 1.5 }}
   >
-    <div className="h-screen flex items-center justify-center">
-      <div className="max-w-md flex flex-col p-4 rounded-md text-black font-bodyfooter">
-            <div className="text-2xl font-bold mb-2 text-white text-center">Oficina Fernando Costa Fialho <span className="text-[#53AE6E]"><br />Área do Cliente</span></div>
+    <div className="h-full flex flex-col justify-center items-center pt-10 md:pt-2 2xl:pt-28">
+      <div className="max-w-md flex flex-col p-4 md:p-2 rounded-md text-black font-bodyfooter">
+            <div className="text-2xl md:text-xl font-bold mb-2 text-white text-center">Oficina Fernando Costa Fialho <span className="text-[#53AE6E]"><br />Área do Cliente</span></div>
             <div className="text-sm font-normal mb-4 text-center text-white">Crie agora a sua conta</div>
-            <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-3 md:gap-2">
                 <div className="block relative"> 
                   <label className="label-login">Nome de utilizador</label>
                   <input 
@@ -85,7 +85,7 @@ export function CreateUser() {
                     placeholder="Ex: Fernando" 
                     className="input-login"
                   />
-                  <label className="label-login mt-6">Primeiro e último nome</label>
+                  <label className="label-login md:mt-4 mt-6">Primeiro e último nome</label>
                   <input 
                     type="text" 
                     id="FullName" 
@@ -93,7 +93,7 @@ export function CreateUser() {
                     placeholder="Fernando Fialho" 
                     className="input-login"
                   />
-                  <label className="label-login mt-6">Email</label>
+                  <label className="label-login md:mt-4 mt-6">Email</label>
                   <input 
                     type="text" 
                     id="email" 
@@ -102,7 +102,7 @@ export function CreateUser() {
                     className="input-login"
                   />
 
-                  <label className="label-login mt-6">Password</label>
+                  <label className="label-login md:mt-4 mt-6">Password</label>
                   <input 
                     type="password" 
                     id="password"
@@ -114,7 +114,7 @@ export function CreateUser() {
                   Efetuar Registo
                 </Button>            
             </form>
-        <div className="text-sm text-center mt-[1.6rem] text-[#53AE6E]">Já tem uma conta? <Link to="/login"><a className="text-sm text-white">Inicie sessão aqui!</a></Link>
+        <div className="text-sm text-center md:mt-[1.2rem] mt-[1.6rem] text-[#53AE6E]">Já tem uma conta? <Link to="/login"><a className="text-sm text-white">Inicie sessão aqui!</a></Link>
       </div>
     </div>
     <Toaster richColors/>

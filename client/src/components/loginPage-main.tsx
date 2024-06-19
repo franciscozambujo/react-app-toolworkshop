@@ -79,8 +79,8 @@ export function LoginForm() {
     exit={{ opacity: 0 }}
     transition={{ duration: 2.5 }}
   >
-    <div className="h-screen flex items-center justify-center">
-      <div className="max-w-md flex flex-col p-4 rounded-md text-black font-bodyfooter">
+    <div className="h-full flex flex-col justify-center items-center pt-24 2xl:pt-40">
+      <div className="max-w-md w-full p-4 rounded-md text-black font-bodyfooter">
         <div className="text-2xl font-bold mb-2 text-white text-center">
           Oficina Fernando Costa Fialho <span className="text-[#53AE6E]"><br />Área de Cliente</span>
         </div>
@@ -106,9 +106,9 @@ export function LoginForm() {
               required
             />
           </div>
-          <Button type="submit" className="bg-body w-max m-auto px-6 py-2 rounded text-white text-sm font-normal">
+          <button type="submit" className="bg-body w-max m-auto px-6 py-2 rounded text-white text-sm font-normal">
             Entrar
-          </Button>
+          </button>
         </form>
         <div className="text-sm text-center mt-[1.6rem] text-[#53AE6E]">
           Não tem uma conta? <br />

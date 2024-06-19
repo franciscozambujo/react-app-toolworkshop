@@ -15,10 +15,11 @@ import {
   PaginationPrevious,
 } from "../ui/pagination"
 import Rating from '@mui/material/Rating'
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog';
 
 export function AllReviews() {
   const [reviews, setReviews] = useState<any[]>([]);
-  const rowsPerPage = 6;
+  const rowsPerPage = 4;
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(rowsPerPage);
   const [totalPages, setTotalPages] = useState(0);
@@ -60,18 +61,32 @@ export function AllReviews() {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className="w-[130px]">Nome</TableHead>
-                <TableHead className="w-[130px]">Email</TableHead>
-                <TableHead className="w-[130px]">Descrição</TableHead>
-                <TableHead className="w-[130px]">Estrelas</TableHead>
+                <TableHead className="w-[130px] xl:w-[30px]">Nome</TableHead>
+                <TableHead className="w-[130px] xl:w-[30px]">Email</TableHead>
+                <TableHead className="w-[130px] xl:w-[30px]">Descrição</TableHead>
+                <TableHead className="w-[130px] xl:w-[30px]">Estrelas</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {reviews.map((review) => (
+            {reviews.slice(startIndex, endIndex).map((review) => (
                 <TableRow key={review.id}>
                   <TableCell>{review.nome}</TableCell>
                   <TableCell>{review.email}</TableCell>
-                  <TableCell>{review.descricao}</TableCell>
+                  <Dialog>
+                      <DialogTrigger>
+                        <button>
+                          <TableCell className="line-clamp-1 pt-4">
+                            {review.descricao}
+                          </TableCell>
+                        </button>
+                      </DialogTrigger>
+                      <DialogContent>
+                        <DialogHeader>
+                          <DialogTitle>Descrição da Reparação</DialogTitle>
+                        </DialogHeader>
+                        {review.descricao}
+                      </DialogContent>
+                    </Dialog>
                   <TableCell><Rating defaultValue={review.estrelas} readOnly /></TableCell>
               </TableRow>
               ))}

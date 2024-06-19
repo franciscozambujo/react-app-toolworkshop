@@ -165,7 +165,7 @@ export async function createCarCheck(name, phone, car, plate, checkDate) {
 }
 
 export async function createReview(name, email, description, rating) {
-  const query =  await pool.query("INSERT INTO avaliacoes (nome, email, descricao, estrelas) VALUES (?,?,?,?);");
+  const query =  `INSERT INTO avaliacoes (nome, email, descricao, estrelas) VALUES (?,?,?,?);`;
   const values = [name, email, description, rating];
   await pool.query(query, values);
 }
@@ -194,8 +194,8 @@ export async function deleteCar(carId, carPlate) {
   await pool.query(query, values);
 }
 
-export async function deleteRepair(plateId) {
-  const query =  `DELETE FROM reparacoes WHERE veiculo IN (SELECT id FROM veiculos WHERE matricula = ?)`;
-  const values = [plateId];
+export async function deleteRepair(plateId, description, data) {
+  const query =  `DELETE FROM reparacoes WHERE veiculo IN (SELECT id FROM veiculos WHERE matricula = ?) AND reparacoes.descricao = ? AND reparacoes.data = ?`;
+  const values = [plateId, description, data];
   await pool.query(query, values);
 }

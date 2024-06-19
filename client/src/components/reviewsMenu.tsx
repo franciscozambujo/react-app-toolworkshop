@@ -321,10 +321,11 @@ export function ReviewsMenu() {
                 />
                 <Label>Descrição</Label>
                 <textarea
+                  maxLength ={200}
                   id="descricao"
                   required
                   placeholder="Ex: Serviço bastante prestável, aconselho."
-                  className="col-span-3 flex h-36 max-h-72 min-h-36 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+                  className="col-span-3 flex h-24 max-h-36 min-h-24 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
                 />
                 <Label>Pontuação</Label>
                   <Rating

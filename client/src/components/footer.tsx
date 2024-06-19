@@ -1,12 +1,11 @@
 import {Phone, Mail, MapPin, Clock3} from 'lucide-react'
 import {FaGithub, FaLinkedin} from "react-icons/fa";
-import { Link } from 'react-router-dom';
 
 export function Footer() {
   const logo = new URL("@/public/images/logo.png", import.meta.url).href;
   return (
     <div className="bg-[#53AE6E] text-white w-full font-bodyfooter">
-      <div className="flex justify-between md:px-28 xl:px-36 2xl:px-48">
+      <div className="flex justify-between md:px-28 xl:px-36 2xl:px-52">
         <div>
           <img src={logo} alt="LogoTipo" className="py-2 w-28"/>
           <div className="grid grid-flow-col auto-cols-max">
@@ -35,7 +34,7 @@ export function Footer() {
         <div className="text-center">
           <p>Copyright 2024. Made with ❤ by Francisco Zambujo.</p>
         </div>
-        <div className="flex justify-end -mt-5 md:px-28 xl:px-36 2xl:px-48">
+        <div className="flex justify-end -mt-5 md:px-28 xl:px-36 2xl:px-52">
           <a href = "https://www.linkedin.com/in/francisco-zambujo-189764280/" target="_blank"> <FaLinkedin className="size-6 hover:border-2 rounded-md"/></a>
           <a href = "https://github.com/XiCO144" target="_blank"> <FaGithub className="size-6 hover:border-2 rounded-md"/></a>
         </div>

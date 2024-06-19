@@ -367,10 +367,10 @@ app.delete("/deleteCar/:carId/:carPlate", async (req, res) => {
   }
 });
 
-app.delete("/deleteRepair/:plateId", async (req, res) => {
-  const { plateId } = req.params;
+app.delete("/deleteRepair/:plateId/:description/:data", async (req, res) => {
+  const { plateId, description, data } = req.params;
   try {
-    await deleteRepair(plateId);
+    await deleteRepair(plateId, description, data);
     res.send({ message: "Reparação eliminado" });
   } catch (err) {
     console.error(err);

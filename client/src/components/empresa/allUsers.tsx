@@ -23,7 +23,7 @@ const userCargoMap = {
 
 export function AllUsers() {
   const [users, setUsers] = useState<any[]>([]);
-  const rowsPerPage = 6;
+  const rowsPerPage = 4;
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(rowsPerPage);
   const [totalPages, setTotalPages] = useState(0);
@@ -73,7 +73,7 @@ export function AllUsers() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {users.map((user) => (
+          {users.slice(startIndex, endIndex).map((user) => (
               <TableRow key={user.id}>
                 <TableCell>{user.user}</TableCell>
                 <TableCell>{user.nome}</TableCell>
