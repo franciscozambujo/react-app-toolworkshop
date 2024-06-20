@@ -17,3 +17,5 @@ só depois se a revisao for aceite é que é criado o carro desse cliente pela e
 - conseguir obter nome de cliente pela matricula do carro em "criar reparação"
 - Após uma revisão ser aceite, adicionar buttton para "criar reparação" com a info da proposta de agendamento
 - relacionar revisões com nome de cliente e numero de telemovel ✅
+
+- Ver em que pessoa falo durante o texto do relatorio
