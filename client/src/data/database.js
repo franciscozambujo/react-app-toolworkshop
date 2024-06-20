@@ -28,7 +28,7 @@ export async function getReviews(){
 }
 
 export async function getCarChecksByUser(user){
-  const query = `SELECT * FROM revisoes WHERE nome_cliente = ?;`;
+  const query = `SELECT revisoes.* from revisoes INNER JOIN utilizadores on revisoes.cliente = utilizadores.id WHERE utilizadores.user = ?;`;
   const [rows] = await pool.query(query, [user]);
   return rows;
 }
@@ -158,9 +158,9 @@ export async function createCarRepair(plate, description, value, date) {
   }
 }
 
-export async function createCarCheck(name, phone, car, plate, checkDate) {
-  const query =  `INSERT INTO revisoes (nome_cliente, numero_tele, carro, matricula, data_agendada, estado) VALUES (?,?,?,?,?, "Por aprovar");`;
-  const values = [name, phone, car, plate, checkDate];
+export async function createCarCheck(name, car, plate, checkDate) {
+  const query = `INSERT INTO revisoes (cliente, carro, matricula, data_agendada, estado) VALUES (?,?,?,?, "Por aprovar");`;
+  const values = [name, car, plate, checkDate];
   await pool.query(query, values);
 }
 
@@ -197,5 +197,11 @@ export async function deleteCar(carId, carPlate) {
 export async function deleteRepair(plateId, description, data) {
   const query =  `DELETE FROM reparacoes WHERE veiculo IN (SELECT id FROM veiculos WHERE matricula = ?) AND reparacoes.descricao = ? AND reparacoes.data = ?`;
   const values = [plateId, description, data];
+  await pool.query(query, values);
+}
+
+export async function getUsersByID(userId) {
+  const query =  `SELECT * from utilizadores WHERE utilizadores.id = ?`;
+  const values = [userId];
   await pool.query(query, values);
 }

@@ -31,6 +31,7 @@ import { getUsers,
   deleteCar,
   deleteRepair,
   getReviews,
+  getUsersByID,
   }  from  './database.js';
 
 const app = express();
@@ -164,6 +165,20 @@ app.get("/usersByuser", async (req, res) => {
   }
 });
 
+app.get("/usersById", async (req, res) => {
+  const { userId } = req.query;
+  if (!userId) {
+    return res.status(400).json({ error: 'userId is required' });
+  }
+  try {
+    const users = await getUsersByID(userId);
+    res.json(users);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 app.get("/usersByRole", async (req, res) => {
   const { user } = req.query;
   if (!user) {
@@ -185,20 +200,6 @@ app.get("/usersPass", async (req, res) => {
   }
   try {
     const cargo = await getUsersPass(user);
-    res.json(cargo);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
-
-app.get("/usersByRole", async (req, res) => {
-  const { user } = req.query;
-  if (!user) {
-    return res.status(400).json({ error: 'user is required' });
-  }
-  try {
-    const cargo = await getUsersRole(user);
     res.json(cargo);
   } catch (error) {
     console.error(error);
@@ -291,9 +292,9 @@ app.get('/carsByInfo', async (req, res) => {
 });
 
 app.post("/createCarChecks", async (req, res) => {
-  const { name, phone, car, plate, checkDate } = req.body;
+  const { name, car, plate, checkDate } = req.body;
   try {
-    await createCarCheck(name, phone, car, plate, checkDate);
+    await createCarCheck(name, car, plate, checkDate);
     res.send({ message: "Agendamento criado com sucesso!" });
   } catch (err) {
     console.error(err);

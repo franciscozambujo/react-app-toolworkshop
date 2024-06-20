@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import {
     Table,
     TableBody,
@@ -16,6 +16,7 @@ import {
 } from "../ui/pagination"
 import { format } from "date-fns";
 import { Button } from "../ui/button";
+import { AuthContext } from "@/data/AuthProvider";
   
 export function CarChecksEnterprise () {
     const [searchDataChecks, setSearchDataChecks] = useState<any[]>([]);
@@ -28,18 +29,35 @@ export function CarChecksEnterprise () {
     const currentPage = Math.floor(startIndex / rowsPerPage) + 1;
 
     useEffect(() => {
-        const fetchData = async()=> {
-          try{
-              const searchResponseChecks = await fetch(`${API_URL}/carChecks`)
-              const searchDataChecks = await searchResponseChecks.json();
-              setSearchDataChecks(searchDataChecks);
-              setData(searchDataChecks);
-              setTotalPages(Math.ceil(searchDataChecks.length / rowsPerPage));
-          }catch (error){
-              console.error("Error fetchind data:", error);
-          }
-        };
-        fetchData();
+      const fetchData = async()=> {
+        try{
+            const searchResponseChecks = await fetch(`${API_URL}/carChecks`)
+            const searchDataChecks = await searchResponseChecks.json();
+            setSearchDataChecks(searchDataChecks);
+            setData(searchDataChecks);
+            setTotalPages(Math.ceil(searchDataChecks.length / rowsPerPage));
+            console.log(searchDataChecks[0].cliente)
+        }catch (error){
+            console.error("Error fetchind data:", error);
+        }
+      };
+      fetchData();
+    },[]);
+
+    useEffect(() => {
+      const fetchData = async()=> {
+        try{
+            const searchResponseChecks = await fetch(`${API_URL}/usersById`)
+            const searchDataChecks = await searchResponseChecks.json();
+            setSearchDataChecks(searchDataChecks);
+            setData(searchDataChecks);
+            setTotalPages(Math.ceil(searchDataChecks.length / rowsPerPage));
+            console.log(searchDataChecks[0].cliente)
+        }catch (error){
+            console.error("Error fetchind data:", error);
+        }
+      };
+      fetchData();
     },[]);
 
     const handlePagination = (direction: 'next' | 'prev') => {
@@ -94,7 +112,6 @@ export function CarChecksEnterprise () {
             <TableHeader>
                 <TableRow>
                 <TableHead className="w-[130px]">Nome de cliente</TableHead>
-                <TableHead className="w-[130px]">Número de telemóvel</TableHead>
                 <TableHead className="w-[150px]">Carro</TableHead>
                 <TableHead className="w-[150px]">Matrícula</TableHead>
                 <TableHead className="w-[150px]">Data agendada</TableHead>
@@ -105,8 +122,7 @@ export function CarChecksEnterprise () {
                 <TableBody>
                 {data.slice(startIndex, endIndex).map((checkData) => (
                 <TableRow key={checkData.id} className="hover:bg-muted/50">
-                    <TableCell>{checkData.nome_cliente}</TableCell>
-                    <TableCell>{checkData.numero_tele}</TableCell>
+                    <TableCell>Nome do cliente</TableCell>
                     <TableCell>{checkData.carro}</TableCell>
                     <TableCell>{checkData.matricula}</TableCell>
                     <TableCell>{format(new Date(checkData.data_agendada), 'dd-MM-yyyy')}</TableCell>

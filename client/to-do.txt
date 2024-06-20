@@ -13,7 +13,7 @@ só depois se a revisao for aceite é que é criado o carro desse cliente pela e
 - quando se introduz uma avaliacao meter data do dia
 - arranjar cargos no /empresa/allusers ✅
 
-- tentar fazer sistema de email quando a revisao é aceite pela empresa
+- tentar fazer sistema de email quando a revisao é aceite pela empresa 
 - conseguir obter nome de cliente pela matricula do carro em "criar reparação"
 - Após uma revisão ser aceite, adicionar buttton para "criar reparação" com a info da proposta de agendamento
-- relacionar revisões com nome de cliente e numero de telemovel
+- relacionar revisões com nome de cliente e numero de telemovel ✅

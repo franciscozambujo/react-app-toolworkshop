@@ -28,46 +28,44 @@ export function CarCheck() {
   const [date, setDate] = React.useState<Date>();
   const [isOpen, setIsOpen] = useState(false);
   const [searchDataChecks, setSearchDataChecks] = useState<any[]>([]);
+  const [searchClientID, setsearchClientID] = useState<any[]>([]);
+  const [searchedClientName, setSearchedClientName] = useState<any[]>([]);
   const API_URL = "http://localhost:3000";
   const { username } = useContext(AuthContext);
   
   const formattedDate = date ? format(date, 'yyyy-MM-dd') : '';
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const searchResponseClientID = await fetch(`${API_URL}/usersByuser?user=${username}`);
+        const searchedID = await searchResponseClientID.json();
+        setsearchClientID(searchedID[0].id);
+        setSearchedClientName(searchedID[0].nome);
+        console.log(searchClientID);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchData();
+  }, []);
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
     const formData = {
-      name: username,
-      phone: (event.target as HTMLFormElement).numerotel.value,
+      name: searchClientID,
       car: (event.target as HTMLFormElement).carro.value,
       plate: (event.target as HTMLFormElement).matricula.value,
-      checkDate: formattedDate ,
+      checkDate: formattedDate,
     };
 
-    try{
-      useEffect(() => {
-        const fetchData = async () => {
-          try {
-            const searchResponseChecks = await fetch(`${API_URL}/carChecksByUser?user=${formData.name}`);
-            const searchDataChecks = await searchResponseChecks.json();
-            setSearchDataChecks(searchDataChecks);
-          } catch (error) {
-            console.error("Error fetching data:", error);
-          }
-        };
-        fetchData();
-      }, [formData.name]);
-      
-
-      const dataAgendadaCom30Dias = addDays(searchDataChecks[0].data_agendada, 30);
-      if (new Date(formData.checkDate) < dataAgendadaCom30Dias){
-        toast.error(`Já existe uma revisão agendada em seu nome. Consulte as suas revisões agendadas.`, {
-          duration: 3500,
-        });
-        return;
-      }
-
-    }catch(error) {
-      console.error("Check error fetching:", error);
+    const dataAgendadaCom30Dias = addDays(searchDataChecks[0].data_agendada, 30);
+    if (new Date(formData.checkDate) < dataAgendadaCom30Dias){
+      toast.error(`Já existe uma revisão agendada em seu nome. Consulte as suas revisões agendadas.`, {
+        duration: 3500,
+      });
+      return;
     }
 
     const today = new Date();
@@ -78,6 +76,7 @@ export function CarCheck() {
       });
       return;
     }
+
     try {
         fetch(`${API_URL}/createCarChecks`, {
           method: "POST",
@@ -125,21 +124,11 @@ export function CarCheck() {
             </DialogHeader>
             <form onSubmit={handleSubmit} className="space-y-8">
               <div className="grid grid-cols-4 items-center text-right gap-4 md:gap-2">
-                <Label>Número de telemóvel</Label>
-                <Input
-                  className="col-span-3"
-                  id="numerotel"
-                  type="text"
-                  pattern="[0-9]{9}"
-                  placeholder="Ex: 964320345"
-                  required
-                />
                 <Label>Modelo do carro</Label>
                 <Input
                   className="col-span-3"
                   id="carro"
                   type="text"
-                  placeholder="Ex: Mercedes C220"
                   required
                 />
                 <Label>Matrícula do carro</Label>
@@ -147,7 +136,6 @@ export function CarCheck() {
                   className="col-span-3"
                   id="matricula"
                   type="text"
-                  placeholder="Ex: 09-32-HS"
                   required
                 />
                 <Calendar
@@ -172,8 +160,7 @@ export function CarCheck() {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="w-[130px]">Nome de cliente</TableHead>
-              <TableHead className="w-[130px]">Número de telemóvel</TableHead>
+              <TableHead className="w-[130px]">Cliente</TableHead>
               <TableHead className="w-[150px]">Carro</TableHead>
               <TableHead className="w-[150px]">Matrícula</TableHead>
               <TableHead className="w-[150px]">Data agendada</TableHead>
@@ -181,19 +168,18 @@ export function CarCheck() {
             </TableRow>
           </TableHeader>
           {searchDataChecks.length > 0 && (
-            <TableBody>
-              {searchDataChecks.map((checkData) => (
-                <TableRow key={checkData.id} className="hover:bg-muted/50">
-                  <TableCell>{checkData.nome_cliente}</TableCell>
-                  <TableCell>{checkData.numero_tele}</TableCell>
-                  <TableCell>{checkData.carro}</TableCell>
-                  <TableCell>{checkData.matricula}</TableCell>
-                  <TableCell>{format(new Date(checkData.data_agendada), 'dd-MM-yyyy')}</TableCell>
-                  <TableCell>{checkData.estado}</TableCell>
-                  </TableRow>
-              ))}
-            </TableBody>
-          )}
+          <TableBody>
+            {searchDataChecks.map((checkData) => (
+              <TableRow key={checkData.id} className="hover:bg-muted/50">
+                <TableCell>{searchedClientName}</TableCell>  {/* Use optional chaining */}
+                <TableCell>{checkData.carro}</TableCell>
+                <TableCell>{checkData.matricula}</TableCell>
+                <TableCell>{format(new Date(checkData.data_agendada), 'dd-MM-yyyy')}</TableCell>
+                <TableCell>{checkData.estado}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        )}
           </Table>
           </div>
           <Toaster richColors/>
