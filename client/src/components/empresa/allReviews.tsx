@@ -76,7 +76,7 @@ export function AllReviews() {
                       <DialogTrigger>
                         <button>
                           <TableCell className="line-clamp-1 pt-4">
-                            {review.descricao}
+                              Clique para ver...
                           </TableCell>
                         </button>
                       </DialogTrigger>

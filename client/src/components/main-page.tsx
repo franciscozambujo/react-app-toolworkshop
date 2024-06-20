@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 export function MainPage() {
   const imgRevisao = new URL("@/public/images/give_car_keys.jpg", import.meta.url).href;
   const imgInspecionar = new URL("@/public/images/inspecionar.jpg", import.meta.url).href;
-  const imgInstalacoes = new URL("@/public/images/motor.jpg", import.meta.url).href;
 
   return(
     <div className="flex justify-center">
@@ -17,11 +16,10 @@ export function MainPage() {
           <div className="w-20 origin-top-left rotate-[90deg] border-4 border-body"/>
             <h2 className="text-body text-3xl font-bold pl-2 -mt-2">Agende já a sua <br/>Revisão</h2>
             <p className="w-96 font-medium text-base pl-2">
-              Com o nosso sistema de agendamento online, reservar a sua revisão auto nunca foi tão fácil. <br />Basta apenas registar-se e pode fazer já o seu agendamento. 
+              Com o nosso sistema de agendamento online, reservar a sua revisão auto nunca foi tão fácil. <br />Clicando no botão abaixo pode fazer a sua proposta de agendamento. 
               <br />Depois, basta aguardar pela resposta da oficina.
-
              </p>
-          <Link to="/createuser"><Button className="w-48 h-10 bg-body ml-2">Criar conta gratuitamente</Button></Link>
+          <Link to="/createuser"><Button className="w-28 h-10 bg-body ml-2">Agendar</Button></Link>
           </div>
         </div>
         <Toaster richColors/>

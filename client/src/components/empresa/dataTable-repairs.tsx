@@ -301,7 +301,7 @@ export function DataTableR() {
                       <DialogTrigger>
                         <button>
                           <TableCell className="line-clamp-1 pt-4">
-                            {invoice.descricao}
+                          Clique para ver...
                           </TableCell>
                         </button>
                       </DialogTrigger>

@@ -34,20 +34,18 @@ export function OwnerGeralMain() {
 
   const fetchData = async (year: string) => {
     try {
-      const response = await fetch(`http://localhost:3000/repairsPerMonthByYear?year=${year}`);
-      const data = await response.json();
-      if (data) {
+      const responseRepairs = await fetch(`http://localhost:3000/repairsPerMonthByYear?year=${year}`);
+      const dataRepairs = await responseRepairs.json();
+      if (dataRepairs) {
         setBarChartData({
-          series: [
-            {
-              name: "Reparações",
-              data: data.map((item: { reparacoes: number }) => item.reparacoes),
-              color: '#53AE6E',
-            }
-          ],
+          series: [{
+            name: "Reparações",
+            data: dataRepairs.map((item: { reparacoes: number }) => item.reparacoes),
+            color: '#53AE6E',
+          }]
         });
         setXAxisData({
-          categories: data.map((item: { mes: number}) => item.mes),
+          categories: dataRepairs.map((item: { mes: number}) => item.mes),
         });
       } else {
         console.error('No data received from API');

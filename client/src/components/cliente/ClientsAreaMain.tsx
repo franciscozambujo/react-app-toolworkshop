@@ -98,7 +98,7 @@ export function ClientsAreaMain() {
                     <DialogContent>
                       <DialogHeader>
                         <DialogTitle>
-                          Descrição da Reparação
+                          Clique para ver...
                         </DialogTitle>
                       </DialogHeader>
                       {repair.descricao}

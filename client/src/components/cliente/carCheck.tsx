@@ -118,7 +118,7 @@ export function CarCheck() {
           </DialogTrigger>
           <DialogContent className="font-bodyfooter">
             <DialogHeader>
-              <DialogTitle>Agendar Revisão</DialogTitle>
+              <DialogTitle>Proposta de agendamento de revisão</DialogTitle>
               <DialogDescription>
                 Preencha os campos necessários.
               </DialogDescription>
