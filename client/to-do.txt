@@ -19,3 +19,4 @@ só depois se a revisao for aceite é que é criado o carro desse cliente pela e
 - relacionar revisões com nome de cliente e numero de telemovel ✅
 
 - Ver em que pessoa falo durante o texto do relatorio
+- Fazzer mudança de password apenas com button e dialog
