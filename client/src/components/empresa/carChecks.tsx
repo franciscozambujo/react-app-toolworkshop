@@ -16,7 +16,6 @@ import {
 } from "../ui/pagination"
 import { format } from "date-fns";
 import { Button } from "../ui/button";
-import { AuthContext } from "@/data/AuthProvider";
   
 export function CarChecksEnterprise () {
     const [searchDataChecks, setSearchDataChecks] = useState<any[]>([]);
@@ -27,27 +26,11 @@ export function CarChecksEnterprise () {
     const [endIndex, setEndIndex] = useState(rowsPerPage);
     const [totalPages, setTotalPages] = useState(0);
     const currentPage = Math.floor(startIndex / rowsPerPage) + 1;
-
+  
     useEffect(() => {
       const fetchData = async()=> {
         try{
             const searchResponseChecks = await fetch(`${API_URL}/carChecks`)
-            const searchDataChecks = await searchResponseChecks.json();
-            setSearchDataChecks(searchDataChecks);
-            setData(searchDataChecks);
-            setTotalPages(Math.ceil(searchDataChecks.length / rowsPerPage));
-            console.log(searchDataChecks[0].cliente)
-        }catch (error){
-            console.error("Error fetchind data:", error);
-        }
-      };
-      fetchData();
-    },[]);
-
-    useEffect(() => {
-      const fetchData = async()=> {
-        try{
-            const searchResponseChecks = await fetch(`${API_URL}/usersById`)
             const searchDataChecks = await searchResponseChecks.json();
             setSearchDataChecks(searchDataChecks);
             setData(searchDataChecks);
@@ -93,6 +76,17 @@ export function CarChecksEnterprise () {
               check.id === checkId ? { ...check, estado: newState } : check
             );
             setData(updatedData);
+            try {
+              const response = await fetch(`${API_URL}/send-email`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+              });
+        
+              const data = await response.json();
+              console.log(data);
+            } catch (error) {
+              console.error(error);
+            }
           } else {
             console.error("Error changing check state:", await response.text());
           }

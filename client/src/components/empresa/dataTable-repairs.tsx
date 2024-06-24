@@ -36,9 +36,8 @@ import { toast, Toaster } from "sonner";
 export function DataTableR() {
   const [allInvoices, setAllInvoices] = useState<any[]>([]);
   const [filteredInvoices, setFilteredInvoices] = useState<any[]>([]);
-  const [matriculas, setMatriculas] = useState<any[]>([]);
-  const [selectedMatricula, setSelectedMatricula] = useState("");
-  const [nomeCliente, setNomeCliente] = useState("");
+  const [clientes, setClientes] = useState<any[]>([]);
+  const [plate, setPlate] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [date, setDate] = React.useState<Date>();
   const [searchInput, setSearchInput] = useState("");
@@ -47,28 +46,26 @@ export function DataTableR() {
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(rowsPerPage);
   const [totalPages, setTotalPages] = useState(0);
-  const [totalValue, setTotalValue] = useState(0);
   const currentPage = Math.floor(startIndex / rowsPerPage) + 1;
   const API_URL = "http://localhost:3000";
 
-  const debouncedFetchMatriculas = debounce(async (nomeCliente: string) => {
+  const debouncedFetchMatriculas = debounce(async (plate: string) => {
     try {
       const response = await fetch(
-        `${API_URL}/carPlate?nomeCliente=${nomeCliente}`
+        `${API_URL}/carPlate?plate=${plate}`
       );
       const data = await response.json();
-      setMatriculas(data);
-      console.log(data);
+      setClientes(data[0]);
     } catch (error) {
       console.error("Error fetching matriculas:", error);
     }
   }, 500);
 
-  const handleNomeClienteChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const nomeCliente = e.target.value;
-    setNomeCliente(nomeCliente);
-    setMatriculas([]);
-    debouncedFetchMatriculas(nomeCliente);
+  const handlePlateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const plate = e.target.value;
+    setPlate(plate);
+    setClientes([]);
+    debouncedFetchMatriculas(plate);
   };
 
   const debouncedFetchRepairs = debounce(async (searchInput: string) => {
@@ -211,36 +208,25 @@ export function DataTableR() {
             </DialogHeader>
             <form onSubmit={handleSubmit} className="space-y-8">
               <div className="grid grid-cols-4 items-center text-right gap-5">
-                <Label>Nome do Cliente</Label>
+                <Label>Matricula</Label>
                 <Input
                   className="col-span-3"
                   type="text"
-                  value={nomeCliente}
-                  onChange={handleNomeClienteChange}
-                  placeholder="Francisco"
-                  id="nome"
-                  name="nome"
+                  value={plate}
+                  onChange={handlePlateChange}
+                  id="plate"
+                  name="plate"
                   required
                 />
-                <Label>Matrícula</Label>
-                <select
-                  value={selectedMatricula}
-                  onChange={(e) => setSelectedMatricula(e.target.value)}
-                  className="col-span-3 select uppercase"
-                  name="matricula"
-                  id="matricula"
-                  required
+                <Label>Nome do cliente</Label>
+                <input
+                  value={clientes.nome}
+                  className="col-span-3 select"
+                  name="cliente"
+                  id="cliente"
+                  readOnly
                 >
-                  {Array.isArray(matriculas) && matriculas.length > 0 ? (
-                    matriculas.map((matricula) => (
-                      <option key={matricula.id} value={matricula.matricula}>
-                        {matricula.matricula}
-                      </option>
-                    ))
-                  ) : (
-                    <option>Nenhuma matrícula encontrada</option>
-                  )}
-                </select>
+                </input>
                 <Label>Descrição</Label>
                 <textarea
                   id="descricao"

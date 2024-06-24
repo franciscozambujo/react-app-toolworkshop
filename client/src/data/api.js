@@ -31,10 +31,10 @@ import { getUsers,
   deleteCar,
   deleteRepair,
   getReviews,
-  getUsersByID,
   }  from  './database.js';
 
 const app = express();
+import nodemailer from 'nodemailer';
 app.use(bodyParser.json());
 
 app.use((req, res, next) => {
@@ -49,6 +49,15 @@ app.use(cors({
   methods: ['GET', 'PUT', 'POST', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
+
+const transporter = nodemailer.createTransport({
+  host: 'smtp.ethereal.email',
+  port: 587,
+  auth: {
+      user: 'muriel.bode74@ethereal.email',
+      pass: 'p2xwN9f3kkMv1BNXyB'
+  }
+});
 
 app.get("/users", async (req, res) => {
   const users = await getUsers();
@@ -165,20 +174,6 @@ app.get("/usersByuser", async (req, res) => {
   }
 });
 
-app.get("/usersById", async (req, res) => {
-  const { userId } = req.query;
-  if (!userId) {
-    return res.status(400).json({ error: 'userId is required' });
-  }
-  try {
-    const users = await getUsersByID(userId);
-    res.json(users);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
-
 app.get("/usersByRole", async (req, res) => {
   const { user } = req.query;
   if (!user) {
@@ -208,13 +203,13 @@ app.get("/usersPass", async (req, res) => {
 });
 
 app.get('/carPlate', async (req, res) => {
-  const { nomeCliente } = req.query;
-  if (!nomeCliente) {
-    return res.status(400).json({ error: 'nomeCliente is required' });
+  const { plate } = req.query;
+  if (!plate) {
+    return res.status(400).json({ error: 'plate is required' });
   }
   try {
-    const matriculas = await getCarPlate(nomeCliente);
-    res.json(matriculas);
+    const clientes = await getCarPlate(plate);
+    res.json(clientes);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal server error' });
@@ -344,6 +339,26 @@ app.post("/createCarClientByEmail", async (req, res) => {
     console.error(err);
     res.status(500).send({ message: "Erro ao criar veiculo" });
   }
+});
+
+app.post('/send-email', (req, res) => {
+
+  let mailOptions = {
+    from: 'muriel.bode74@ethereal.email',
+    to: 'ffzambujo12@gmail.com',
+    subject: `Message from: zeca`,
+    text: `olá marcação feita`,
+  };
+
+  transporter.sendMail(mailOptions, function (err, data) {
+    if (err) {
+      console.log('Error ' + err);
+      res.status(500).send({ message: 'Error sending email' });
+    } else {
+      console.log('Email sent successfully');
+      res.send({ message: 'Email sent successfully' });
+    }
+  });
 });
 
 app.put("/changeCheckState/:checkId/:newState", async (req, res) => {

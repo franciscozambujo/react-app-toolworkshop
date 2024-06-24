@@ -58,9 +58,9 @@ export async function getAntantepenultimateReview() {
   return rows;
 } 
 
-export async function getCarPlate(nomeCliente) {
-  const query =  `SELECT matricula FROM veiculos JOIN utilizadores ON veiculos.cliente = utilizadores.id WHERE utilizadores.nome LIKE ?`;
-  const [rows] = await pool.query(query, [nomeCliente]);
+export async function getCarPlate(plate) {
+  const query =  `SELECT utilizadores.nome FROM veiculos JOIN utilizadores ON utilizadores.id = veiculos.cliente WHERE matricula = ?`;
+  const [rows] = await pool.query(query, [plate]);
   return rows;
 }
 
@@ -197,11 +197,5 @@ export async function deleteCar(carId, carPlate) {
 export async function deleteRepair(plateId, description, data) {
   const query =  `DELETE FROM reparacoes WHERE veiculo IN (SELECT id FROM veiculos WHERE matricula = ?) AND reparacoes.descricao = ? AND reparacoes.data = ?`;
   const values = [plateId, description, data];
-  await pool.query(query, values);
-}
-
-export async function getUsersByID(userId) {
-  const query =  `SELECT * from utilizadores WHERE utilizadores.id = ?`;
-  const values = [userId];
   await pool.query(query, values);
 }
