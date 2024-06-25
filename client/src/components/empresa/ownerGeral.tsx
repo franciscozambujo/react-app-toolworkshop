@@ -63,7 +63,7 @@ export function OwnerGeralMain() {
         setTotalValueChartData({
           series: [
             {
-              name: "Valor Total",
+              name: "Valor Total no mês de ",
               data: data.map((item: { valor_total: number }) => item.valor_total),
               color: '#FFC500',
             }
@@ -115,7 +115,7 @@ export function OwnerGeralMain() {
         text: "Quantidade de Reparações"
       },
       min: 0, 
-      max: 30, 
+      max: 20, 
       tickAmount: 10,
     },
     xaxis: {
@@ -146,13 +146,22 @@ export function OwnerGeralMain() {
       max: 10000, 
       tickAmount: 10,
       labels: {
+        show: false,
         formatter: function(val: number) {
           return val.toFixed(2) + " €";
         }
-      }
+      },
+    },
+    dataLabels: {
+      formatter: function(val: number) {
+        return val.toFixed(2) + " €";
+      },
     },
     xaxis: {
       categories: totalValueXAxisData.categories,
+      axisTicks: {
+        show: true,
+       },
     },
   };
 
@@ -166,24 +175,24 @@ export function OwnerGeralMain() {
             <option value="2024">2024</option>
           </select>
         </div>
-        <div className="flex item-center justify-between gap-x-80 gap-y-16">
-          <div className="w-[475px] h-[325px] bg-white text-black border-4 border-white rounded-md">
+        <div className="flex item-center justify-between gap-x-48 gap-y-16">
+          <div className="w-[550px] h-[325px] bg-white text-black border-4 border-white rounded-md">
             <span className="font-bodyfooter pb-6">Reparações feitas por mês</span>
             <Chart
               options={OptionsBarChart}
               series={BarChartData.series}
               type="bar"
-              width="450px"
+              width="530px"
               height="300px"
             />
           </div>
-          <div className="w-[475px] h-[325px] bg-white text-black border-4 border-white rounded-md">
+          <div className="w-[625px] h-[325px] bg-white text-black border-4 border-white rounded-md">
             <span className="font-bodyfooter pb-6">Valor total de reparações por mês</span>
             <Chart
               options={OptionsTotalValueChart}
               series={totalValueChartData.series}
               type="area"
-              width="450px"
+              width="600px"
               height="300px"
             />
           </div>

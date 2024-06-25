@@ -6,7 +6,7 @@ export function ClientCarCheck () {
   return (
     <div className="h-screen flex flex-col">
       <Redirect/>
-      <div className="flex">
+      <div className="flex h-full">
           <aside>
               <SideBarClients/>
           </aside>

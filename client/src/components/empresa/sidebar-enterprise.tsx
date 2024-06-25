@@ -10,7 +10,7 @@ export function SideBarEnterprise() {
   console.log(username)
 
   return (
-    <div className="text-white top-0 bottom-0 lg:left-0 p-2 w-72 overflow-y-auto text-center bg-[#282828] h-screen font-bodyfooter flex flex-col justify-between">
+    <div className="text-white top-0 bottom-0 lg:left-0 p-2 w-72 text-center bg-[#282828] h-full font-bodyfooter flex flex-col justify-between">
     <img src={logo} alt="Logotipo" />
       <div className="text-gray-100 text-xl">
         Gestão de Empresa

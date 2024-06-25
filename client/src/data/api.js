@@ -34,7 +34,6 @@ import { getUsers,
   }  from  './database.js';
 
 const app = express();
-import nodemailer from 'nodemailer';
 app.use(bodyParser.json());
 
 app.use((req, res, next) => {
@@ -49,15 +48,6 @@ app.use(cors({
   methods: ['GET', 'PUT', 'POST', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
-
-const transporter = nodemailer.createTransport({
-  host: 'smtp.ethereal.email',
-  port: 587,
-  auth: {
-      user: 'muriel.bode74@ethereal.email',
-      pass: 'p2xwN9f3kkMv1BNXyB'
-  }
-});
 
 app.get("/users", async (req, res) => {
   const users = await getUsers();
@@ -339,26 +329,6 @@ app.post("/createCarClientByEmail", async (req, res) => {
     console.error(err);
     res.status(500).send({ message: "Erro ao criar veiculo" });
   }
-});
-
-app.post('/send-email', (req, res) => {
-
-  let mailOptions = {
-    from: 'muriel.bode74@ethereal.email',
-    to: 'ffzambujo12@gmail.com',
-    subject: `Message from: zeca`,
-    text: `olá marcação feita`,
-  };
-
-  transporter.sendMail(mailOptions, function (err, data) {
-    if (err) {
-      console.log('Error ' + err);
-      res.status(500).send({ message: 'Error sending email' });
-    } else {
-      console.log('Email sent successfully');
-      res.send({ message: 'Email sent successfully' });
-    }
-  });
 });
 
 app.put("/changeCheckState/:checkId/:newState", async (req, res) => {

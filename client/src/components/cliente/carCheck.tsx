@@ -160,7 +160,6 @@ export function CarCheck() {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="w-[130px]">Cliente</TableHead>
               <TableHead className="w-[150px]">Carro</TableHead>
               <TableHead className="w-[150px]">Matrícula</TableHead>
               <TableHead className="w-[150px]">Data agendada</TableHead>
@@ -171,7 +170,6 @@ export function CarCheck() {
           <TableBody>
             {searchDataChecks.map((checkData) => (
               <TableRow key={checkData.id} className="hover:bg-muted/50">
-                <TableCell>{searchedClientName}</TableCell>  {/* Use optional chaining */}
                 <TableCell>{checkData.carro}</TableCell>
                 <TableCell>{checkData.matricula}</TableCell>
                 <TableCell>{format(new Date(checkData.data_agendada), 'dd-MM-yyyy')}</TableCell>

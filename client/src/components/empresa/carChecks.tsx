@@ -76,17 +76,6 @@ export function CarChecksEnterprise () {
               check.id === checkId ? { ...check, estado: newState } : check
             );
             setData(updatedData);
-            try {
-              const response = await fetch(`${API_URL}/send-email`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-              });
-        
-              const data = await response.json();
-              console.log(data);
-            } catch (error) {
-              console.error(error);
-            }
           } else {
             console.error("Error changing check state:", await response.text());
           }
@@ -100,7 +89,7 @@ export function CarChecksEnterprise () {
       }, [data]);
   return (
     <div className="p-8 max-w-5xl space-y-4 m-auto">
-        <h1 className="text-3xl">Revisões agendadas por clientes</h1>
+        <h1 className="text-3xl">Propostas de revisões</h1>
         <div className="border rounded-lg p-2">
             <Table>
             <TableHeader>
@@ -116,7 +105,7 @@ export function CarChecksEnterprise () {
                 <TableBody>
                 {data.slice(startIndex, endIndex).map((checkData) => (
                 <TableRow key={checkData.id} className="hover:bg-muted/50">
-                    <TableCell>Nome do cliente</TableCell>
+                    <TableCell>{checkData.cliente}</TableCell>
                     <TableCell>{checkData.carro}</TableCell>
                     <TableCell>{checkData.matricula}</TableCell>
                     <TableCell>{format(new Date(checkData.data_agendada), 'dd-MM-yyyy')}</TableCell>

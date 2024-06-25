@@ -51,11 +51,10 @@ export function DataTableR() {
 
   const debouncedFetchMatriculas = debounce(async (plate: string) => {
     try {
-      const response = await fetch(
-        `${API_URL}/carPlate?plate=${plate}`
-      );
+      const response = await fetch(`${API_URL}/carPlate?plate=${plate}`);
       const data = await response.json();
-      setClientes(data[0]);
+      setClientes([{ nome: data[0].nome }]);
+      console.log([{ nome: data[0].nome }])
     } catch (error) {
       console.error("Error fetching matriculas:", error);
     }
@@ -219,14 +218,11 @@ export function DataTableR() {
                   required
                 />
                 <Label>Nome do cliente</Label>
-                <input
-                  value={clientes.nome}
-                  className="col-span-3 select"
-                  name="cliente"
-                  id="cliente"
-                  readOnly
-                >
-                </input>
+                {clientes.map((client, i) => (
+                  <p key={i} className="col-span-3 text-left">
+                    <span>{ client.nome }</span>
+                  </p>
+                ))}
                 <Label>Descrição</Label>
                 <textarea
                   id="descricao"

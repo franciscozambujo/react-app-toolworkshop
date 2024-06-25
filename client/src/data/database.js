@@ -18,7 +18,7 @@ export async function getVehicles(){
 }
 
 export async function getCarChecks(){
-  const [rows] = await pool.query("SELECT * FROM revisoes;");
+  const [rows] = await pool.query("SELECT r.id,(SELECT u.nome FROM utilizadores u WHERE u.id = r.cliente) AS cliente,r.carro,  r.matricula,  r.data_agendada,  r.estado FROM revisoes r;");
   return rows;
 }
 

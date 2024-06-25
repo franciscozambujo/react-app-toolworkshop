@@ -80,7 +80,7 @@ export function ClientsAreaMain() {
             <TableRow>
               <TableHead className="w-[110px]">Carro</TableHead>
               <TableHead className="w-[110px]">Matricula</TableHead>
-              <TableHead className="w-[110px]">Descrição</TableHead>
+              <TableHead className="w-[160px]">Descrição</TableHead>
               <TableHead className="w-[110px]">Valor</TableHead>
               <TableHead className="w-[110px]">Data</TableHead>
             </TableRow>
@@ -93,12 +93,12 @@ export function ClientsAreaMain() {
                   <TableCell>{repair.matricula}</TableCell>
                   <Dialog>
                     <DialogTrigger>
-                      <button><TableCell className="line-clamp-1">{repair.descricao}</TableCell></button>
+                      <button><TableCell className="line-clamp-1">Clique para ver...</TableCell></button>
                     </DialogTrigger>
                     <DialogContent>
                       <DialogHeader>
                         <DialogTitle>
-                          Clique para ver...
+                          Descrição da reparação
                         </DialogTitle>
                       </DialogHeader>
                       {repair.descricao}

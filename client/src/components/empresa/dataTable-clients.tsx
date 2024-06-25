@@ -176,7 +176,7 @@ export function DataTableC() {
         </form>
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
           <DialogTrigger asChild>
-            <Button className="bg-[#00865A] font-bodyfooter">Adicionar carros a um cliente</Button>
+            <Button className="bg-[#00865A] font-bodyfooter">Adicionar veículos a um cliente</Button>
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
