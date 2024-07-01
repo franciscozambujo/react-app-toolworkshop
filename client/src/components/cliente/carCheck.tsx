@@ -1,7 +1,7 @@
 import {useContext, useEffect, useState } from "react"
 import * as React from 'react'
 import {Toaster, toast} from 'sonner'
-import { addDays, format } from "date-fns"
+import { addDays, format, isWeekend } from "date-fns"
 import { pt } from "date-fns/locale"
 import { Dialog, 
   DialogContent, 
@@ -142,7 +142,17 @@ export function CarCheck() {
                   className="col-span-2 pl-28"
                   mode="single"
                   selected={date}
-                  onSelect={setDate}
+                  onSelect={(newDate) => {
+                    if (newDate!== undefined) {
+                      if (!isWeekend(newDate)) {
+                        setDate(newDate);
+                      } else {
+                        toast.error("Você não pode agendar uma revisão em um fim de semana!", {
+                          duration: 2000,
+                        });
+                      }
+                    }
+                  }}
                   required
                   initialFocus
                 />
