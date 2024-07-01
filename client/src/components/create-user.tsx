@@ -82,7 +82,6 @@ export function CreateUser() {
                     type="text" 
                     id="user" 
                     required 
-                    placeholder="Ex: Fernando" 
                     className="input-login"
                   />
                   <label className="label-login md:mt-4 mt-6">Primeiro e último nome</label>
@@ -90,7 +89,6 @@ export function CreateUser() {
                     type="text" 
                     id="FullName" 
                     required 
-                    placeholder="Fernando Fialho" 
                     className="input-login"
                   />
                   <label className="label-login md:mt-4 mt-6">Email</label>
@@ -98,7 +96,6 @@ export function CreateUser() {
                     type="text" 
                     id="email" 
                     required 
-                    placeholder="Ex: fernando@gmail.com" 
                     className="input-login"
                   />
 

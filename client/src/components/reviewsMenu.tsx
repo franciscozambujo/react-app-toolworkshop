@@ -309,7 +309,6 @@ export function ReviewsMenu() {
                 <Input
                   className="col-span-3"
                   id="nome"
-                  placeholder="Ex: Fernando"
                   required
                 />
                 <Label>Email (Não obrigatório)</Label>
@@ -317,7 +316,6 @@ export function ReviewsMenu() {
                   className="col-span-3 h-9"
                   id="email"
                   type="email"
-                  placeholder="Ex: fernando@gmail.com"
                 />
                 <Label>Descrição</Label>
                 <textarea
