@@ -228,7 +228,7 @@ export function DataTableR() {
                   id="descricao"
                   name="descricao"
                   required
-                  placeholder="Mudança de óleo, troca de pastilhas etc."
+                  placeholder="Mudança de óleo, troca de pastilhas"
                   className="col-span-3 flex h-36 max-h-36 min-h-24 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
                 />
                 <Label>Valor</Label>

@@ -202,21 +202,18 @@ export function DataTableC() {
                 <Input 
                 className="col-span-3"
                 type="text"
-                placeholder="Mercedes"
                 id="carBrand"
                 name="carBrand"
                 required />
                 <Label>Modelo</Label>
                 <Input 
                 className="col-span-3"
-                placeholder="C200D"
                 id="carModel" 
                 name="carModel"
                 required />
                 <Label>Matrícula</Label>
                 <Input 
                 className="col-span-3"
-                placeholder="AA-00-AA"
                 id="carPlate" 
                 name="carPlate"
                 required />
