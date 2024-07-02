@@ -41,7 +41,7 @@ export function DataTableR() {
   const [isOpen, setIsOpen] = useState(false);
   const [date, setDate] = React.useState<Date>();
   const [searchInput, setSearchInput] = useState("");
-  const rowsPerPage = 6;
+  const rowsPerPage = 5;
   const [data, setData] = useState<any[]>([]);
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(rowsPerPage);
@@ -215,11 +215,15 @@ export function DataTableR() {
                   required
                 />
                 <Label>Nome do cliente</Label>
-                {clientes.map((client, i) => (
-                  <p key={i} className="col-span-3 text-left">
-                    <span>{ client.nome }</span>
-                  </p>
-                ))}
+                {clientes.length === 0 ? (
+                    <p className="col-span-3 text-left">-----</p>
+                  ) : (
+                    clientes.map((client, i) => (
+                      <p key={i} className="col-span-3 text-left">
+                        <span>{client.nome}</span>
+                      </p>
+                    ))
+                  )}
                 <Label>Descrição</Label>
                 <textarea
                   id="descricao"

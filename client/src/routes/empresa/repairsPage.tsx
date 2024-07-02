@@ -7,7 +7,7 @@ export function RepairsPage(){
     return(
         <div className="h-screen flex flex-col">
             <Redirect/>
-        <div className="flex h-screen">
+        <div className="flex">
             <aside>
                 <SideBarEnterprise/>
             </aside>
