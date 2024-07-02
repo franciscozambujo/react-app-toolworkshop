@@ -1,4 +1,6 @@
 import { useContext, useEffect, useState } from "react"
+import React, { useRef } from 'react';
+import emailjs from '@emailjs/browser';
 import {
     Table,
     TableBody,
@@ -26,6 +28,7 @@ export function CarChecksEnterprise () {
     const [endIndex, setEndIndex] = useState(rowsPerPage);
     const [totalPages, setTotalPages] = useState(0);
     const currentPage = Math.floor(startIndex / rowsPerPage) + 1;
+    const formRef = useRef<HTMLFormElement>(null);
   
     useEffect(() => {
       const fetchData = async()=> {
@@ -82,8 +85,37 @@ export function CarChecksEnterprise () {
         } catch (error) {
           console.error("Error during update:", error);
         }
+        if (newState === "Aceite") {
+          try {
+            const result = await emailjs.sendForm(
+              'service_c122uep',
+              'template_1yu5oop',
+              formRef.current!,
+              {
+                publicKey: 'imKSMDe-FLHJUirbR',
+              }
+            );
+            console.log('Email sent!', result.text);
+          } catch (error:any) {
+            console.error('Email sending error:', error.text);
+          }
+        }
+        else if (newState === "Não Aceite") {
+          try {
+            const result = await emailjs.sendForm(
+              'service_c122uep',
+              'template_7x05efz',
+              formRef.current!,
+              {
+                publicKey: 'imKSMDe-FLHJUirbR',
+              }
+            );
+            console.log('Email sent!', result.text);
+          } catch (error:any) {
+            console.error('Email sending error:', error.text);
+          }
+        }
       };
-
       useEffect(() => {
         setSearchDataChecks(data);
       }, [data]);
@@ -129,6 +161,11 @@ export function CarChecksEnterprise () {
                 </TableBody>
             )}
             </Table>
+            <form ref={formRef} hidden>
+              <input type="hidden" name="cliente" value="" />
+              <input type="hidden" name="carro" value="" />
+              <input type="hidden" name="data_agendada" value="" />
+            </form>
         </div>
         <div>
         <Pagination>
