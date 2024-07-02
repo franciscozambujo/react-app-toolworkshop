@@ -4,7 +4,7 @@ const pool = mysql.createPool({
   host: 'localhost',
   user : 'root',
   password : '',
-  database: 'db_oficina2'
+  database: 'db_oficina'
 }).promise();
 
 export async function getUsers(){
