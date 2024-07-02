@@ -128,9 +128,6 @@ export function DataTableR() {
       .catch((error) => console.error(`Error creating repair: ${error}`));
     setIsOpen(false);
     toast.success(`Reparação criada com sucesso!`);
-    setTimeout(() => {
-      window.location.reload();
-    }, 1500);
   };
 
   useEffect(() => {
@@ -213,8 +210,8 @@ export function DataTableR() {
                   type="text"
                   value={plate}
                   onChange={handlePlateChange}
-                  id="plate"
-                  name="plate"
+                  id="matricula"
+                  name="matricula"
                   required
                 />
                 <Label>Nome do cliente</Label>
