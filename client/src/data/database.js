@@ -34,7 +34,7 @@ export async function getCarChecksByUser(user){
 }
 
 export async function getInvoices(){
-  const [rows] = await pool.query("SELECT reparacoes.ID, utilizadores.nome AS cliente, veiculos.marca AS veiculo, veiculos.matricula AS matricula, reparacoes.descricao, reparacoes.valor, reparacoes.data FROM reparacoes INNER JOIN veiculos ON reparacoes.veiculo = veiculos.id INNER JOIN utilizadores ON veiculos.cliente = utilizadores.id;");
+  const [rows] = await pool.query("SELECT reparacoes.ID, utilizadores.nome AS cliente, veiculos.marca AS veiculo, veiculos.matricula AS matricula, reparacoes.descricao, reparacoes.valor, reparacoes.data FROM reparacoes INNER JOIN veiculos ON reparacoes.veiculo = veiculos.id INNER JOIN utilizadores ON veiculos.cliente = utilizadores.id ORDER BY reparacoes.data DESC;");
   return rows;
 }
 

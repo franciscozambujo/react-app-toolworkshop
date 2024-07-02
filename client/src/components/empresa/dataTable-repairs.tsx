@@ -127,6 +127,7 @@ export function DataTableR() {
       .then((data) => console.log(data))
       .catch((error) => console.error(`Error creating repair: ${error}`));
     setIsOpen(false);
+    window.location.reload();
     toast.success(`Reparação criada com sucesso!`);
   };
 

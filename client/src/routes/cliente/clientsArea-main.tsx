@@ -5,7 +5,7 @@ import { Redirect } from "@/data/Redirect";
 export function ClientsArea () {
   return (
     <div className="h-screen flex flex-col">
-      <div className="flex">
+      <div className="flex h-screen">
         <Redirect/>
           <aside>
               <SideBarClients/>
