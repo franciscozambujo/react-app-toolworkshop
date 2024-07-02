@@ -60,13 +60,13 @@ export function CarCheck() {
       checkDate: formattedDate,
     };
 
-    const dataAgendadaCom30Dias = addDays(searchDataChecks[0].data_agendada, 30);
+    /*const dataAgendadaCom30Dias = addDays(searchDataChecks[0].data_agendada, 30);
     if (new Date(formData.checkDate) < dataAgendadaCom30Dias){
       toast.error(`Já existe uma revisão agendada em seu nome. Consulte as suas revisões agendadas.`, {
         duration: 3500,
       });
       return;
-    }
+    }*/
 
     const today = new Date();
     const oneWeekFromToday = new Date(today.setDate(today.getDate() + 7));
