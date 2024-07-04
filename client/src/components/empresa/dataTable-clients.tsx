@@ -89,13 +89,22 @@ export function DataTableC() {
       clientEmail: (event.target as HTMLFormElement).clientID.value,
     };
     const plateUpper = formData.carPlate.toUpperCase();
+    console.log(plateUpper)
       try{
         const searchResponseChecks = await fetch(`${API_URL}/vehicles`);
         const searchDataChecks = await searchResponseChecks.json();
         const encontrado = searchDataChecks.some((item: { id: number, marca: string, modelo: string, matricula: string, cliente: number })  => item.matricula === plateUpper);
-  
+        
+        console.log(encontrado)
+        
         if (encontrado) {
           toast.error(`Essa matricula já existe.`, {
+            duration: 3500,
+          });
+          return;
+        }
+        else if (plateUpper.length > 8 || plateUpper.length < 8){
+          toast.error(`Insira uma matricula com o formato válido!`, {
             duration: 3500,
           });
           return;

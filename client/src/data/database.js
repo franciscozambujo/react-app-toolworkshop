@@ -177,7 +177,7 @@ export async function createUser(user, password, FullName, email) {
 }
 
 export async function createCarClientByEmail(carBrand, carModel, carPlate, clientEmail) {
-  const query =  `INSERT INTO veiculos (marca, modelo, matricula, cliente) VALUES (?, ?, ?, (SELECT id FROM utilizadores WHERE email = ?))`;
+  const query =  `INSERT INTO veiculos (marca, modelo, matricula, cliente) VALUES (?, ?, UPPER(?), (SELECT id FROM utilizadores WHERE email = ?))`;
   const values = [carBrand, carModel, carPlate, clientEmail];
   await pool.query(query, values);
 }
