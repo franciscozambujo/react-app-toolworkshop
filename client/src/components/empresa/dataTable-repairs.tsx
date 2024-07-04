@@ -314,7 +314,7 @@ export function DataTableR() {
               <TableBody>
                 <TableRow>
                   <TableCell colSpan={4} align="center">
-                    Nenhum registro encontrado
+                    Nenhum registo encontrado
                   </TableCell>
                 </TableRow>
               </TableBody>
@@ -359,7 +359,7 @@ export function DataTableR() {
             <TableBody>
               <TableRow>
                 <TableCell colSpan={4} align="center">
-                  Nenhum registro encontrado
+                  Nenhum registo encontrado
                 </TableCell>
               </TableRow>
             </TableBody>
