@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 export function MainPage() {
   const imgRevisao = new URL("@/public/images/give_car_keys.jpg", import.meta.url).href;
   const imgInspecionar = new URL("@/public/images/inspecionar.jpg", import.meta.url).href;
+  const imgInspecionar2 = new URL("@/public/images/inspecting.jpg", import.meta.url).href;
+
 
   return(
     <div className="flex justify-center">
@@ -37,7 +39,7 @@ export function MainPage() {
                   <li>Diagnóstico Auto</li>
               </ul>
             </div>
-            <img src={imgInspecionar} alt="Revisão" className="h-64 absolute ml-96 float-right"/>
+            <img src={imgInspecionar2} alt="Revisão" className="h-64 absolute ml-96 float-right"/>
         </div>
       </div>
     </div>
