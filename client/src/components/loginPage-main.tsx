@@ -19,7 +19,7 @@ export function LoginForm() {
     };
     try {
       const response = await fetch(
-        `http://localhost:3000/usersPass?user=${formData.user}`
+        `http://localhost:3000/api/usersPass?user=${formData.user}`
       );
 
       const data = await response.json();
